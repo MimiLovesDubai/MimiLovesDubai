@@ -1,0 +1,8 @@
+# Kernafhankelijkheden voor de cursus "De Autonome Onderneming"
+anthropic>=0.69.0      # Officiële Claude API SDK
+python-dotenv>=1.0.0   # .env-bestanden inladen
+
+# Optioneel — pas nodig vanaf module 09 (betalingen & integraties).
+# Verwijder de # om te installeren:
+# stripe>=11.0.0       # Betalingen
+# flask>=3.0.0         # Kleine webserver voor webhooks/API
