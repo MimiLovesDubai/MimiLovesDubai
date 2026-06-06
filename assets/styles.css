@@ -239,7 +239,7 @@ section { padding: 70px 0; }
 .price-card::before {
   content: ""; position: absolute; inset: 0; background: var(--grad-soft); opacity: .4; pointer-events: none;
 }
-.price-card > * { position: relative; }
+.price-card > * { position: relative; z-index: 2; }
 .price-badge {
   display: inline-block; font-size: .78rem; font-weight: 600; letter-spacing: .08em;
   text-transform: uppercase; color: #1a140a; background: var(--grad);
@@ -350,3 +350,76 @@ footer a:hover { color: var(--text); }
 ::-webkit-scrollbar { width: 11px; height: 11px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: linear-gradient(var(--violet), var(--cyan)); border-radius: 99px; border: 3px solid var(--bg); }
+
+/* ============================================================================
+   FUTURISTIC 2240 — line-art iconen, holografische randen, HUD-details
+   ========================================================================== */
+
+/* Line-art iconen i.p.v. emoji */
+.feature .ico { position: relative; }
+.feature .ico svg { width: 26px; height: 26px; color: var(--gold-bright);
+  filter: drop-shadow(0 0 9px rgba(236, 200, 120, .55)); }
+.feature:hover .ico { box-shadow: 0 0 26px -4px rgba(236, 200, 120, .55); }
+
+/* Module-stip i.p.v. emoji */
+.mod-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--grad); box-shadow: 0 0 10px var(--gold); vertical-align: middle; }
+
+/* Holografische gloed op koppen */
+.hero h1 { text-shadow: 0 0 50px rgba(236, 200, 120, .18); }
+.gradient-text { filter: drop-shadow(0 0 18px rgba(236, 200, 120, .25)); }
+.section-head h2 { text-shadow: 0 0 40px rgba(201, 154, 62, .15); }
+
+/* Premium knop-shimmer (alleen de gradient beweegt — tekst blijft scherp) */
+.btn-primary { background-size: 220% auto; animation: btnShift 6s linear infinite; }
+@keyframes btnShift { to { background-position: 220% center; } }
+.btn-buy svg { width: 19px; height: 19px; }
+.btn-buy svg, .price-card .btn-ghost svg { vertical-align: -3px; }
+.price-card .btn-ghost svg { width: 16px; height: 16px; color: var(--gold-bright); }
+
+/* Doorgestreepte oude prijs */
+.price .price-old { font-family: var(--font-display); font-size: 1.7rem; font-weight: 600;
+  color: var(--text-faint); -webkit-text-fill-color: var(--text-faint);
+  text-decoration: line-through; text-decoration-color: rgba(232, 181, 138, .7);
+  margin-right: 10px; vertical-align: middle; }
+
+/* Badge met sparkle-icoon */
+.price-badge { display: inline-flex; align-items: center; gap: 7px; }
+.price-badge svg { width: 14px; height: 14px; }
+
+/* Checklist met gouden cirkel-vinkjes */
+.price-list li { display: flex; align-items: flex-start; gap: 13px; }
+.price-list .chk { flex: none; width: 24px; height: 24px; border-radius: 50%;
+  display: grid; place-items: center; background: var(--grad-soft);
+  border: 1px solid rgba(236, 200, 120, .45); box-shadow: 0 0 14px -4px rgba(236, 200, 120, .5); }
+.price-list .chk svg { width: 13px; height: 13px; color: var(--gold-bright); }
+
+/* Roterende holografische rand (glow-ring) */
+@property --spin { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.glow-ring::after {
+  content: ""; position: absolute; inset: -1.5px; border-radius: inherit; z-index: 1;
+  background: conic-gradient(from var(--spin),
+    rgba(34, 211, 238, 0) 0deg, #22d3ee 65deg, #ecc878 150deg,
+    #ec4899 235deg, #a855f7 305deg, rgba(34, 211, 238, 0) 360deg);
+  padding: 1.5px;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: ringSpin 7s linear infinite; pointer-events: none;
+}
+@keyframes ringSpin { to { --spin: 360deg; } }
+/* Fallback wanneer @property niet wordt ondersteund: rustige glans */
+@supports not (background: conic-gradient(from var(--spin), red, blue)) {
+  .glow-ring::after { background: var(--grad); animation: none; }
+}
+
+/* HUD-hoekjes op de prijskaart */
+.price-card .hud { position: absolute; width: 16px; height: 16px; z-index: 3;
+  border: 2px solid var(--gold); opacity: .85; }
+.price-card .hud.tl { top: 12px; left: 12px; border-right: none; border-bottom: none; }
+.price-card .hud.tr { top: 12px; right: 12px; border-left: none; border-bottom: none; }
+.price-card .hud.bl { bottom: 12px; left: 12px; border-right: none; border-top: none; }
+.price-card .hud.br { bottom: 12px; right: 12px; border-left: none; border-top: none; }
+
+/* Subtiele scanline-glans over de prijskaart */
+.price-card::after { } /* gereserveerd door glow-ring */

@@ -25,9 +25,28 @@ SITE_DOMAIN = "myaiagent.tech"
 SITE_URL = "https://myaiagent.tech"
 
 # Verkoop — vervang BUY_URL door je eigen Gumroad-productlink zodra die klaar is.
-PRICE = "€49"
+PRICE = "€149"
+ORIG_PRICE = "€299"
 BUY_URL = "https://gumroad.com"  # ← VERVANG: jouw Gumroad-link, bv. https://jouwnaam.gumroad.com/l/myaiagent
 DOWNLOAD_ZIP = "downloads/myaiagent-cursus.zip"
+
+# Elegante line-art iconen (SVG, stroke = currentColor) — chique i.p.v. emoji.
+def _svg(inner: str) -> str:
+    return ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" '
+            'stroke-linecap="round" stroke-linejoin="round">' + inner + "</svg>")
+
+ICONS = {
+    "cpu": _svg('<rect x="4" y="4" width="16" height="16" rx="2.5"/><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M9 1.5v2.5M15 1.5v2.5M9 20v2.5M15 20v2.5M20 9h2.5M20 14h2.5M1.5 9H4M1.5 14H4"/>'),
+    "shield": _svg('<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M8.5 12l2.5 2.5 4.5-4.5"/>'),
+    "coin": _svg('<circle cx="12" cy="12" r="9"/><path d="M15 9.2A4 4 0 1 0 15 15M8 11h5M8 13.2h5"/>'),
+    "orbit": _svg('<circle cx="12" cy="12" r="3.2"/><ellipse cx="12" cy="12" rx="10" ry="4.4" transform="rotate(-28 12 12)"/><circle cx="20" cy="8.4" r="1.1" fill="currentColor"/>'),
+    "code": _svg('<path d="M8.5 17l-5-5 5-5M15.5 7l5 5-5 5M13 4.5l-2 15"/>'),
+    "scale": _svg('<path d="M12 3v18M7 21h10M5 7h14M5 7l-2.5 6a3 3 0 0 0 5 0L5 7zM19 7l-2.5 6a3 3 0 0 0 5 0L19 7zM12 4.5l-5 2.2M12 4.5l5 2.2"/>'),
+    "check": _svg('<path d="M5 12.5l4.2 4.2L19 7"/>'),
+    "lock": _svg('<rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/>'),
+    "sparkle": _svg('<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z"/>'),
+    "download": _svg('<path d="M12 3v12M7 11l5 5 5-5M5 21h14"/>'),
+}
 
 # Merkbeelden (rechtstreeks geladen vanaf de beeld-CDN). Vervang later eventueel
 # door lokale bestanden in assets/img/ voor volledige onafhankelijkheid.
@@ -318,15 +337,15 @@ def build_module(idx: int) -> None:
 
 def build_index() -> None:
     feats = [
-        ("🤖", "Echte autonome agents", "Bouw agents die zelf denken, tools gebruiken en doorwerken tot het doel bereikt is — met de Claude API."),
-        ("🛡️", "Veilig & verantwoord", "Budgetlimieten, mens-in-de-loop en guardrails ingebouwd. Geen geld verbranden, geen ongelukken."),
-        ("💰", "Gebouwd om te verdienen", "Van business-model tot betalingen: een compleet draaiboek om je eerste euro binnen te halen."),
-        ("🛰️", "24/7 schaalbaar", "Stap door naar Managed Agents die op Anthropic's infrastructuur draaien — zonder serverbeheer."),
-        ("⚡", "Werkende code, geen pseudocode", "Vijf draaibare Python-voorbeelden. Kopiëren, draaien, aanpassen naar jouw bedrijf."),
-        ("⚖️", "Juridisch op orde", "KvK, btw, AVG en de EU AI Act — helder uitgelegd zodat je veilig onderneemt."),
+        ("cpu", "Echte autonome agents", "Bouw agents die zelf denken, tools gebruiken en doorwerken tot het doel bereikt is — met de Claude API."),
+        ("shield", "Veilig & verantwoord", "Budgetlimieten, mens-in-de-loop en guardrails ingebouwd. Geen geld verbranden, geen ongelukken."),
+        ("coin", "Gebouwd om te verdienen", "Van business-model tot betalingen: een compleet draaiboek om je eerste euro binnen te halen."),
+        ("orbit", "24/7 schaalbaar", "Stap door naar Managed Agents die op Anthropic's infrastructuur draaien — zonder serverbeheer."),
+        ("code", "Werkende code, geen pseudocode", "Vijf draaibare Python-voorbeelden. Kopiëren, draaien, aanpassen naar jouw bedrijf."),
+        ("scale", "Juridisch op orde", "KvK, btw, AVG en de EU AI Act — helder uitgelegd zodat je veilig onderneemt."),
     ]
     feat_html = "".join(
-        f'<div class="feature reveal"><div class="ico">{i}</div><h3>{html.escape(t)}</h3><p>{html.escape(d)}</p></div>'
+        f'<div class="feature reveal"><div class="ico">{ICONS[i]}</div><h3>{html.escape(t)}</h3><p>{html.escape(d)}</p></div>'
         for i, t, d in feats
     )
 
@@ -335,7 +354,7 @@ def build_index() -> None:
         nummer = slug[:2]
         mods_html += (
             f'<a class="mod-card reveal" href="module-{slug}.html">'
-            f'<div class="mod-num">{ico} &nbsp;MODULE {nummer}</div>'
+            f'<div class="mod-num"><span class="mod-dot"></span> MODULE {nummer}</div>'
             f"<h3>{html.escape(titel)}</h3><p>{html.escape(desc)}</p>"
             f'<span class="go">Lees module <span>→</span></span></a>'
         )
@@ -392,18 +411,19 @@ def build_index() -> None:
         + "<h2>Krijg de volledige cursus</h2>"
         + "<p>Koop één keer, download alles, en bouw in je eigen tempo je eerste geld-verdienende AI-agent.</p>"
         + "</div>"
-        + '<div class="price-card reveal">'
-        + '<div class="price-badge">Eenmalig · levenslang toegang</div>'
-        + f'<div class="price">{PRICE}</div>'
+        + '<div class="price-card glow-ring reveal">'
+        + '<span class="hud tl"></span><span class="hud tr"></span><span class="hud bl"></span><span class="hud br"></span>'
+        + f'<div class="price-badge">{ICONS["sparkle"]} Lanceeraanbieding · levenslang toegang</div>'
+        + f'<div class="price"><span class="price-old">{ORIG_PRICE}</span> {PRICE}</div>'
         + '<ul class="price-list">'
-        + "<li>✓ Alle <strong>13 modules</strong> — van mindset tot launch</li>"
-        + "<li>✓ <strong>5 werkende code-voorbeelden</strong> (kopiëren, draaien, aanpassen)</li>"
-        + "<li>✓ <strong>Sjablonen</strong>: business-plan & system-prompt</li>"
-        + "<li>✓ Complete cursus als <strong>download</strong> (offline + de volledige website)</li>"
-        + "<li>✓ <strong>Levenslange updates</strong> — gratis</li>"
+        + f'<li><span class="chk">{ICONS["check"]}</span> Alle <strong>13 modules</strong> — van mindset tot launch</li>'
+        + f'<li><span class="chk">{ICONS["check"]}</span> <strong>5 werkende code-voorbeelden</strong> — kopiëren, draaien, aanpassen</li>'
+        + f'<li><span class="chk">{ICONS["check"]}</span> <strong>Sjablonen</strong>: business-plan &amp; system-prompt</li>'
+        + f'<li><span class="chk">{ICONS["check"]}</span> Complete cursus als <strong>download</strong> — offline &amp; de volledige website</li>'
+        + f'<li><span class="chk">{ICONS["check"]}</span> <strong>Levenslange updates</strong> — gratis</li>'
         + "</ul>"
-        + f'<a class="btn btn-primary btn-buy" href="{BUY_URL}">🔓 Koop & download nu — {PRICE}</a>'
-        + '<a class="btn btn-ghost" href="module-00-introductie-en-mindset.html">Eerst gratis lezen →</a>'
+        + f'<a class="btn btn-primary btn-buy" href="{BUY_URL}">{ICONS["lock"]} Koop &amp; download nu — {PRICE}</a>'
+        + f'<a class="btn btn-ghost" href="module-00-introductie-en-mindset.html">{ICONS["sparkle"]} Eerst gratis lezen</a>'
         + '<p class="guarantee">Veilig betalen via Gumroad · direct downloaden na aankoop</p>'
         + "</div></div></section>"
         + FOOT.format(root="", site=SITE_NAME)
