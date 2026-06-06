@@ -73,6 +73,7 @@ MODULES_NL = [
     ("11-juridisch-en-ethiek",       "MODULE 11", "Juridisch, belasting & ethiek", "KvK, btw, AVG, AI Act en aansprakelijkheid."),
     ("12-launch-en-groei",           "MODULE 12", "Launch-checklist & groei",      "Van prototype naar een draaiend bedrijf."),
     ("praktijkvoorbeeld",            "PRAKTIJK",  "Praktijkvoorbeeld: 7-dagen-plan", "Eén volledig uitgewerkt voorbeeld — van nul naar je eerste klant."),
+    ("agent-bedrijf-blauwdruk",      "BLAUWDRUK", "Bouw je autonome agent-bedrijf",  "De capstone: een groep samenwerkende agents die zelf een bedrijf runt."),
 ]
 
 MODULES_EN = [
@@ -91,6 +92,7 @@ MODULES_EN = [
     ("11-juridisch-en-ethiek",       "MODULE 11", "Legal, tax & ethics",           "Registration, VAT, GDPR, the AI Act and liability."),
     ("12-launch-en-groei",           "MODULE 12", "Launch checklist & growth",     "From prototype to a running business."),
     ("praktijkvoorbeeld",            "HANDS-ON",  "Worked example: 7-day plan",    "One fully worked example — from zero to your first customer."),
+    ("agent-bedrijf-blauwdruk",      "BLUEPRINT", "Build your autonomous agent company", "The capstone: a group of collaborating agents that runs a business itself."),
 ]
 
 # ── UI-teksten per taal ──────────────────────────────────────────────────────
@@ -125,7 +127,7 @@ STR_NL = {
         "Een verkoopbaar business-model kiezen en valideren vóór je bouwt",
         "Een werkende agent bouwen met de Claude API — met tools en gestructureerde output",
         "Een veilige autonome lus draaien met budgetlimieten, mens-in-de-loop en logging",
-        "Opschalen met 24/7 Managed Agents, plus betalingen en integraties regelen",
+        "Een groep samenwerkende agents draaien die zelf opdrachten verwerkt, levert en de omzet bijhoudt — 24/7 in te plannen",
         "Juridisch netjes ondernemen en lanceren met een concreet 30-dagen-plan",
     ],
     "time_h": "Tijdsinvestering",
@@ -188,7 +190,7 @@ STR_EN = {
         "Choose and validate a sellable business model before you build",
         "Build a working agent with the Claude API — with tools and structured output",
         "Run a safe autonomous loop with budget limits, human-in-the-loop and logging",
-        "Scale up with 24/7 Managed Agents, plus payments and integrations",
+        "Run a group of collaborating agents that processes jobs, delivers and tracks revenue — schedulable 24/7",
         "Operate legally and launch with a concrete 30-day plan",
     ],
     "time_h": "Time investment",
