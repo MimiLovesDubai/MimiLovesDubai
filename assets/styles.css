@@ -229,6 +229,34 @@ section { padding: 70px 0; }
 .mod-card .go { margin-top: 16px; font-size: .85rem; color: var(--text); font-weight: 600; display: inline-flex; gap: 6px; align-items: center; opacity: .7; transition: opacity .3s, gap .3s; }
 .mod-card:hover .go { opacity: 1; gap: 12px; }
 
+/* ---- Prijskaart / koop ---- */
+.price-card {
+  max-width: 520px; margin: 0 auto; text-align: center;
+  background: var(--panel-strong); border: 1px solid rgba(236, 200, 120, .3);
+  border-radius: var(--r-lg); padding: 40px 34px; position: relative; overflow: hidden;
+  box-shadow: var(--shadow), 0 0 60px -25px rgba(236, 200, 120, .4);
+}
+.price-card::before {
+  content: ""; position: absolute; inset: 0; background: var(--grad-soft); opacity: .4; pointer-events: none;
+}
+.price-card > * { position: relative; }
+.price-badge {
+  display: inline-block; font-size: .78rem; font-weight: 600; letter-spacing: .08em;
+  text-transform: uppercase; color: #1a140a; background: var(--grad);
+  padding: 6px 16px; border-radius: 999px; margin-bottom: 18px;
+}
+.price-card .price {
+  font-family: var(--font-display); font-size: 3.6rem; font-weight: 700; line-height: 1;
+  background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+  margin-bottom: 22px;
+}
+.price-list { list-style: none; padding: 0; margin: 0 0 26px; text-align: left; display: inline-block; }
+.price-list li { color: #d3dbea; margin: 11px 0; font-size: 1rem; }
+.price-list li strong { color: #fff; }
+.btn-buy { width: 100%; justify-content: center; font-size: 1.05rem; padding: 16px 24px; margin-bottom: 12px; }
+.price-card .btn-ghost { width: 100%; justify-content: center; }
+.guarantee { font-size: .85rem; color: var(--text-faint); margin: 18px 0 0; }
+
 /* ---- CTA band ---- */
 .cta-band {
   text-align: center; border-radius: var(--r-lg); padding: 64px 32px; position: relative; overflow: hidden;

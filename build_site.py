@@ -24,6 +24,11 @@ SITE_NAME = "MyAIAgent.tech"
 SITE_DOMAIN = "myaiagent.tech"
 SITE_URL = "https://myaiagent.tech"
 
+# Verkoop — vervang BUY_URL door je eigen Gumroad-productlink zodra die klaar is.
+PRICE = "€49"
+BUY_URL = "https://gumroad.com"  # ← VERVANG: jouw Gumroad-link, bv. https://jouwnaam.gumroad.com/l/myaiagent
+DOWNLOAD_ZIP = "downloads/myaiagent-cursus.zip"
+
 # Merkbeelden (rechtstreeks geladen vanaf de beeld-CDN). Vervang later eventueel
 # door lokale bestanden in assets/img/ voor volledige onafhankelijkheid.
 HERO_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_3EV64GaphhBt3vnsJcygYZCjJZa/hf_20260606_152320_c81ed183-7881-46fb-8a7f-7f5d8d6acafa.png"
@@ -229,7 +234,7 @@ NAV = """<nav class="nav"><div class="wrap">
 <div class="nav-links">
   <a href="{root}index.html#modules">Modules</a>
   <a href="{root}index.html#waarom">Waarom</a>
-  <a href="{root}module-00-introductie-en-mindset.html">Start de cursus</a>
+  <a href="{root}index.html#koop">Koop de cursus</a>
 </div></div></nav>
 """
 
@@ -381,11 +386,25 @@ def build_index() -> None:
         + '</div><div class="modules">'
         + mods_html
         + "</div></div></section>"
-        # CTA
-        + '<section><div class="wrap"><div class="cta-band reveal">'
-        + "<h2>Klaar om te bouwen?</h2>"
-        + "<p>Begin bij module 00. Over 30 dagen heb je geen theorie, maar een echt, draaiend mini-bedrijf.</p>"
-        + '<a class="btn btn-primary" href="module-00-introductie-en-mindset.html">Start nu →</a>'
+        # KOOP / PRICING
+        + '<section id="koop"><div class="wrap"><div class="section-head reveal">'
+        + '<div class="kicker">Toegang</div>'
+        + "<h2>Krijg de volledige cursus</h2>"
+        + "<p>Koop één keer, download alles, en bouw in je eigen tempo je eerste geld-verdienende AI-agent.</p>"
+        + "</div>"
+        + '<div class="price-card reveal">'
+        + '<div class="price-badge">Eenmalig · levenslang toegang</div>'
+        + f'<div class="price">{PRICE}</div>'
+        + '<ul class="price-list">'
+        + "<li>✓ Alle <strong>13 modules</strong> — van mindset tot launch</li>"
+        + "<li>✓ <strong>5 werkende code-voorbeelden</strong> (kopiëren, draaien, aanpassen)</li>"
+        + "<li>✓ <strong>Sjablonen</strong>: business-plan & system-prompt</li>"
+        + "<li>✓ Complete cursus als <strong>download</strong> (offline + de volledige website)</li>"
+        + "<li>✓ <strong>Levenslange updates</strong> — gratis</li>"
+        + "</ul>"
+        + f'<a class="btn btn-primary btn-buy" href="{BUY_URL}">🔓 Koop & download nu — {PRICE}</a>'
+        + '<a class="btn btn-ghost" href="module-00-introductie-en-mindset.html">Eerst gratis lezen →</a>'
+        + '<p class="guarantee">Veilig betalen via Gumroad · direct downloaden na aankoop</p>'
         + "</div></div></section>"
         + FOOT.format(root="", site=SITE_NAME)
         + REVEAL_JS
