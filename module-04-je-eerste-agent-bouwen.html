@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Je eerste agent bouwen · De Autonome Onderneming</title>
+<meta name="description" content="Je eerste werkende agent met de Claude API.">
+<meta property="og:title" content="Je eerste agent bouwen · De Autonome Onderneming">
+<meta property="og:description" content="Je eerste werkende agent met de Claude API.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#05060a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="bg-fx"></div><div class="bg-grid"></div>
+<div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
+<div class="reader-top"><div class="bar" id="rbar"></div></div><nav class="nav"><div class="wrap">
+<a class="brand" href="index.html"><span class="mark">◆</span> De Autonome Onderneming</a>
+<div class="nav-links">
+  <a href="index.html#modules">Modules</a>
+  <a href="index.html#waarom">Waarom</a>
+  <a href="module-00-introductie-en-mindset.html">Start de cursus</a>
+</div></div></nav>
+<article class="article"><div class="crumb">Module 04 / 12</div><h1>Je eerste agent bouwen</h1><p style="color:var(--text-dim);font-size:1.12rem">Je eerste werkende agent met de Claude API.</p><hr><blockquote><p>Doel: een werkende agent draaien die een echte bedrijfstaak uitvoert. We bouwen op van een<br>losse prompt naar een eenvoudige agent.</p></blockquote>
+<p>Bijbehorende code: <a href="code/agent_mvp.py"><code>code/agent_mvp.py</code></a>.</p>
+<hr>
+<h2>Eerst: een losse prompt (de bouwsteen)</h2>
+<p>Alles begint met één API-aanroep. Dit is de kern die je honderden keren zult gebruiken:</p>
+<pre><code>import os
+from dotenv import load_dotenv
+import anthropic
+
+load_dotenv("code/.env")
+client = anthropic.Anthropic()
+
+response = client.messages.create(
+    model="claude-opus-4-8",
+    max_tokens=1000,
+    system="Je bent een ervaren e-commerce copywriter. Schrijf wervende, eerlijke teksten.",
+    messages=[
+        {"role": "user", "content": "Schrijf een productbeschrijving voor een eiken eettafel."}
+    ],
+)
+
+for block in response.content:
+    if block.type == "text":
+        print(block.text)</code></pre>
+<p>Drie dingen om te onthouden:</p>
+<ul>
+<li><strong><code>system</code></strong> = wie de agent is en wat de regels zijn (je belangrijkste stuurmiddel).</li>
+<li><strong><code>messages</code></strong> = het gesprek; begint altijd met een <code>user</code>-bericht.</li>
+<li><strong><code>response.content</code></strong> = een lijst blokken; pak de <code>text</code>-blokken eruit.</li>
+</ul>
+<p>Dit is geen agent — het is één vraag, één antwoord. Maar het is wél de motor van alles.</p>
+<hr>
+<h2>Adaptive thinking &amp; effort aanzetten</h2>
+<p>Voor serieuzer werk laat je het model nadenken vóór het antwoordt. Bij Opus 4.8 doe je dat met <strong>adaptive thinking</strong> (het model bepaalt zelf hoe diep) en het <strong>effort</strong>-niveau:</p>
+<pre><code>response = client.messages.create(
+    model="claude-opus-4-8",
+    max_tokens=2000,
+    thinking={"type": "adaptive"},          # model denkt na waar nodig
+    output_config={"effort": "high"},        # diepte/kosten-niveau: low|medium|high|xhigh|max
+    system="...",
+    messages=[...],
+)</code></pre>
+<blockquote><p>Let op (Opus 4.8/4.7): gebruik géén <code>temperature</code>, <code>top_p</code>, of <code>budget_tokens</code> — die zijn<br>verwijderd en geven een foutmelding. Sturen doe je via je prompt en het <code>effort</code>-niveau.</p></blockquote>
+<hr>
+<h2>Van prompt naar agent: een gestructureerde uitvoer</h2>
+<p>Een agent moet vaak een <strong>betrouwbaar, machine-leesbaar</strong> resultaat geven, niet alleen losse tekst. Daarvoor gebruik je <code>messages.parse()</code> met een schema (via Pydantic). Zo krijg je gegarandeerd geldige, gestructureerde data terug:</p>
+<pre><code>from pydantic import BaseModel
+
+class Producttekst(BaseModel):
+    titel: str
+    beschrijving: str
+    bullets: list[str]
+    seo_keywords: list[str]
+
+response = client.messages.parse(
+    model="claude-opus-4-8",
+    max_tokens=2000,
+    messages=[{"role": "user", "content": "Maak een listing voor een eiken eettafel."}],
+    output_format=Producttekst,
+)
+
+resultaat = response.parsed_output   # een gevalideerd Producttekst-object
+print(resultaat.titel)
+print(resultaat.bullets)</code></pre>
+<p>Dit is enorm krachtig voor een bedrijf: je kunt de uitvoer direct in een database, webshop of e-mail stoppen, zonder gepruts met tekst parsen.</p>
+<hr>
+<h2>Het verschil dat een agent maakt: meerdere taken zelfstandig</h2>
+<p><code>agent_mvp.py</code> laat een eerste vorm van autonomie zien: je geeft de agent een <strong>lijst taken</strong> en een <strong>rol</strong>, en hij verwerkt ze één voor één, met logging en een kostenteller. Het is nog geen volledige tool-gebruikende loop (dat is module 05 en 06), maar het toont het patroon:</p>
+<pre><code>voor elke taak in de werklijst:
+    laat de agent de taak uitvoeren
+    valideer en bewaar het resultaat
+    tel de kosten op
+    stop als de dagbudget-limiet bereikt is</code></pre>
+<p>Draai het:</p>
+<pre><code>python code/agent_mvp.py</code></pre>
+<p>Je ziet de agent een setje productbeschrijvingen genereren, netjes gestructureerd, met een kostenoverzicht aan het eind. Pas de <code>WERKLIJST</code> bovenin het bestand aan naar jouw eigen bedrijfstaak.</p>
+<hr>
+<h2>De system prompt: je belangrijkste gereedschap</h2>
+<p>90% van de kwaliteit van je agent zit in de system prompt. Een goede system prompt bevat:</p>
+<ol>
+<li><strong>Rol</strong> — "Je bent een ervaren e-commerce copywriter gespecialiseerd in meubels."</li>
+<li><strong>Doel</strong> — "Schrijf teksten die converteren én eerlijk zijn."</li>
+<li><strong>Stijl &amp; regels</strong> — "Toon: warm en deskundig. Nooit overdrijven. Altijd 3–5 bullets."</li>
+<li><strong>Grenzen</strong> — "Verzin geen specificaties die je niet weet. Bij twijfel: vermeld het niet."</li>
+<li><strong>Uitvoerformaat</strong> — "Geef titel, beschrijving, bullets en keywords."</li>
+</ol>
+<p>Gebruik het <a href="templates/agent-system-prompt-template.md">sjabloon</a> als startpunt. Itereer: draai, bekijk de uitvoer, verbeter de prompt, herhaal. Dit "prompt-tunen" is een kernvaardigheid.</p>
+<blockquote><p>Tip voor Opus 4.8: het model volgt instructies zeer letterlijk en is voorzichtig met<br>overdrijven. Schrijf je instructies als heldere feiten en richtlijnen, niet als schreeuwerige<br>"JE MOET ALTIJD..."-commando's — dat werkt averechts.</p></blockquote>
+<hr>
+<h2>Veelgemaakte beginnersfouten</h2>
+<ul>
+<li><strong><code>max_tokens</code> te laag</strong> → antwoord wordt afgekapt. Zet ruim (1.000–4.000 voor tekst).</li>
+<li><strong>Geen <code>.env</code></strong> → sleutel hardcoded in je script. Doe dat nooit.</li>
+<li><strong>Alles op Opus</strong> → duur. Gebruik Haiku voor simpel werk (module 03).</li>
+<li><strong>Geen logging</strong> → je weet niet wat je agent deed of wat het kostte. Log altijd (module 10).</li>
+</ul>
+<hr>
+<h2>Jouw opdracht</h2>
+<ol>
+<li>Draai <code>agent_mvp.py</code> ongewijzigd.</li>
+<li>Vervang de <code>WERKLIJST</code> en de system prompt door jóuw bedrijfstaak uit module 02.</li>
+<li>Itereer op de system prompt tot de uitvoer goed genoeg is om aan een klant te tonen.</li>
+<li>Lever de uitvoer één keer "met de hand" aan een echte (potentiële) klant — feedback is goud.</li>
+</ol>
+<hr><div class="pager"><a class="prev" href="module-03-tech-stack-en-setup.html"><div class="lbl">← Vorige</div><div class="ttl">Tech stack & setup</div></a><a class="next" href="module-05-tools-en-acties.html"><div class="lbl">Volgende →</div><div class="ttl">Tools geven aan je agent</div></a></div></article><a class="toc-fab" href="index.html#modules">☰ Alle modules</a><footer><div class="wrap">
+<div>
+  <div class="brand" style="margin-bottom:6px"><span class="mark">◆</span> De Autonome Onderneming</div>
+  <div class="disclaimer">Educatief materiaal — geen financieel, juridisch of fiscaal advies. Jij bent verantwoordelijk voor wat je agent doet. Bouw verantwoord.</div>
+</div>
+<div style="text-align:right">
+  <a href="index.html">Home</a> &nbsp;·&nbsp;
+  <a href="module-00-introductie-en-mindset.html">Start</a><br>
+  <span style="opacity:.6">Gebouwd met de Claude API · Opus 4.8</span>
+</div>
+</div></footer>
+<script>
+const bar=document.getElementById('rbar');
+addEventListener('scroll',()=>{const h=document.documentElement;const p=h.scrollTop/(h.scrollHeight-h.clientHeight);bar.style.width=(p*100)+'%';},{passive:true});
+</script></body></html>

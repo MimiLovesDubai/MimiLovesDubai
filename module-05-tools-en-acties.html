@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tools geven aan je agent · De Autonome Onderneming</title>
+<meta name="description" content="Hoe je agent echte acties uitvoert in de wereld.">
+<meta property="og:title" content="Tools geven aan je agent · De Autonome Onderneming">
+<meta property="og:description" content="Hoe je agent echte acties uitvoert in de wereld.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#05060a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="bg-fx"></div><div class="bg-grid"></div>
+<div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
+<div class="reader-top"><div class="bar" id="rbar"></div></div><nav class="nav"><div class="wrap">
+<a class="brand" href="index.html"><span class="mark">◆</span> De Autonome Onderneming</a>
+<div class="nav-links">
+  <a href="index.html#modules">Modules</a>
+  <a href="index.html#waarom">Waarom</a>
+  <a href="module-00-introductie-en-mindset.html">Start de cursus</a>
+</div></div></nav>
+<article class="article"><div class="crumb">Module 05 / 12</div><h1>Tools geven aan je agent</h1><p style="color:var(--text-dim);font-size:1.12rem">Hoe je agent echte acties uitvoert in de wereld.</p><hr><blockquote><p>Doel: je agent laten *handelen* in de echte wereld — niet alleen praten. Dit is wat een agent<br>daadwerkelijk geld laat verdienen.</p></blockquote>
+<p>Bijbehorende code: <a href="code/tools.py"><code>code/tools.py</code></a>.</p>
+<hr>
+<h2>Praten vs. doen</h2>
+<p>Tot nu toe genereert je agent tekst. Maar een bedrijf draait op *acties*: een e-mail versturen, een bestelling plaatsen, een record opslaan, een prijs aanpassen. Daarvoor geef je de agent <strong>tools</strong>: functies die hij zelf mag aanroepen.</p>
+<p>De flow is altijd hetzelfde:</p>
+<pre><code>1. Jij definieert tools (naam, beschrijving, parameters).
+2. Het model besluit zélf wanneer en met welke argumenten het een tool aanroept.
+3. Jouw code voert de functie uit en geeft het resultaat terug.
+4. Het model gaat verder met dat resultaat — tot het doel bereikt is.</code></pre>
+<p>Dit heet <strong>tool use</strong> (of function calling). Het is het hart van elke echte agent.</p>
+<hr>
+<h2>Een tool definiëren</h2>
+<p>Een tool heeft drie dingen: een <strong>naam</strong>, een <strong>beschrijving</strong> (hier kiest het model op!), en een <strong>invoerschema</strong> (JSON Schema). Voorbeeld:</p>
+<pre><code>tools = [
+    {
+        "name": "verstuur_email",
+        "description": "Verstuur een e-mail naar een klant. Gebruik dit alleen voor "
+                       "bevestigde, afgeronde berichten.",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "naar": {"type": "string", "description": "E-mailadres van de ontvanger"},
+                "onderwerp": {"type": "string"},
+                "tekst": {"type": "string"},
+            },
+            "required": ["naar", "onderwerp", "tekst"],
+        },
+    }
+]</code></pre>
+<blockquote><p>💡 De <strong>beschrijving</strong> is cruciaal. Schrijf precies wanneer de tool gebruikt moet worden, niet<br>alleen wat hij doet. "Gebruik dit wanneer de klant om een offerte vraagt" geeft veel betere<br>resultaten dan alleen "verstuurt een offerte".</p></blockquote>
+<hr>
+<h2>De makkelijke manier: de tool runner</h2>
+<p>De Python-SDK heeft een <strong>tool runner</strong> die de hele lus voor je afhandelt: hij roept de API aan, voert je tools uit, geeft de resultaten terug, en herhaalt tot het model klaar is. Je definieert tools als gewone Python-functies met de <code>@beta_tool</code>-decorator:</p>
+<pre><code>import anthropic
+from anthropic import beta_tool
+
+client = anthropic.Anthropic()
+
+@beta_tool
+def get_voorraad(product_id: str) -&gt; str:
+    """Haal de huidige voorraad op van een product.
+
+    Args:
+        product_id: De unieke ID van het product.
+    """
+    # Hier zou je je echte database/webshop-API aanroepen.
+    voorraad = {"stoel-001": 3, "tafel-002": 25}
+    return f"Voorraad voor {product_id}: {voorraad.get(product_id, 0)} stuks."
+
+@beta_tool
+def plaats_bestelling(product_id: str, aantal: int) -&gt; str:
+    """Plaats een inkoopbestelling bij de leverancier.
+
+    Args:
+        product_id: De ID van het product.
+        aantal: Aantal te bestellen stuks.
+    """
+    return f"Bestelling geplaatst: {aantal}x {product_id}. Levering over 3 dagen."
+
+# De runner draait de complete agentische lus automatisch:
+runner = client.beta.messages.tool_runner(
+    model="claude-opus-4-8",
+    max_tokens=4000,
+    tools=[get_voorraad, plaats_bestelling],
+    messages=[{"role": "user", "content": "Check stoel-001 en bestel bij als het er minder dan 5 zijn."}],
+)
+
+for message in runner:
+    for block in message.content:
+        if block.type == "text":
+            print(block.text)</code></pre>
+<p>Het model bekijkt zelf de voorraad, beslist dat er bijbesteld moet worden, en plaatst de bestelling — allemaal zonder dat jij de stappen hoeft te programmeren. Dát is een agent.</p>
+<p>De schema's worden automatisch gegenereerd uit je functie-signatuur en docstring. Schrijf dus duidelijke docstrings — het model leest ze.</p>
+<hr>
+<h2>De handmatige lus: voor controle en checkpoints</h2>
+<p>Soms wil je *zelf* de regie — bijvoorbeeld om een mens om goedkeuring te vragen vóór een risicovolle actie. Dan schrijf je de lus zelf. Het patroon:</p>
+<pre><code>messages = [{"role": "user", "content": "..."}]
+while True:
+    response = client.messages.create(
+        model="claude-opus-4-8", max_tokens=4000, tools=tools, messages=messages,
+    )
+    if response.stop_reason == "end_turn":
+        break  # model is klaar
+
+    messages.append({"role": "assistant", "content": response.content})
+
+    tool_resultaten = []
+    for block in response.content:
+        if block.type == "tool_use":
+            # HIER kun je een checkpoint inbouwen (mens-in-de-loop)!
+            resultaat = voer_tool_uit(block.name, block.input)
+            tool_resultaten.append({
+                "type": "tool_result",
+                "tool_use_id": block.id,
+                "content": resultaat,
+            })
+    messages.append({"role": "user", "content": tool_resultaten})</code></pre>
+<p>Zie <a href="code/tools.py"><code>code/tools.py</code></a> voor een volledig, draaibaar voorbeeld met een mens-in-de-loop-checkpoint op dure acties.</p>
+<hr>
+<h2>Welke acties promoveer je tot een eigen tool?</h2>
+<p>Niet alles hoeft een tool te zijn. Geef een actie een eigen tool als:</p>
+<ul>
+<li><strong>Veiligheid</strong> — de actie is moeilijk terug te draaien (geld uitgeven, e-mail versturen,</li>
+</ul>
+<p>  data verwijderen). Een eigen tool kun je afschermen achter goedkeuring.</p>
+<ul>
+<li><strong>Controle</strong> — je wilt de actie loggen, valideren of beperken.</li>
+<li><strong>Helderheid</strong> — het model presteert beter met een paar duidelijke tools dan met één</li>
+</ul>
+<p>  alleskunnende tool.</p>
+<p>Vuistregel: <strong>3–8 goed-omschreven tools</strong> is meestal ideaal. Te veel tools verwarren het model.</p>
+<hr>
+<h2>Soorten tools die je bedrijf nodig heeft</h2>
+<table><thead><tr><th>Categorie</th><th>Voorbeelden</th></tr></thead><tbody><tr><td><strong>Lezen</strong></td><td>voorraad opvragen, klantgegevens ophalen, agenda checken, web doorzoeken</td></tr><tr><td><strong>Schrijven</strong></td><td>record opslaan, prijs aanpassen, status bijwerken</td></tr><tr><td><strong>Communiceren</strong></td><td>e-mail/bericht versturen, melding plaatsen</td></tr><tr><td><strong>Transacties</strong></td><td>bestelling plaatsen, factuur maken, betaling verwerken (achter goedkeuring!)</td></tr><tr><td><strong>Mens vragen</strong></td><td><code>vraag_mens()</code> — laat de agent expliciet om hulp/goedkeuring vragen</td></tr></tbody></table>
+<p>Die laatste, <code>vraag_mens()</code>, is je geheime wapen voor veilige autonomie. Komt terug in module 10.</p>
+<hr>
+<h2>Server-side tools (gratis superkrachten)</h2>
+<p>Anthropic biedt ook <strong>server-side tools</strong> die op hun infrastructuur draaien — je hoeft niets zelf te bouwen:</p>
+<ul>
+<li><strong>Web search &amp; web fetch</strong> — laat je agent het actuele web doorzoeken en pagina's lezen.</li>
+<li><strong>Code execution</strong> — laat je agent code draaien in een veilige sandbox (data-analyse,</li>
+</ul>
+<p>  grafieken, bestanden maken zoals Excel/PDF).</p>
+<p>Je voegt ze toe als gewone tools, bijvoorbeeld:</p>
+<pre><code>tools = [
+    {"type": "web_search_20260209", "name": "web_search"},
+    {"type": "code_execution_20260120", "name": "code_execution"},
+]</code></pre>
+<p>Voor een onderzoeks- of rapportage-agent zijn deze goud waard.</p>
+<hr>
+<h2>Jouw opdracht</h2>
+<ol>
+<li>Draai <a href="code/tools.py"><code>code/tools.py</code></a> en bekijk hoe het model zelf tools kiest.</li>
+<li>Schrijf 2–4 tools voor jóuw bedrijf (begin met lezen, dan schrijven, dan acties).</li>
+<li>Bouw bewust een <code>vraag_mens()</code>-tool in voor risicovolle acties.</li>
+</ol>
+<hr><div class="pager"><a class="prev" href="module-04-je-eerste-agent-bouwen.html"><div class="lbl">← Vorige</div><div class="ttl">Je eerste agent bouwen</div></a><a class="next" href="module-06-de-autonome-loop.html"><div class="lbl">Volgende →</div><div class="ttl">De autonome loop</div></a></div></article><a class="toc-fab" href="index.html#modules">☰ Alle modules</a><footer><div class="wrap">
+<div>
+  <div class="brand" style="margin-bottom:6px"><span class="mark">◆</span> De Autonome Onderneming</div>
+  <div class="disclaimer">Educatief materiaal — geen financieel, juridisch of fiscaal advies. Jij bent verantwoordelijk voor wat je agent doet. Bouw verantwoord.</div>
+</div>
+<div style="text-align:right">
+  <a href="index.html">Home</a> &nbsp;·&nbsp;
+  <a href="module-00-introductie-en-mindset.html">Start</a><br>
+  <span style="opacity:.6">Gebouwd met de Claude API · Opus 4.8</span>
+</div>
+</div></footer>
+<script>
+const bar=document.getElementById('rbar');
+addEventListener('scroll',()=>{const h=document.documentElement;const p=h.scrollTop/(h.scrollHeight-h.clientHeight);bar.style.width=(p*100)+'%';},{passive:true});
+</script></body></html>

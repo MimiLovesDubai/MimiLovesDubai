@@ -11,6 +11,27 @@ het maximale haalt uit wat wél werkt.
 
 ---
 
+## 🌐 Bekijk de cursus als website
+
+Deze cursus is ook een **schitterende, futuristische website** — open `index.html` in je
+browser en je krijgt een donker "deep space"-thema met neon-gradiënten, glasmorfisme en
+animaties, plus prachtig leesbare modulepagina's.
+
+```bash
+# Snel lokaal bekijken (aanrader, zodat lettertypen/animaties laden):
+python3 -m http.server 8000
+# open daarna http://localhost:8000 in je browser
+```
+
+Of open `index.html` direct. De site is **volledig vooraf gerenderd** (statische HTML) en werkt
+zonder server. Wil je de modules aanpassen? Bewerk de Markdown in `modules/` en draai
+`python3 build_site.py` om de site opnieuw te genereren.
+
+> 💡 Online zetten kan gratis via **GitHub Pages** (Settings → Pages → branch
+> `claude/ai-agent-business-course-RZJxN`, map `/root`) of via **Netlify** — sleep de map erin.
+
+---
+
 ## Voor wie is dit?
 
 - Ondernemers en freelancers die taken willen automatiseren en hun tijd willen terugwinnen.
