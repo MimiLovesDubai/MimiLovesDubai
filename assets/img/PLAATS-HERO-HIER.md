@@ -1,20 +1,24 @@
-# Hero-afbeelding
+# Merkbeelden plaatsen
 
-De website verwacht hier een bestand **`hero.png`** (of `hero.jpg` — pas dan het
-pad aan in `build_site.py` en draai opnieuw). Tot die er is, toont de hero een
-elegante gouden gradient-fallback, dus de site blijft er goed uitzien.
+De site verwacht onderstaande bestanden in deze map. Tot ze er zijn, toont de
+site elegante gouden fallbacks, dus hij blijft er goed uitzien. Sla elk beeld op
+met de **exacte bestandsnaam** en commit + push.
 
-## De gegenereerde hero plaatsen
+| Bestandsnaam | Formaat | Waar gebruikt | Welk gegenereerd beeld |
+|--------------|---------|---------------|------------------------|
+| `hero.png` | liggend 16:11 / 16:9 | Groot hero-kader op de homepage | De gouden AI-figuur in de lounge |
+| `og.png` | 16:9 | Social preview (LinkedIn/X/WhatsApp) + `og:image` | De banner mét "MyAIAgent.tech"-tekst |
+| `brand-square.png` | 1:1 | Favicon + app-icoon | Het vierkante close-up portret |
+| `story.png` | 9:16 | (niet op de site) Instagram/TikTok-story | Het verticale poster-beeld |
 
-Ik heb een passend beeld voor je gegenereerd (gouden AI-figuur in een futuristische
-lounge, 2752×1536). Download het en sla het op als `assets/img/hero.png`:
+## Hoe plaatsen
 
-1. Open de afbeelding (de link is in de chat getoond).
-2. Sla op als `assets/img/hero.png` in deze map.
-3. Commit & push — de hero toont nu het beeld.
+1. Open het gewenste beeld (de links staan in de chat).
+2. Sla op onder de juiste naam hierboven, in `assets/img/`.
+3. Commit & push. De site gebruikt ze automatisch.
 
-Liever een van je eigen 4 beelden? Sla die op als `assets/img/hero.png`. Een
-liggend formaat (bijv. 16:11 of 16:9) werkt het mooist in het hero-kader.
+> Tip: optimaliseer grote PNG's (bijv. via squoosh.app) naar < 400 KB voor snelle
+> laadtijd — belangrijk voor een site die viraal moet gaan. WebP mag ook; pas dan
+> de bestandsnaam-extensie aan in `build_site.py` en draai `python3 build_site.py`.
 
-> Tip: optimaliseer grote afbeeldingen (bijv. via squoosh.app) tot < 400 KB voor
-> snelle laadtijd — belangrijk voor een site die viraal moet gaan.
+Liever je eigen beelden? Gebruik dezelfde bestandsnamen en formaten.
