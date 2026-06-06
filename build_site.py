@@ -24,6 +24,12 @@ SITE_NAME = "MyAIAgent.tech"
 SITE_DOMAIN = "myaiagent.tech"
 SITE_URL = "https://myaiagent.tech"
 
+# Merkbeelden (rechtstreeks geladen vanaf de beeld-CDN). Vervang later eventueel
+# door lokale bestanden in assets/img/ voor volledige onafhankelijkheid.
+HERO_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_3EV64GaphhBt3vnsJcygYZCjJZa/hf_20260606_152320_c81ed183-7881-46fb-8a7f-7f5d8d6acafa.png"
+OG_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_3EV64GaphhBt3vnsJcygYZCjJZa/hf_20260606_152832_ced37d1b-044a-4c0f-97f3-fd873371a7da.png"
+ICON_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_3EV64GaphhBt3vnsJcygYZCjJZa/hf_20260606_152841_53f4de5c-cd0b-4fd3-8794-1649a152eb1c.png"
+
 # Volgorde + korte omschrijving + icoon per module (voor de landingspagina).
 MODULES = [
     ("00-introductie-en-mindset",   "Introductie & mindset",        "Realistische verwachtingen en hoe agents écht geld verdienen.", "🧭"),
@@ -202,12 +208,12 @@ HEAD = """<!doctype html>
 <meta property="og:description" content="{desc}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="MyAIAgent.tech">
-<meta property="og:image" content="https://myaiagent.tech/assets/img/og.png">
+<meta property="og:image" content="{og}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://myaiagent.tech/assets/img/og.png">
+<meta name="twitter:image" content="{og}">
 <meta name="theme-color" content="#07060a">
-<link rel="icon" href="{root}assets/img/brand-square.png">
-<link rel="apple-touch-icon" href="{root}assets/img/brand-square.png">
+<link rel="icon" href="{icon}">
+<link rel="apple-touch-icon" href="{icon}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -283,7 +289,7 @@ def build_module(idx: int) -> None:
         next_html = '<a class="next" href="index.html"><div class="lbl">Voltooid →</div><div class="ttl">Terug naar overzicht</div></a>'
 
     page = (
-        HEAD.format(title=f"{titel} · De Autonome Onderneming", desc=desc, root="")
+        HEAD.format(title=f"{titel} · De Autonome Onderneming", desc=desc, root="", og=OG_IMG, icon=ICON_IMG)
         + '<div class="reader-top"><div class="bar" id="rbar"></div></div>'
         + NAV.format(root="", site=SITE_NAME)
         + '<article class="article">'
@@ -334,6 +340,8 @@ def build_index() -> None:
             title="De Autonome Onderneming · Bouw een AI-agent die zélf een bedrijf runt",
             desc="De complete, futuristische cursus: bouw stap voor stap een autonome AI-agent die echt bedrijfswerk doet en geld voor je verdient — met de mens op de juiste plek.",
             root="",
+            og=OG_IMG,
+            icon=ICON_IMG,
         )
         + NAV.format(root="", site=SITE_NAME)
         # HERO
@@ -347,7 +355,7 @@ def build_index() -> None:
         + '<a class="btn btn-ghost" href="#modules">Bekijk alle modules</a>'
         + "</div></div>"
         + '<div class="hero-visual reveal"><div class="hero-frame">'
-        + '<img src="assets/img/hero.png" alt="Futuristische gouden AI-figuur in een luxe ruimteschip-lounge" '
+        + f'<img src="{HERO_IMG}" alt="Futuristische gouden AI-figuur in een luxe ruimteschip-lounge" '
         + 'onerror="this.style.display=\'none\';this.parentNode.classList.add(\'empty\')">'
         + '<div class="hero-frame-glow"></div></div></div>'
         + "</div>"
