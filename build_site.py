@@ -116,6 +116,24 @@ STR_NL = {
     "mod_k": "Het curriculum", "mod_h": "{n} modules, één duidelijk pad",
     "mod_p": "Werk in volgorde — van mindset tot launch. Elke module bouwt op de vorige.",
     "read": "Lees module",
+    "leer_k": "Resultaat", "leer_h": "Wat je na de cursus kunt",
+    "leer_p": "Geen theorie om de theorie — je krijgt de vaardigheden én een concreet pad om ze in praktijk te brengen.",
+    "outcomes": [
+        "Begrijpen wanneer je een agent inzet — prompt, workflow of een echte agent",
+        "Een verkoopbaar business-model kiezen en valideren vóór je bouwt",
+        "Een werkende agent bouwen met de Claude API — met tools en gestructureerde output",
+        "Een veilige autonome lus draaien met budgetlimieten, mens-in-de-loop en logging",
+        "Opschalen met 24/7 Managed Agents, plus betalingen en integraties regelen",
+        "Juridisch netjes ondernemen en lanceren met een concreet 30-dagen-plan",
+    ],
+    "time_h": "Tijdsinvestering",
+    "time_p": "Eerlijk ingeschat — het resultaat hangt vooral af van je inzet en je distributie.",
+    "phases": [
+        ("01", "Cursus doorwerken", "Weekend – 2 weken"),
+        ("02", "Eerste werkende agent", "Avond – weekend"),
+        ("03", "Eerste betalende klant", "Weken – maanden"),
+        ("04", "Grotendeels vanzelf", "Maanden bijsturen"),
+    ],
     "buy_k": "Toegang", "buy_h": "Krijg de volledige cursus",
     "buy_p": "Koop één keer, download alles, en bouw in je eigen tempo je eerste geld-verdienende AI-agent.",
     "badge": "Lanceeraanbieding · levenslang toegang",
@@ -161,6 +179,24 @@ STR_EN = {
     "mod_k": "The curriculum", "mod_h": "{n} modules, one clear path",
     "mod_p": "Work in order — from mindset to launch. Each module builds on the last.",
     "read": "Read module",
+    "leer_k": "Outcome", "leer_h": "What you'll be able to do",
+    "leer_p": "Not theory for its own sake — you get the skills and a concrete path to put them into practice.",
+    "outcomes": [
+        "Know when to use an agent — a prompt, a workflow or a real agent",
+        "Choose and validate a sellable business model before you build",
+        "Build a working agent with the Claude API — with tools and structured output",
+        "Run a safe autonomous loop with budget limits, human-in-the-loop and logging",
+        "Scale up with 24/7 Managed Agents, plus payments and integrations",
+        "Operate legally and launch with a concrete 30-day plan",
+    ],
+    "time_h": "Time investment",
+    "time_p": "Honestly estimated — results depend mostly on your effort and your distribution.",
+    "phases": [
+        ("01", "Work through the course", "Weekend – 2 weeks"),
+        ("02", "First working agent", "Evening – weekend"),
+        ("03", "First paying customer", "Weeks – months"),
+        ("04", "Mostly runs itself", "Months of tuning"),
+    ],
     "buy_k": "Access", "buy_h": "Get the full course",
     "buy_p": "Buy once, download everything, and build your first money-making AI agent at your own pace.",
     "badge": "Launch offer · lifetime access",
@@ -453,6 +489,20 @@ def build_index(S, modules):
         + '<section id="modules"><div class="wrap"><div class="section-head reveal">'
         + f'<div class="kicker">{S["mod_k"]}</div><h2>{S["mod_h"].format(n=n)}</h2><p>{html.escape(S["mod_p"])}</p>'
         + f'</div><div class="modules">{mods_html}</div></div></section>'
+        + '<section id="leer"><div class="wrap"><div class="section-head reveal">'
+        + f'<div class="kicker">{S["leer_k"]}</div><h2>{html.escape(S["leer_h"])}</h2><p>{html.escape(S["leer_p"])}</p></div>'
+        + '<ul class="outcome-list reveal">'
+        + "".join(f'<li><span class="chk">{ICONS["check"]}</span> {html.escape(o)}</li>' for o in S["outcomes"])
+        + "</ul>"
+        + f'<div class="time-head reveal"><h3>{html.escape(S["time_h"])}</h3><p>{html.escape(S["time_p"])}</p></div>'
+        + '<div class="timeline">'
+        + "".join(
+            f'<div class="phase reveal"><div class="ph-num">{ph[0]}</div>'
+            f'<div class="ph-title">{html.escape(ph[1])}</div>'
+            f'<div class="ph-time">{html.escape(ph[2])}</div></div>'
+            for ph in S["phases"]
+        )
+        + "</div></div></section>"
         + '<section id="koop"><div class="wrap"><div class="section-head reveal">'
         + f'<div class="kicker">{S["buy_k"]}</div><h2>{html.escape(S["buy_h"])}</h2><p>{html.escape(S["buy_p"])}</p></div>'
         + '<div class="price-card glow-ring reveal">'
