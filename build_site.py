@@ -72,6 +72,7 @@ MODULES_NL = [
     ("10-veiligheid-en-guardrails",  "MODULE 10", "Veiligheid & guardrails",       "Budgetten, mens-in-de-loop en fouten opvangen."),
     ("11-juridisch-en-ethiek",       "MODULE 11", "Juridisch, belasting & ethiek", "KvK, btw, AVG, AI Act en aansprakelijkheid."),
     ("12-launch-en-groei",           "MODULE 12", "Launch-checklist & groei",      "Van prototype naar een draaiend bedrijf."),
+    ("praktijkvoorbeeld",            "PRAKTIJK",  "Praktijkvoorbeeld: 7-dagen-plan", "Eén volledig uitgewerkt voorbeeld — van nul naar je eerste klant."),
 ]
 
 MODULES_EN = [
@@ -89,6 +90,7 @@ MODULES_EN = [
     ("10-veiligheid-en-guardrails",  "MODULE 10", "Safety & guardrails",           "Budgets, human-in-the-loop and catching errors."),
     ("11-juridisch-en-ethiek",       "MODULE 11", "Legal, tax & ethics",           "Registration, VAT, GDPR, the AI Act and liability."),
     ("12-launch-en-groei",           "MODULE 12", "Launch checklist & growth",     "From prototype to a running business."),
+    ("praktijkvoorbeeld",            "HANDS-ON",  "Worked example: 7-day plan",    "One fully worked example — from zero to your first customer."),
 ]
 
 # ── UI-teksten per taal ──────────────────────────────────────────────────────
