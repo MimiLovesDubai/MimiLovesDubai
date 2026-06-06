@@ -27,8 +27,23 @@ Of open `index.html` direct. De site is **volledig vooraf gerenderd** (statische
 zonder server. Wil je de modules aanpassen? Bewerk de Markdown in `modules/` en draai
 `python3 build_site.py` om de site opnieuw te genereren.
 
-> 💡 Online zetten kan gratis via **GitHub Pages** (Settings → Pages → branch
-> `claude/ai-agent-business-course-RZJxN`, map `/root`) of via **Netlify** — sleep de map erin.
+### 🚀 Live op myaiagent.tech
+
+De site is voorbereid voor het domein **myaiagent.tech** (er staat een `CNAME`-bestand klaar).
+Twee manieren om hem live te zetten:
+
+**Optie A — GitHub Pages (gratis):**
+1. Repo → Settings → Pages → Source: branch `claude/ai-agent-business-course-RZJxN`, map `/ (root)`.
+2. Custom domain: `myaiagent.tech` (de `CNAME` staat al klaar).
+3. Bij je .tech-domeinregistrar: zet een `CNAME`/`ALIAS` van `www` en de apex naar GitHub Pages
+   (`<gebruikersnaam>.github.io`) of de 4 A-records van GitHub Pages voor de apex.
+4. Zet "Enforce HTTPS" aan.
+
+**Optie B — Netlify (gratis, snelst):**
+1. Koppel de repo (of sleep de map naar app.netlify.com).
+2. Voeg `myaiagent.tech` toe als custom domain en volg de DNS-instructies van Netlify.
+
+Na koppeling is de cursus wereldwijd bereikbaar op **https://myaiagent.tech**.
 
 ---
 

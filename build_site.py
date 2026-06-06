@@ -19,6 +19,11 @@ import re
 HIER = os.path.dirname(os.path.abspath(__file__))
 MOD_DIR = os.path.join(HIER, "modules")
 
+# Merk / domein
+SITE_NAME = "MyAIAgent.tech"
+SITE_DOMAIN = "myaiagent.tech"
+SITE_URL = "https://myaiagent.tech"
+
 # Volgorde + korte omschrijving + icoon per module (voor de landingspagina).
 MODULES = [
     ("00-introductie-en-mindset",   "Introductie & mindset",        "Realistische verwachtingen en hoe agents écht geld verdienen.", "🧭"),
@@ -196,6 +201,8 @@ HEAD = """<!doctype html>
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="MyAIAgent.tech">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#05060a">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -208,7 +215,7 @@ HEAD = """<!doctype html>
 """
 
 NAV = """<nav class="nav"><div class="wrap">
-<a class="brand" href="{root}index.html"><span class="mark">◆</span> De Autonome Onderneming</a>
+<a class="brand" href="{root}index.html"><span class="mark">◆</span> {site}</a>
 <div class="nav-links">
   <a href="{root}index.html#modules">Modules</a>
   <a href="{root}index.html#waarom">Waarom</a>
@@ -218,7 +225,7 @@ NAV = """<nav class="nav"><div class="wrap">
 
 FOOT = """<footer><div class="wrap">
 <div>
-  <div class="brand" style="margin-bottom:6px"><span class="mark">◆</span> De Autonome Onderneming</div>
+  <div class="brand" style="margin-bottom:6px"><span class="mark">◆</span> {site}</div>
   <div class="disclaimer">Educatief materiaal — geen financieel, juridisch of fiscaal advies. Jij bent verantwoordelijk voor wat je agent doet. Bouw verantwoord.</div>
 </div>
 <div style="text-align:right">
@@ -274,7 +281,7 @@ def build_module(idx: int) -> None:
     page = (
         HEAD.format(title=f"{titel} · De Autonome Onderneming", desc=desc, root="")
         + '<div class="reader-top"><div class="bar" id="rbar"></div></div>'
-        + NAV.format(root="")
+        + NAV.format(root="", site=SITE_NAME)
         + '<article class="article">'
         + f'<div class="crumb">{crumb}</div>'
         + f"<h1>{html.escape(titel)}</h1>"
@@ -284,7 +291,7 @@ def build_module(idx: int) -> None:
         + f'<div class="pager">{prev_html}{next_html}</div>'
         + "</article>"
         + '<a class="toc-fab" href="index.html#modules">☰ Alle modules</a>'
-        + FOOT.format(root="")
+        + FOOT.format(root="", site=SITE_NAME)
         + READER_JS
         + "</body></html>"
     )
@@ -324,7 +331,7 @@ def build_index() -> None:
             desc="De complete, futuristische cursus: bouw stap voor stap een autonome AI-agent die echt bedrijfswerk doet en geld voor je verdient — met de mens op de juiste plek.",
             root="",
         )
-        + NAV.format(root="")
+        + NAV.format(root="", site=SITE_NAME)
         # HERO
         + '<header class="hero"><div class="wrap">'
         + '<div class="eyebrow"><span class="dot"></span> 13 modules · werkende code · 100% Nederlands</div>'
@@ -362,7 +369,7 @@ def build_index() -> None:
         + "<p>Begin bij module 00. Over 30 dagen heb je geen theorie, maar een echt, draaiend mini-bedrijf.</p>"
         + '<a class="btn btn-primary" href="module-00-introductie-en-mindset.html">Start nu →</a>'
         + "</div></div></section>"
-        + FOOT.format(root="")
+        + FOOT.format(root="", site=SITE_NAME)
         + REVEAL_JS
         + "</body></html>"
     )
