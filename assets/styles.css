@@ -114,6 +114,13 @@ body {
 .nav-links { display: flex; gap: 26px; align-items: center; }
 .nav-links a { color: var(--text-dim); text-decoration: none; font-size: .92rem; font-weight: 500; transition: color .2s; }
 .nav-links a:hover { color: var(--text); }
+.nav-right { display: flex; align-items: center; gap: 18px; }
+.lang-switch { display: inline-flex; align-items: center; gap: 6px; padding: 6px 13px;
+  border: 1px solid var(--border); border-radius: 999px; color: var(--text);
+  text-decoration: none; font-size: .82rem; font-weight: 600; letter-spacing: .04em;
+  transition: border-color .2s, box-shadow .3s, color .2s; }
+.lang-switch svg { width: 15px; height: 15px; color: var(--gold-bright); }
+.lang-switch:hover { border-color: rgba(236, 200, 120, .55); box-shadow: var(--glow-cyan); }
 @media (max-width: 720px) { .nav-links { display: none; } }
 
 /* ---- Buttons ---- */

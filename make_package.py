@@ -21,7 +21,7 @@ ZIP_PAD = os.path.join(UIT, "myaiagent-cursus.zip")
 
 # Wat er in het pakket komt (volledige cursus, offline bruikbaar).
 LOSSE_BESTANDEN = ["README.md", "index.html"]
-MAPPEN = ["modules", "code", "templates", "assets"]
+MAPPEN = ["modules", "code", "templates", "assets", "en"]
 # Ook de gerenderde modulepagina's meenemen voor offline lezen.
 EXTRA_GLOB_PREFIX = "module-"
 

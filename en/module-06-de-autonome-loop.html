@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The autonomous loop · MyAIAgent.tech</title>
+<meta name="description" content="An agent that keeps working on its own — safely.">
+<meta property="og:title" content="The autonomous loop · MyAIAgent.tech">
+<meta property="og:description" content="An agent that keeps working on its own — safely.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MyAIAgent.tech">
+<meta property="og:image" content="https://d8j0ntlcm91z4.cloudfront.net/user_3EV64GaphhBt3vnsJcygYZCjJZa/hf_20260606_152832_ced37d1b-044a-4c0f-97f3-fd873371a7da.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://d8j0ntlcm91z4.cloudfront.net/user_3EV64GaphhBt3vnsJcygYZCjJZa/hf_20260606_152832_ced37d1b-044a-4c0f-97f3-fd873371a7da.png">
+<meta name="theme-color" content="#07060a">
+<link rel="icon" href="https://d8j0ntlcm91z4.cloudfront.net/user_3EV64GaphhBt3vnsJcygYZCjJZa/hf_20260606_152841_53f4de5c-cd0b-4fd3-8794-1649a152eb1c.png">
+<link rel="apple-touch-icon" href="https://d8j0ntlcm91z4.cloudfront.net/user_3EV64GaphhBt3vnsJcygYZCjJZa/hf_20260606_152841_53f4de5c-cd0b-4fd3-8794-1649a152eb1c.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+<div class="bg-fx"></div><div class="bg-grid"></div>
+<div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
+<div class="reader-top"><div class="bar" id="rbar"></div></div><nav class="nav"><div class="wrap"><a class="brand" href="index.html"><span class="mark">◆</span> MyAIAgent.tech</a><div class="nav-right"><div class="nav-links"><a href="index.html#modules">Modules</a><a href="index.html#waarom">Why</a><a href="index.html#koop">Get the course</a></div><a class="lang-switch" href="../module-06-de-autonome-loop.html" title="Nederlands"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18z"/></svg> NL</a></div></div></nav><article class="article"><div class="crumb">MODULE 06</div><h1>The autonomous loop</h1><p style="color:var(--text-dim);font-size:1.12rem">An agent that keeps working on its own — safely.</p><hr><blockquote><p>Goal: build an agent that keeps working toward a goal on its own — robustly, affordably, and<br>safely. This is the transition from "agent that does one task" to "agent that runs a process".</p></blockquote>
+<p>Associated code: <a href="../code/business_agent.py"><code>code/business_agent.py</code></a>.</p>
+<hr>
+<h2>What is "the loop"?</h2>
+<p>An autonomous agent runs in a cycle until its goal is reached:</p>
+<pre><code>        ┌──────────────────────────────────────────┐
+        │                                          │
+   ┌────▼─────┐   ┌──────────┐   ┌──────────────┐  │
+   │ Think     │──▶│ Choose   │──▶│ Process      │──┘
+   │ (plan)    │   │ a tool   │   │ result       │
+   └───────────┘   └──────────┘   └──────────────┘
+        │
+        ▼ (goal reached?)
+     Done ✅</code></pre>
+<p>The challenge isn't the loop itself (that's straightforward) — it's keeping it <strong>safe and affordable</strong>. An uncontrolled loop is the single biggest risk with agents.</p>
+<hr>
+<h2>The four laws of a safe loop</h2>
+<h3>Law 1 — Always a hard step limit</h3>
+<p>An agent must never run forever. Build in a counter:</p>
+<pre><code>MAX_STEPS = 25
+for step in range(MAX_STEPS):
+    ...
+else:
+    log("Step limit reached — stopped.")</code></pre>
+<p>This prevents a stuck agent from draining your entire budget.</p>
+<h3>Law 2 — Always a budget limit</h3>
+<p>Add up costs after every API call; stop at the limit. (See <code>CostMeter</code> in <code>agent_mvp.py</code> and <code>business_agent.py</code>.) Also set a <strong>hard limit in the Anthropic console</strong> as a safety net.</p>
+<h3>Law 3 — Always log</h3>
+<p>Log every decision, tool call, and result — with timestamp and cost. Without a log you'll never know what your agent did when something goes wrong. An agent without logs is an agent you cannot trust.</p>
+<h3>Law 4 — Checkpoints on risky actions</h3>
+<p>Spending money, publishing something, anything irreversible: have the agent ask for approval first (see modules 05 and 10). Autonomy is a sliding scale; start strict, relax as you build trust in the agent.</p>
+<hr>
+<h2>The loop at a glance</h2>
+<pre><code>  ┌────────────────────────────────────────────────────┐
+  │              Autonomous agent loop                 │
+  │                                                    │
+  │  ┌─────────┐                                       │
+  │  │  Start  │                                       │
+  │  └────┬────┘                                       │
+  │       │                                            │
+  │       ▼                         step &gt; MAX_STEPS?  │
+  │  ┌──────────┐  tool_use   ┌──────────┐  yes        │
+  │  │  Model   │────────────▶│  Run     │──────► 🛑   │
+  │  │  thinks  │◀────────────│  tool    │             │
+  │  └──────────┘  result     └──────────┘             │
+  │       │                        ▲                   │
+  │       │ end_turn               │ risky action?     │
+  │       ▼                        └── ask human ✋    │
+  │  ┌──────────┐                                      │
+  │  │  Done ✅ │                                      │
+  │  └──────────┘                                      │
+  └────────────────────────────────────────────────────┘</code></pre>
+<hr>
+<h2>Stopping at the right moment</h2>
+<p>The model signals why it stopped via <code>stop_reason</code>:</p>
+<table><thead><tr><th><code>stop_reason</code></th><th>Meaning</th><th>What you do</th></tr></thead><tbody><tr><td><code>end_turn</code></td><td>Model is done</td><td>Exit the loop</td></tr><tr><td><code>tool_use</code></td><td>Model wants to use a tool</td><td>Run the tool, return the result</td></tr><tr><td><code>max_tokens</code></td><td>Response was cut off</td><td>Increase <code>max_tokens</code></td></tr><tr><td><code>pause_turn</code></td><td>Server-side tool paused</td><td>Resend to resume</td></tr><tr><td><code>refusal</code></td><td>Model refused (safety)</td><td>Do not retry; investigate</td></tr></tbody></table>
+<p>Your loop keeps going as long as the model wants to use tools, and exits cleanly on <code>end_turn</code>.</p>
+<hr>
+<h2>Controlling costs in a long loop: prompt caching</h2>
+<p>With an agent that has a large, fixed system prompt and many tools, you pay for that context on every single step — unless you use <strong>prompt caching</strong>. With caching, repeated context becomes nearly free (~90% cheaper). You mark your fixed context once:</p>
+<pre><code>system=[
+    {
+        "type": "text",
+        "text": LARGE_SYSTEM_PROMPT,
+        "cache_control": {"type": "ephemeral"},   # cache this fixed context
+    }
+]</code></pre>
+<p>For long-running agents this can dramatically cut costs. Keep your system prompt and tool set <strong>stable</strong> within a session — any change breaks the cache.</p>
+<hr>
+<h2>Very long tasks: compaction</h2>
+<p>If an agent works for hours, the conversation grows until the context window fills up. <strong>Compaction</strong> (beta) automatically summarizes older context so the agent can keep going. You enable it and pass the summary blocks back each time. For most beginners this isn't needed yet — just remember it exists for when your agents really start running long.</p>
+<hr>
+<h2>Memory between sessions</h2>
+<p>A loop remembers nothing by default once it finishes. For a business you often want the agent to learn and remember (customer preferences, past decisions). Three options:</p>
+<ol>
+<li><strong>Your own storage</strong> — write important facts to a file or database, and load them as context</li>
+</ol>
+<p>   at startup. Simple and effective. (Used in <code>business_agent.py</code>.)</p>
+<ol>
+<li><strong>Memory tool</strong> — a tool that lets the agent write to and read from a memory store itself.</li>
+<li><strong>Managed Agents with memory stores</strong> — Anthropic manages persistent memory (module 07).</li>
+</ol>
+<p>Start with option 1: a simple <code>memory.json</code> file you read in at the start and write out at the end.</p>
+<blockquote><p>💡 <strong>In Claude.ai:</strong> The claude.ai web chat gives Claude a short-term memory within one<br>conversation, but it resets when you start a new chat. For persistent memory across sessions<br>(customer preferences, running totals, decision history) you need the API with your own<br>storage solution. Think of claude.ai as a great place to prototype and test logic, not as a<br>long-running autonomous business agent.</p></blockquote>
+<hr>
+<h2>The complete business agent</h2>
+<p><a href="../code/business_agent.py"><code>code/business_agent.py</code></a> brings everything together:</p>
+<ul>
+<li>An autonomous loop with step and budget limits (laws 1 &amp; 2).</li>
+<li>Tools for reading, writing, and acting (module 05).</li>
+<li>Logging to file (law 3).</li>
+<li>A human-in-the-loop checkpoint on spending (law 4).</li>
+<li>Simple cross-run memory via a JSON file.</li>
+</ul>
+<p>The scenario: an agent that handles daily customer inquiries for a service business — it qualifies leads, answers standard questions on its own, and escalates complex or costly requests to you. Run it:</p>
+<pre><code>python code/business_agent.py</code></pre>
+<p>Study the code line by line. This is the skeleton on which you build your own business agent.</p>
+<hr>
+<h2>Your assignment</h2>
+<ol>
+<li>Run <code>business_agent.py</code> and follow the log lines.</li>
+<li>Adjust the tools, system prompt, and checkpoint threshold to fit your business.</li>
+<li>Deliberately apply all four laws when you write your own agent.</li>
+<li>Let it run alongside your manual work for a day and compare the outcomes.</li>
+</ol>
+<hr><div class="pager"><a class="prev" href="module-05-tools-en-acties.html"><div class="lbl">← Previous</div><div class="ttl">Give your agent tools</div></a><a class="next" href="module-07-managed-agents.html"><div class="lbl">Next →</div><div class="ttl">Managed Agents &amp; scaling</div></a></div></article><a class="toc-fab" href="index.html#modules">☰ All modules</a><footer><div class="wrap"><div><div class="brand" style="margin-bottom:6px"><span class="mark">◆</span> MyAIAgent.tech</div><div class="disclaimer">Educational material — not financial, legal or tax advice. You are responsible for what your agent does. Build responsibly.</div></div><div style="text-align:right"><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="module-00-introductie-en-mindset.html">Start</a><br><span style="opacity:.6">Built with the Claude API · Opus 4.8</span></div></div></footer><script>const bar=document.getElementById("rbar");addEventListener("scroll",()=>{const h=document.documentElement;const p=h.scrollTop/(h.scrollHeight-h.clientHeight);bar.style.width=(p*100)+"%";},{passive:true});</script></body></html>

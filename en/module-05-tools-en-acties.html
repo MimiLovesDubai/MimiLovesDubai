@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Give your agent tools · MyAIAgent.tech</title>
+<meta name="description" content="How your agent performs real actions in the world.">
+<meta property="og:title" content="Give your agent tools · MyAIAgent.tech">
+<meta property="og:description" content="How your agent performs real actions in the world.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MyAIAgent.tech">
+<meta property="og:image" content="https://d8j0ntlcm91z4.cloudfront.net/user_3EV64GaphhBt3vnsJcygYZCjJZa/hf_20260606_152832_ced37d1b-044a-4c0f-97f3-fd873371a7da.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://d8j0ntlcm91z4.cloudfront.net/user_3EV64GaphhBt3vnsJcygYZCjJZa/hf_20260606_152832_ced37d1b-044a-4c0f-97f3-fd873371a7da.png">
+<meta name="theme-color" content="#07060a">
+<link rel="icon" href="https://d8j0ntlcm91z4.cloudfront.net/user_3EV64GaphhBt3vnsJcygYZCjJZa/hf_20260606_152841_53f4de5c-cd0b-4fd3-8794-1649a152eb1c.png">
+<link rel="apple-touch-icon" href="https://d8j0ntlcm91z4.cloudfront.net/user_3EV64GaphhBt3vnsJcygYZCjJZa/hf_20260606_152841_53f4de5c-cd0b-4fd3-8794-1649a152eb1c.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+<div class="bg-fx"></div><div class="bg-grid"></div>
+<div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
+<div class="reader-top"><div class="bar" id="rbar"></div></div><nav class="nav"><div class="wrap"><a class="brand" href="index.html"><span class="mark">◆</span> MyAIAgent.tech</a><div class="nav-right"><div class="nav-links"><a href="index.html#modules">Modules</a><a href="index.html#waarom">Why</a><a href="index.html#koop">Get the course</a></div><a class="lang-switch" href="../module-05-tools-en-acties.html" title="Nederlands"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18z"/></svg> NL</a></div></div></nav><article class="article"><div class="crumb">MODULE 05</div><h1>Give your agent tools</h1><p style="color:var(--text-dim);font-size:1.12rem">How your agent performs real actions in the world.</p><hr><blockquote><p>Goal: make your agent *act* in the real world — not just talk. This is what actually makes an<br>agent earn money.</p></blockquote>
+<p>Associated code: <a href="../code/tools.py"><code>code/tools.py</code></a>.</p>
+<hr>
+<h2>Talking vs. doing</h2>
+<p>Up to now, your agent generates text. But a business runs on *actions*: sending an email, placing an order, saving a record, adjusting a price. For this you give the agent <strong>tools</strong>: functions it is allowed to call on its own.</p>
+<p>The flow is always the same:</p>
+<pre><code>1. You define tools (name, description, parameters).
+2. The model decides on its own when and with what arguments to call a tool.
+3. Your code executes the function and returns the result.
+4. The model continues with that result — until the goal is reached.</code></pre>
+<p>This is called <strong>tool use</strong> (or function calling). It is the heart of every real agent.</p>
+<hr>
+<h2>How tool use works — the basic cycle</h2>
+<pre><code>  ┌──────────────┐     ┌─────────────────────────┐
+  │  Your code   │────▶│  Model                  │
+  │  (messages)  │     │  (reads tools, decides  │
+  └──────────────┘     │   when to call one)     │
+         ▲             └────────────┬────────────┘
+         │                         │ tool_use block
+         │                         ▼
+         │             ┌─────────────────────────┐
+         │  result     │  Your function runs     │
+         └─────────────│  (real side-effect:     │
+                       │   email sent, DB saved) │
+                       └─────────────────────────┘</code></pre>
+<p>The model never runs your code directly — it asks for a tool call, you execute it, and you hand the result back. You stay in control at every step.</p>
+<hr>
+<h2>Defining a tool</h2>
+<p>A tool has three things: a <strong>name</strong>, a <strong>description</strong> (this is what the model uses to decide!), and an <strong>input schema</strong> (JSON Schema). Example:</p>
+<pre><code>tools = [
+    {
+        "name": "send_email",
+        "description": "Send an email to a customer. Use this only for "
+                       "confirmed, finished messages.",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "to": {"type": "string", "description": "The recipient's email address"},
+                "subject": {"type": "string"},
+                "body": {"type": "string"},
+            },
+            "required": ["to", "subject", "body"],
+        },
+    }
+]</code></pre>
+<blockquote><p>💡 The <strong>description</strong> is critical. Write exactly when the tool should be used, not just<br>what it does. "Use this when the customer requests a quote" produces much better results<br>than simply "sends a quote".</p></blockquote>
+<blockquote><p>💡 <strong>In Claude.ai:</strong> You can test tool descriptions right in the claude.ai chat by describing<br>the tool in plain language and asking Claude how it would decide to use it. This helps you<br>refine the wording before writing any code. The actual tool-calling loop still requires the API.</p></blockquote>
+<hr>
+<h2>The easy way: the tool runner</h2>
+<p>The Python SDK has a <strong>tool runner</strong> that handles the entire loop for you: it calls the API, executes your tools, feeds the results back, and repeats until the model is done. You define tools as regular Python functions with the <code>@beta_tool</code> decorator:</p>
+<pre><code>import anthropic
+from anthropic import beta_tool
+
+client = anthropic.Anthropic()
+
+@beta_tool
+def get_stock(product_id: str) -&gt; str:
+    """Get the current stock level for a product.
+
+    Args:
+        product_id: The unique ID of the product.
+    """
+    # In reality, you'd call your real database or webshop API here.
+    stock = {"chair-001": 3, "table-002": 25}
+    return f"Stock for {product_id}: {stock.get(product_id, 0)} units."
+
+@beta_tool
+def place_order(product_id: str, quantity: int) -&gt; str:
+    """Place a purchase order with the supplier.
+
+    Args:
+        product_id: The ID of the product.
+        quantity: Number of units to order.
+    """
+    return f"Order placed: {quantity}x {product_id}. Delivery in 3 days."
+
+# The runner handles the complete agentic loop automatically:
+runner = client.beta.messages.tool_runner(
+    model="claude-opus-4-8",
+    max_tokens=4000,
+    tools=[get_stock, place_order],
+    messages=[{"role": "user", "content": "Check chair-001 and reorder if stock is below 5."}],
+)
+
+for message in runner:
+    for block in message.content:
+        if block.type == "text":
+            print(block.text)</code></pre>
+<p>The model checks the stock itself, decides a reorder is needed, and places the order — all without you having to program the individual steps. That is an agent.</p>
+<p>The schemas are generated automatically from your function signature and docstring. Write clear docstrings — the model reads them.</p>
+<hr>
+<h2>The manual loop: for control and checkpoints</h2>
+<p>Sometimes you want to stay in control yourself — for example, to ask a human for approval before a risky action. Then you write the loop yourself. The pattern:</p>
+<pre><code>messages = [{"role": "user", "content": "..."}]
+while True:
+    response = client.messages.create(
+        model="claude-opus-4-8", max_tokens=4000, tools=tools, messages=messages,
+    )
+    if response.stop_reason == "end_turn":
+        break  # model is done
+
+    messages.append({"role": "assistant", "content": response.content})
+
+    tool_results = []
+    for block in response.content:
+        if block.type == "tool_use":
+            # HERE you can add a checkpoint (human-in-the-loop)!
+            result = run_tool(block.name, block.input)
+            tool_results.append({
+                "type": "tool_result",
+                "tool_use_id": block.id,
+                "content": result,
+            })
+    messages.append({"role": "user", "content": tool_results})</code></pre>
+<p>See <a href="../code/tools.py"><code>code/tools.py</code></a> for a complete, runnable example with a human-in-the-loop checkpoint on expensive actions.</p>
+<hr>
+<h2>Which actions deserve their own tool?</h2>
+<p>Not everything needs to be a tool. Give an action its own tool when:</p>
+<ul>
+<li><strong>Safety</strong> — the action is hard to reverse (spending money, sending an email, deleting data).</li>
+</ul>
+<p>  A dedicated tool can be gated behind approval.</p>
+<ul>
+<li><strong>Control</strong> — you want to log, validate, or rate-limit the action.</li>
+<li><strong>Clarity</strong> — the model performs better with a few well-defined tools than with one</li>
+</ul>
+<p>  do-everything tool.</p>
+<p>Rule of thumb: <strong>3–8 well-described tools</strong> is usually ideal. Too many tools confuse the model.</p>
+<hr>
+<h2>Types of tools your business needs</h2>
+<table><thead><tr><th>Category</th><th>Examples</th></tr></thead><tbody><tr><td><strong>Read</strong></td><td>check stock, fetch customer data, check calendar, search the web</td></tr><tr><td><strong>Write</strong></td><td>save a record, adjust a price, update a status</td></tr><tr><td><strong>Communicate</strong></td><td>send an email/message, post a notification</td></tr><tr><td><strong>Transact</strong></td><td>place an order, create an invoice, process a payment (behind approval!)</td></tr><tr><td><strong>Ask a human</strong></td><td><code>ask_human()</code> — lets the agent explicitly request help or approval</td></tr></tbody></table>
+<p>That last one, <code>ask_human()</code>, is your secret weapon for safe autonomy. We come back to it in module 10.</p>
+<hr>
+<h2>Server-side tools (free superpowers)</h2>
+<p>Anthropic also offers <strong>server-side tools</strong> that run on their infrastructure — you don't have to build anything yourself:</p>
+<ul>
+<li><strong>Web search &amp; web fetch</strong> — let your agent search the live web and read pages.</li>
+<li><strong>Code execution</strong> — let your agent run code in a secure sandbox (data analysis,</li>
+</ul>
+<p>  charts, generating files like Excel/PDF).</p>
+<p>You add them like regular tools, for example:</p>
+<pre><code>tools = [
+    {"type": "web_search_20260209", "name": "web_search"},
+    {"type": "code_execution_20260120", "name": "code_execution"},
+]</code></pre>
+<p>For a research or reporting agent, these are invaluable.</p>
+<hr>
+<h2>Your assignment</h2>
+<ol>
+<li>Run <a href="../code/tools.py"><code>code/tools.py</code></a> and watch how the model selects tools on its own.</li>
+<li>Write 2–4 tools for your own business (start with reading, then writing, then actions).</li>
+<li>Deliberately include an <code>ask_human()</code> tool for risky actions.</li>
+</ol>
+<hr><div class="pager"><a class="prev" href="module-04-je-eerste-agent-bouwen.html"><div class="lbl">← Previous</div><div class="ttl">Build your first agent</div></a><a class="next" href="module-06-de-autonome-loop.html"><div class="lbl">Next →</div><div class="ttl">The autonomous loop</div></a></div></article><a class="toc-fab" href="index.html#modules">☰ All modules</a><footer><div class="wrap"><div><div class="brand" style="margin-bottom:6px"><span class="mark">◆</span> MyAIAgent.tech</div><div class="disclaimer">Educational material — not financial, legal or tax advice. You are responsible for what your agent does. Build responsibly.</div></div><div style="text-align:right"><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="module-00-introductie-en-mindset.html">Start</a><br><span style="opacity:.6">Built with the Claude API · Opus 4.8</span></div></div></footer><script>const bar=document.getElementById("rbar");addEventListener("scroll",()=>{const h=document.documentElement;const p=h.scrollTop/(h.scrollHeight-h.clientHeight);bar.style.width=(p*100)+"%";},{passive:true});</script></body></html>

@@ -11,6 +11,18 @@ het maximale haalt uit wat wél werkt.
 
 ---
 
+## 🌍 Tweetalig — Nederlands & English
+
+De cursus is er in twee talen, met een taalwisselaar (NL/EN) rechtsboven op de site:
+- **Nederlands** op de hoofdmap (`index.html`).
+- **English** onder `/en/` (`en/index.html`).
+
+Er is ook een bonusmodule **"Bouwen met Claude.ai / Build it with Claude.ai"** die uitlegt hoe
+je zonder veel code je agent ontwerpt en test in de claude.ai-chatapp. The English modules add
+step-by-step diagrams and "In Claude.ai" tips throughout.
+
+---
+
 ## 🌐 Bekijk de cursus als website
 
 Deze cursus is ook een **schitterende, futuristische website** — open `index.html` in je

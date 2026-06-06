@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Managed Agents & scaling · MyAIAgent.tech</title>
+<meta name="description" content="Agents that run 24/7 on Anthropic's infrastructure.">
+<meta property="og:title" content="Managed Agents & scaling · MyAIAgent.tech">
+<meta property="og:description" content="Agents that run 24/7 on Anthropic's infrastructure.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MyAIAgent.tech">
+<meta property="og:image" content="https://d8j0ntlcm91z4.cloudfront.net/user_3EV64GaphhBt3vnsJcygYZCjJZa/hf_20260606_152832_ced37d1b-044a-4c0f-97f3-fd873371a7da.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://d8j0ntlcm91z4.cloudfront.net/user_3EV64GaphhBt3vnsJcygYZCjJZa/hf_20260606_152832_ced37d1b-044a-4c0f-97f3-fd873371a7da.png">
+<meta name="theme-color" content="#07060a">
+<link rel="icon" href="https://d8j0ntlcm91z4.cloudfront.net/user_3EV64GaphhBt3vnsJcygYZCjJZa/hf_20260606_152841_53f4de5c-cd0b-4fd3-8794-1649a152eb1c.png">
+<link rel="apple-touch-icon" href="https://d8j0ntlcm91z4.cloudfront.net/user_3EV64GaphhBt3vnsJcygYZCjJZa/hf_20260606_152841_53f4de5c-cd0b-4fd3-8794-1649a152eb1c.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+<div class="bg-fx"></div><div class="bg-grid"></div>
+<div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
+<div class="reader-top"><div class="bar" id="rbar"></div></div><nav class="nav"><div class="wrap"><a class="brand" href="index.html"><span class="mark">◆</span> MyAIAgent.tech</a><div class="nav-right"><div class="nav-links"><a href="index.html#modules">Modules</a><a href="index.html#waarom">Why</a><a href="index.html#koop">Get the course</a></div><a class="lang-switch" href="../module-07-managed-agents.html" title="Nederlands"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18z"/></svg> NL</a></div></div></nav><article class="article"><div class="crumb">MODULE 07</div><h1>Managed Agents &amp; scaling</h1><p style="color:var(--text-dim);font-size:1.12rem">Agents that run 24/7 on Anthropic&#x27;s infrastructure.</p><hr><blockquote><p>Goal: run your agent 24/7 without managing any infrastructure yourself, and have multiple<br>agents work together. This is how you go from "runs on my laptop" to "runs all the time."</p></blockquote>
+<p>Companion code: <a href="../code/managed_agent_setup.py"><code>code/managed_agent_setup.py</code></a>.</p>
+<hr>
+<h2>The Problem with Your Own Loop</h2>
+<p>The agents from modules 04–06 run on your computer, in your script. That's perfect for learning and testing, but for a real business you want:</p>
+<ul>
+<li><strong>24/7 availability</strong> (even when your laptop is off).</li>
+<li><strong>A secure sandbox</strong> where the agent can read/write files and run code.</li>
+<li><strong>No server management</strong> — no Linux servers, no uptime worries.</li>
+</ul>
+<p>This is what <strong>Managed Agents</strong> are for: Anthropic runs the agent loop and a sandbox container for you. You send messages in and get a stream of events back.</p>
+<hr>
+<h2>How Managed Agents Work</h2>
+<p>There are three core concepts:</p>
+<table><thead><tr><th>Concept</th><th>What it is</th></tr></thead><tbody><tr><td><strong>Agent</strong></td><td>A saved, versioned configuration: model, system prompt, tools, skills. Create once, reuse endlessly.</td></tr><tr><td><strong>Environment</strong></td><td>A template for the container (sandbox) in which the tools run.</td></tr><tr><td><strong>Session</strong></td><td>One running execution of an agent in an environment. This is where you send messages.</td></tr></tbody></table>
+<blockquote><p>⚠️ <strong>The golden order:</strong> create the <strong>Agent once</strong> (in a setup script), save its <code>id</code>, and<br>then for every run just start a <strong>Session</strong> that references that id. Never create a new agent<br>on every run — that's the most common mistake.</p></blockquote>
+<pre><code>SETUP (once)                        RUNTIME (every run)
+┌────────────────────┐             ┌──────────────────────────┐
+│ environments.create │            │ sessions.create(          │
+│ agents.create       │  ── id ──▶ │   agent=AGENT_ID,         │
+│   → save AGENT_ID   │            │   environment_id=ENV_ID)  │
+└────────────────────┘             │ events.send(...)          │
+                                   │ events.stream(...)        │
+                                   └──────────────────────────┘</code></pre>
+<blockquote><p>💡 <strong>In Claude.ai:</strong> You can prototype your agent's system prompt and test instructions<br>directly in the claude.ai chat interface before wiring them up via the API. It's a fast way to<br>iterate on wording — just keep in mind that actually *running* a Managed Agent 24/7 requires<br>the Anthropic API, not the web chat.</p></blockquote>
+<hr>
+<h2>What a Managed Agent Adds</h2>
+<ul>
+<li><strong>Built-in toolset</strong> (<code>agent_toolset_20260401</code>): bash, read/write/edit files,</li>
+</ul>
+<p>  file search, web search, web fetch — ready to use out of the box.</p>
+<ul>
+<li><strong>A real working directory (container)</strong> where the agent creates files (reports, Excel, code).</li>
+<li><strong>Skills</strong>: ready-made expertise (e.g. <code>xlsx</code>, <code>docx</code>, <code>pptx</code>, <code>pdf</code>) that the agent</li>
+</ul>
+<p>  uses automatically when needed.</p>
+<ul>
+<li><strong>MCP servers</strong>: connect external services (GitHub, your own tools) with secure credential</li>
+</ul>
+<p>  storage (vaults).</p>
+<ul>
+<li><strong>Persistent memory</strong> (memory stores) that survives across sessions.</li>
+<li><strong>Automatic compaction &amp; prompt caching</strong> — long tasks stay affordable.</li>
+</ul>
+<hr>
+<h2>Agent → Session: The Core Flow</h2>
+<p>This diagram shows how a single Agent config powers many independent Sessions:</p>
+<pre><code>  ┌──────────────────────────────────┐
+  │            AGENT                 │
+  │  model + system prompt + tools   │
+  │  (created once, reused forever)  │
+  └────────────────┬─────────────────┘
+                   │  referenced by AGENT_ID
+       ┌───────────┼───────────┐
+       ▼           ▼           ▼
+  ┌─────────┐ ┌─────────┐ ┌─────────┐
+  │Session 1│ │Session 2│ │Session 3│   ← run in parallel
+  │ task A  │ │ task B  │ │ task C  │
+  │container│ │container│ │container│
+  └────┬────┘ └────┬────┘ └────┬────┘
+       │           │           │
+       ▼           ▼           ▼
+   result A    result B    result C</code></pre>
+<p>Each session is isolated — its own container and memory — so parallel jobs don't interfere.</p>
+<hr>
+<h2>Setting Up a Managed Agent (Code)</h2>
+<p>See <a href="../code/managed_agent_setup.py"><code>code/managed_agent_setup.py</code></a> for a complete example. The core:</p>
+<pre><code>import anthropic
+client = anthropic.Anthropic()
+
+# 1. SETUP — once. Save these ids (in your .env, config, or database).
+environment = client.beta.environments.create(
+    name="my-business-env",
+    config={"type": "cloud", "networking": {"type": "unrestricted"}},
+)
+
+agent = client.beta.agents.create(
+    name="Research and reporting agent",
+    model="claude-opus-4-8",
+    system="You are a thorough market researcher. You deliver concise, well-supported reports.",
+    tools=[{"type": "agent_toolset_20260401"}],   # bash, files, web search, etc.
+    skills=[{"type": "anthropic", "skill_id": "xlsx"}],  # can create Excel files
+)
+print("Save these:", agent.id, environment.id)</code></pre>
+<pre><code># 2. RUNTIME — every time you want work done.
+session = client.beta.sessions.create(
+    agent=AGENT_ID,                 # the saved id
+    environment_id=ENV_ID,
+    title="Market research: furniture trends",
+)
+
+# Open the stream first, then send your request (stream-first!).
+stream = client.beta.sessions.events.stream(session_id=session.id)
+client.beta.sessions.events.send(
+    session_id=session.id,
+    events=[{"type": "user.message",
+             "content": [{"type": "text", "text": "Research the top 5 furniture trends this year and create an Excel summary."}]}],
+)
+
+for event in stream:
+    if event.type == "agent.message":
+        for block in event.content:
+            if block.type == "text":
+                print(block.text, end="", flush=True)
+    elif event.type == "session.status_idle":
+        break</code></pre>
+<p>The agent searches the web on its own, creates an Excel file in its container, and you download the result afterwards via the Files API. No server, no maintenance.</p>
+<hr>
+<h2>Outcomes: Let the Agent Keep Working Until It's Truly Done</h2>
+<p>A powerful pattern for business work is an <strong>outcome</strong>: you describe what "done" means with a testable rubric, and a separate evaluator has the agent iterate and improve until the result meets the criteria (or a limit is reached).</p>
+<pre><code>client.beta.sessions.events.send(
+    session_id=session.id,
+    events=[{
+        "type": "user.define_outcome",
+        "description": "Build a DCF valuation model for company X in Excel.",
+        "rubric": {"type": "text", "content": RUBRIC_MARKDOWN},
+        "max_iterations": 5,
+    }],
+)</code></pre>
+<p>For services with a clear "definition of done" (reports, models, analyses) this dramatically improves quality — the agent only delivers when the checklist is green.</p>
+<hr>
+<h2>Having Multiple Agents Work Together</h2>
+<p>For larger operations you have a <strong>coordinator agent</strong> delegate to specialized sub-agents (each with their own model, prompt, and tools):</p>
+<pre><code>orchestrator = client.beta.agents.create(
+    name="Operations lead",
+    model="claude-opus-4-8",
+    system="You coordinate. Delegate research and writing to your specialists.",
+    tools=[{"type": "agent_toolset_20260401"}],
+    multiagent={"type": "coordinator", "agents": [researcher.id, writer.id]},
+)</code></pre>
+<p>Don't start here. One agent that does one thing well is almost always the right starting point. Multi-agent is for when you want to scale a proven process.</p>
+<pre><code>Single-agent flow (start here)         Multi-agent flow (scale later)
+┌──────────────────────┐              ┌─────────────────────────────────────┐
+│  User request        │              │  User request                       │
+│        │             │              │        │                            │
+│        ▼             │              │        ▼                            │
+│  🤖 One agent        │              │  🤖 Coordinator agent               │
+│   (does everything)  │              │     │           │                   │
+│        │             │              │     ▼           ▼                   │
+│  Result delivered    │              │  🤖 Researcher  🤖 Writer           │
+└──────────────────────┘              │     │           │                   │
+                                      │     └─────┬─────┘                   │
+                                      │           ▼                         │
+                                      │    Result delivered                 │
+                                      └─────────────────────────────────────┘</code></pre>
+<hr>
+<h2>When to Use What</h2>
+<table><thead><tr><th>Situation</th><th>Choose</th></tr></thead><tbody><tr><td>Learning, testing, simple tasks</td><td>Your own loop on your laptop (modules 04–06)</td></tr><tr><td>24/7 running, sandbox needed, no server management</td><td><strong>Managed Agents</strong></td></tr><tr><td>Fixed, predictable steps</td><td>Workflow (not an agent)</td></tr><tr><td>Scaling a proven process</td><td>Multi-agent / multiple sessions</td></tr></tbody></table>
+<hr>
+<h2>Your Assignment</h2>
+<ol>
+<li>Read through <code>managed_agent_setup.py</code> (running it requires API access to the Managed Agents beta).</li>
+<li>Decide: does your business need 24/7 running, or is a scheduled run on your own machine</li>
+</ol>
+<p>   (e.g. via a cron job or a cloud task scheduler) enough for now?</p>
+<ol>
+<li>Sketch out which built-in tools and skills your agent would use.</li>
+</ol>
+<blockquote><p>💡 You don't need to use Managed Agents right away. Many profitable agent businesses run<br>just fine on a scheduled script. Switch over when you actually need it.</p></blockquote>
+<hr><div class="pager"><a class="prev" href="module-06-de-autonome-loop.html"><div class="lbl">← Previous</div><div class="ttl">The autonomous loop</div></a><a class="next" href="module-08-monetisatie.html"><div class="lbl">Next →</div><div class="ttl">Making money: monetization</div></a></div></article><a class="toc-fab" href="index.html#modules">☰ All modules</a><footer><div class="wrap"><div><div class="brand" style="margin-bottom:6px"><span class="mark">◆</span> MyAIAgent.tech</div><div class="disclaimer">Educational material — not financial, legal or tax advice. You are responsible for what your agent does. Build responsibly.</div></div><div style="text-align:right"><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="module-00-introductie-en-mindset.html">Start</a><br><span style="opacity:.6">Built with the Claude API · Opus 4.8</span></div></div></footer><script>const bar=document.getElementById("rbar");addEventListener("scroll",()=>{const h=document.documentElement;const p=h.scrollTop/(h.scrollHeight-h.clientHeight);bar.style.width=(p*100)+"%";},{passive:true});</script></body></html>
