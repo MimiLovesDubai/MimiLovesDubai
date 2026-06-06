@@ -202,8 +202,10 @@ HEAD = """<!doctype html>
 <meta property="og:description" content="{desc}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="MyAIAgent.tech">
+<meta property="og:image" content="https://myaiagent.tech/assets/img/hero.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#05060a">
+<meta name="twitter:image" content="https://myaiagent.tech/assets/img/hero.png">
+<meta name="theme-color" content="#07060a">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -333,15 +335,21 @@ def build_index() -> None:
         )
         + NAV.format(root="", site=SITE_NAME)
         # HERO
-        + '<header class="hero"><div class="wrap">'
+        + '<header class="hero"><div class="wrap hero-grid">'
+        + '<div class="hero-copy">'
         + '<div class="eyebrow"><span class="dot"></span> 13 modules · werkende code · 100% Nederlands</div>'
-        + '<h1>Bouw een <span class="gradient-text">AI-agent</span><br>die zélf een bedrijf runt</h1>'
+        + '<h1>Bouw een <span class="gradient-text">AI-agent</span> die zélf een bedrijf runt</h1>'
         + '<p class="lead">Geen hype. Een eerlijk, technisch draaiboek waarmee je een grotendeels autonome AI-agent bouwt die echt werk doet, klanten bedient en geld voor je verdient — terwijl jij de regie houdt.</p>'
         + '<div class="cta">'
         + '<a class="btn btn-primary" href="module-00-introductie-en-mindset.html">Start de cursus →</a>'
         + '<a class="btn btn-ghost" href="#modules">Bekijk alle modules</a>'
+        + "</div></div>"
+        + '<div class="hero-visual reveal"><div class="hero-frame">'
+        + '<img src="assets/img/hero.png" alt="Futuristische gouden AI-figuur in een luxe ruimteschip-lounge" '
+        + 'onerror="this.style.display=\'none\';this.parentNode.classList.add(\'empty\')">'
+        + '<div class="hero-frame-glow"></div></div></div>'
         + "</div>"
-        + '<div class="stats">'
+        + '<div class="wrap"><div class="stats">'
         + '<div class="stat reveal"><div class="num">13</div><div class="lbl">complete modules</div></div>'
         + '<div class="stat reveal"><div class="num">5</div><div class="lbl">draaibare code-voorbeelden</div></div>'
         + '<div class="stat reveal"><div class="num">24/7</div><div class="lbl">autonoom te draaien</div></div>'
