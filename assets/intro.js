@@ -12,7 +12,7 @@
   // base /assets/ url (works at root and /en/)
   var sc = document.querySelector('script[src*="intro.js"]');
   var ASSETS = sc ? sc.src.replace(/intro\.js.*$/, "") : "assets/";
-  var MUSIC_FILE = ASSETS + "media/opening-music.mp3"; // drop a real Flower Duet here to use it
+  var MUSIC_FILE = ASSETS + "media/opening-music.mp3"; // drop a real recording here to use it instead of the synth
 
   // ---------------- music layer ----------------
   var musicEl = null, actx = null, mGain = null, busDry = null, busWet = null, padNode = null, mTimers = [], synthStopped = false;

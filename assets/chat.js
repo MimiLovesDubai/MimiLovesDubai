@@ -150,6 +150,10 @@
 
     launch.addEventListener("click", openChat);
     panel.querySelector(".chat-x").addEventListener("click", closeChat);
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && panel.classList.contains("open")) closeChat(); });
+    document.addEventListener("click", function (e) {
+      if (panel.classList.contains("open") && !panel.contains(e.target) && !launch.contains(e.target)) closeChat();
+    });
     form.addEventListener("submit", function (e) {
       e.preventDefault(); var v = input.value.trim(); if (!v) return;
       bubble(escapeHtml(v), "me"); input.value = ""; botSay(find(v));
