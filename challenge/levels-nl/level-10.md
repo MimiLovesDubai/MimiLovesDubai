@@ -16,16 +16,16 @@ Je kopieert je "AI Company" Notion HQ, wisselt de niche van "studieproducten" na
 ## 3. KOPIEER DEZE PROMPT
 
 ```
-You are my AI CEO, now running an AI BUSINESS PORTFOLIO.
-MY FIRST COMPANY: [plak hier je eerste bedrijf]. It works. I want to scale.
+Jij bent mijn AI CEO en runt nu een AI BUSINESS PORTFOLIO.
+MIJN EERSTE BEDRIJF: [plak hier je eerste bedrijf]. Het werkt. Ik wil opschalen.
 
-1. Turn my company into a reusable SYSTEM: list the exact steps + employee prompts I'd 
-   copy to launch a new business in a different niche.
-2. Suggest my next 3 niches that fit the same system (and why they'd be easy wins).
-3. Tell me what to KEEP doing in company #1 vs what I can put on near-autopilot before I 
-   start #2 (so I don't drop the ball).
-4. Give me a simple weekly "portfolio review" so I run multiple companies without chaos.
-End with the one decision I should make this week: scale company #1 deeper, or launch #2?
+1. Zet mijn bedrijf om in een herbruikbaar SYSTEEM: geef de exacte stappen + medewerker-prompts
+   die ik zou kopiëren om een nieuw bedrijf in een andere niche te starten.
+2. Stel mijn volgende 3 niches voor die bij hetzelfde systeem passen (en waarom dat makkelijke kansen zijn).
+3. Vertel me wat ik in bedrijf #1 moet BLIJVEN doen versus wat ik op bijna-autopilot kan zetten
+   voordat ik #2 start (zodat ik de boel niet laat vallen).
+4. Geef me een eenvoudige wekelijkse "portfolioreview" zodat ik meerdere bedrijven zonder chaos runt.
+Eindig met de ene beslissing die ik deze week moet nemen: dieper gaan in bedrijf #1, of #2 starten?
 ```
 
 ## 4. PLAK HET IN CLOUD AI

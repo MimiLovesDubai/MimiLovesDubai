@@ -16,26 +16,26 @@ Elke ochtend open je je AI CEO en typ je *"daily standup."* Je krijgt: de 3 take
 ## 3. KOPIEER DEZE PROMPT
 
 ```
-You are my AI CEO running a 7-DAY AUTONOMOUS OPERATIONS challenge for my company.
-MY COMPANY: [plak hier je bedrijf + aanbod + huidige status]
-RULE: you run daily operations; I only approve money decisions and anything published.
+Jij bent mijn AI CEO en leidt de 7-DAAGSE AUTONOME OPERATIES-challenge voor mijn bedrijf.
+MIJN BEDRIJF: [plak hier je bedrijf + aanbod + huidige status]
+REGEL: jij runt de dagelijkse operaties; ik keur alleen geldbeslissingen en publicaties goed.
 
-Set up the loop:
-1. Define a simple DAILY STANDUP format I run with you each morning. It must output:
-   - today's top 3 tasks (one per department)
-   - content drafts ready to post (from the Content Creator)
-   - 3 suggested sales actions (from the Sales Agent)
-   - yesterday's numbers to log + one improvement
-2. Define an end-of-week REVIEW: what worked, what to drop, next week's focus.
-3. Tell me the 2 things I must personally approve before they go live (so I stay safe + legal).
-Run DAY 1 now: give me today's standup.
+Zet de loop op:
+1. Stel een eenvoudig DAGELIJKS STANDUP-format op dat ik elke ochtend met jou uitvoer. Het moet opleveren:
+   - de 3 belangrijkste taken van vandaag (één per afdeling)
+   - concepten klaar om te posten (van de Content Creator)
+   - 3 voorgestelde salesacties (van de Sales Agent)
+   - de cijfers van gisteren om te loggen + één verbeterpunt
+2. Stel een WEEKREVIEW op: wat werkte, wat laten vallen, focus voor de volgende week.
+3. Vertel me de 2 dingen die ik persoonlijk moet goedkeuren voordat ze live gaan (zodat ik veilig en juridisch in orde blijf).
+Voer DAG 1 nu uit: geef me de standup van vandaag.
 ```
 
 ## 4. PLAK HET IN CLOUD AI
 
 1. Gebruik je **AI CEO Project/GPT**. Plak de prompt. Voer **Dag 1** nu uit.
 2. Typ elke ochtend gedurende 7 dagen **"daily standup"** en werk de 15-minutenloop af.
-3. Houd een **7-dagenlogboek** bij in MY AI COMPANY (gedane taken, posts, verkopen, lessen).
+3. Houd een **7-dagenlogboek** bij in MIJN AI BEDRIJF (gedane taken, posts, verkopen, lessen).
 
 > ⚠️ **Mens in de loop:** jij keurt alles goed waarbij geld of publicatie betrokken is. Dat houdt je veilig, juridisch in orde, en in controle. "Grotendeels autonoom" — niet "onbeheerd."
 
@@ -47,11 +47,11 @@ Een herhaalbare dagelijkse standup, een weekreview, en een duidelijke lijst van 
 
 1. Voer de **7-dagenoperatieloop** uit (elke ochtend standup).
 2. Log dagelijks de resultaten; doe de **weekreview** op dag 7.
-3. Zet een vinkje bij **"AI Business System ✅"** in MY AI COMPANY.
+3. Zet een vinkje bij **"AI Business System ✅"** in MIJN AI BEDRIJF.
 
 ## 7. RESULTAAT
 
-Een **draaiend AI-bedrijfssysteem**: het plant, produceert en verkoopt dagelijks — met jou als goedkeurder, niet als buffelmachine. Je voelt het draaien.
+Een **draaiend AI-bedrijfssysteem**: het plant, produceert en verkoopt dagelijks — met jou als goedkeurder, niet als degene die alle uren draait. Je voelt het draaien.
 
 ## 8. ✅ LEVEL VOLTOOID
 

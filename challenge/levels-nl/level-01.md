@@ -65,7 +65,7 @@ Je hebt nu een **gekozen bedrijf** en een one-liner pitch — het doel waar alle
 ```
 ██████░░░░░░░░░░░░░░░░ 18%   LEVEL 1 VOLTOOID
 🔓 ONTGRENDELD: AI-kansenvinder + jouw bedrijfsidee
-👉 VOLGENDE: Level 2 — neem de Trendspotter in dienst om te ontdekken wat hot is.
+👉 VOLGENDE: Level 2 — neem de Trendspotter in dienst om te ontdekken wat populair is.
 ```
 
 📸 **FLEX:** Post je one-liner pitch: *"Ik liet een AI mijn bedrijf kiezen. Dit is wat het koos 👇"*

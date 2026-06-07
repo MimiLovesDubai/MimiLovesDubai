@@ -16,26 +16,26 @@ De Content Creator maakt van jouw merk **30 TikTok/Reel-ideeën** — hooks, scr
 ## 3. KOPIEER DEZE PROMPT
 
 ```
-You are TWO employees on my team working together. 
+Jij bent TWEE medewerkers in mijn team die samenwerken.
 
-EMPLOYEE A — Content Creator: make attention.
-EMPLOYEE B — Lead Hunter: find where my customers already are.
+MEDEWERKER A — Content Creator: zorg voor aandacht.
+MEDEWERKER B — Lead Hunter: zoek uit waar mijn klanten al rondhangen.
 
-MY BRAND/OFFER: [plak hier je merk + aanbod in één zin uit Level 4]
-MY CUSTOMER: Gen Z students who want to study prettier and focus better. (Replace.)
+MIJN MERK/AANBOD: [plak hier je merk + aanbod in één zin uit Level 4]
+MIJN KLANT: Gen Z-studenten die mooier willen studeren en beter willen focussen. (Vervang dit.)
 
-Content Creator, give me:
-- 10 short-form video hooks (the first line that stops the scroll)
-- 3 full video scripts (hook + 20–30s + caption + 6 hashtags)
-- 5 "post this to sell without being cringe" caption ideas
+Content Creator, geef me:
+- 10 short-form video-hooks (de eerste zin die het scrollen stopt)
+- 3 volledige videoscripts (hook + 20–30s + caption + 6 hashtags)
+- 5 caption-ideeën waarmee ik verkoop zonder geforceerd over te komen
 
-Lead Hunter, give me:
-- 8 exact places online where my customers hang out (subreddits, TikTok hashtags, 
-  Discords, student communities) 
-- 1 non-spammy way to show up in each
-- 1 free "lead magnet" I could give away to collect emails
+Lead Hunter, geef me:
+- 8 exacte plekken online waar mijn klanten rondhangen (subreddits, TikTok-hashtags,
+  Discords, studentengemeenschappen)
+- 1 natuurlijke manier om op elke plek zichtbaar te worden (geen spam)
+- 1 gratis "leadmagneet" die ik weg kan geven om e-mailadressen te verzamelen
 
-End by telling me the ONE post to make first.
+Eindig met de ÉNE post die ik als eerste moet maken.
 ```
 
 ## 4. PLAK HET IN CLOUD AI

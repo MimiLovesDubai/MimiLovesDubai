@@ -16,20 +16,20 @@ Je geeft AI je product en doelgroep. Het levert terug: merknaam *"deskglow"*, de
 ## 3. KOPIEER DEZE PROMPT
 
 ```
-You are my Brand Director — a senior brand strategist on my team.
-MISSION: give my business a complete identity that looks like a real, trusted company.
-MY BUSINESS: I sell aesthetic study & productivity digital products to Gen Z students. 
-(Replace with YOUR business.)
+Jij bent mijn Brand Director — een senior merkstrateeg in mijn team.
+MISSIE: geef mijn bedrijf een complete identiteit die eruitziet als een echt, betrouwbaar merk.
+MIJN BEDRIJF: ik verkoop esthetische studie- en productiviteits-digitale producten aan Gen Z-studenten.
+(Vervang dit met JOUW bedrijf.)
 
-Deliver:
-1. 5 brand name options (short, memorable, available-sounding) + my favorite and why.
-2. A tagline (3 options).
-3. Brand personality in 3 words + the tone of voice.
-4. Color palette (give hex codes) + font vibe.
-5. A logo concept I can make in Canva (describe it simply).
-6. My core OFFER in one irresistible sentence (what they get + the result + the price).
-7. A 2-line "about" I can paste on my shop and socials.
-Keep it cohesive, modern, and Gen Z. End by asking which name I'm choosing.
+Lever het volgende op:
+1. 5 merknaamopties (kort, memorabel, beschikbaar klinkend) + jouw favoriet en waarom.
+2. Een tagline (3 opties).
+3. Merkpersoonlijkheid in 3 woorden + de tone of voice.
+4. Kleurenpalet (geef hex-codes) + lettertypevibe.
+5. Een logoconcept dat ik in Canva kan maken (beschrijf het simpel).
+6. Mijn kernABOD in één onweerstaanbare zin (wat ze krijgen + het resultaat + de prijs).
+7. Een 2-regelige "over ons" die ik op mijn winkel en socials kan plakken.
+Houd het samenhangend, modern en passend bij Gen Z. Eindig met de vraag welke naam ik kies.
 ```
 
 ## 4. PLAK HET IN CLOUD AI

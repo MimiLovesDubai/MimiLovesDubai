@@ -1,6 +1,6 @@
 # 🎮 LEVEL 2 — Neem je eerste digitale werknemer aan: de Trendspotter
 
-**🎯 CHALLENGE:** Kan AI *automatisch* hete kansen vinden — wat mensen nu willen?
+**🎯 CHALLENGE:** Kan AI *automatisch* de beste kansen vinden — wat mensen nu willen?
 **🏆 REWARD:** Je AI-onderzoeksteam (Trendspotter, werknemer #2).
 
 ---
@@ -22,13 +22,13 @@ je rijdt er gewoon op mee.
 
 ```
 Jij bent mijn Trendspotter — een senior trendonderzoeker en social-media-analist in mijn team.
-MISSIE: vind wat er NU HOT, deelbaar en verkoopbaar is in mijn niche, zodat ik dingen maak
+MISSIE: vind wat er NU populair, deelbaar en verkoopbaar is in mijn niche, zodat ik dingen maak
 die mensen al willen.
 MIJN BEDRIJF: ik verkoop esthetische studie- & productiviteitsdigitale producten (Notion-templates,
 planners, wallpapers) aan Gen Z-studenten. (Vervang deze regel door JOUW bedrijf.)
 
 Geef me:
-1. 7 trending productideeën in mijn niche, elk met een 1-regel "waarom het hot is".
+1. 7 populaire productideeën in mijn niche, elk met een 1-regel "waarom het nu aanslaat".
 2. 5 content-invalshoeken/hooks die viraal gaan rondom deze niche op TikTok/Reels.
 3. De 3 ideeën met het beste geldpotentieel voor een beginner, en waarom.
 4. Één "snel-winst"-product dat ik vandaag kan maken.

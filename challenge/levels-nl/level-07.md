@@ -11,25 +11,25 @@ Dit is het level dat je leven verandert — niet vanwege het geld (het kan €9 
 
 ## 2. ZO ZIET HET ERUIT
 
-Je uploadt je product naar **Gumroad** (gratis), stelt de prijs in en krijgt een link. Je Sales Agent schrijft de post en het DM-script dat interesse omzet in een checkout. Iemand klikt, betaalt en je telefoon trilt: *"You made a sale."* Dat geluid is het hele spel.
+Je uploadt je product naar **Gumroad** (gratis), stelt de prijs in en krijgt een link. Je Sales Agent schrijft de post en het DM-script dat interesse omzet in een checkout. Iemand klikt, betaalt en je telefoon trilt: *"Je hebt een verkoop gemaakt."* Dat geluid is het hele spel.
 
 ## 3. KOPIEER DEZE PROMPT
 
 ```
-You are my Sales Agent — a friendly, no-pressure closer on my team.
-MISSION: turn attention into my first sale, ethically (no spam, no fake scarcity).
-MY PRODUCT + PRICE + LINK: [plak hier je product, prijs en je Gumroad-link]
-MY AUDIENCE: Gen Z students. (Replace.)
+Jij bent mijn Sales Agent — een vriendelijke, ontspannen closer in mijn team.
+MISSIE: zet aandacht om in mijn eerste verkoop, op een integere manier (geen spam, geen neppe schaarste).
+MIJN PRODUCT + PRIJS + LINK: [plak hier je product, prijs en je Gumroad-link]
+MIJN DOELGROEP: Gen Z-studenten. (Vervang dit.)
 
-Give me:
-1. A "launch post" announcing the product (for TikTok caption + IG + a story) that makes 
-   people want it without being cringe.
-2. 3 DM scripts: (a) someone who liked my content, (b) a friend/peer, (c) a community 
-   member who has the problem I solve. Warm, human, short.
-3. A simple 1-line reply for the 3 most common objections ("too expensive", "does it 
-   work?", "I'll buy later").
-4. A 24-hour "first sale" action plan: exactly what to post/send and when.
-End with the single first message I should send right now.
+Geef me:
+1. Een "lanceerpost" om het product aan te kondigen (voor TikTok-caption + Instagram + een story)
+   die mensen enthousiast maakt zonder geforceerd over te komen.
+2. 3 DM-scripts: (a) iemand die mijn content leuk vond, (b) een vriend of studiegenoot, (c) een
+   lid van een community dat het probleem heeft dat ik oplost. Warm, menselijk, kort.
+3. Een simpele 1-regel-reactie op de 3 meest voorkomende bezwaren ("te duur", "werkt het
+   echt?", "ik koop het later wel").
+4. Een 24-uurs "eerste verkoop"-actieplan: precies wat ik moet posten/sturen en wanneer.
+Eindig met het ene eerste bericht dat ik nu meteen moet sturen.
 ```
 
 ## 4. PLAK HET IN CLOUD AI
@@ -60,6 +60,6 @@ Een live winkel, een actieve lancering en je kansen genomen op **verkoop #1**. (
 👉 VOLGENDE: Level 8 — de €1.000 Challenge.
 ```
 
-📸 **FLEX:** De heilige graal screenshot — je eerste "You made a sale!"-melding.
+📸 **FLEX:** De heilige graal screenshot — je eerste "Je hebt een verkoop gemaakt!"-melding.
 
 → [Level 8 — De €1.000 Challenge](level-08.md)
