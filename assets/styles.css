@@ -638,3 +638,35 @@ footer a:hover { color: var(--text); }
 .reel::after { content: ""; position: absolute; inset: -1px; border-radius: var(--r-lg); padding: 1px;
   background: var(--grad); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor; mask-composite: exclude; opacity: .55; pointer-events: none; }
+
+/* ============================================================================
+   CINEMATIC OPENING — full-screen video intro (mobile-correct)
+   ========================================================================== */
+.opening { position: relative; min-height: 100vh; min-height: 100svh;
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+  text-align: center; padding: 96px 0 56px; }
+.opening-bg { position: absolute; inset: 0; z-index: 0; }
+.opening-bg video { width: 100%; height: 100%; object-fit: cover; }
+.opening-overlay { position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 85% 70% at 50% 38%, rgba(7,6,10,.28), transparent 62%),
+    linear-gradient(180deg, rgba(7,6,10,.62) 0%, rgba(7,6,10,.8) 58%, rgba(7,6,10,.97) 100%); }
+.opening-inner { position: relative; z-index: 1; max-width: 880px; }
+.opening-inner .eyebrow { margin-left: auto; margin-right: auto; }
+.opening-inner .lead { margin: 0 auto 30px; max-width: 660px; }
+.opening-inner .cta { justify-content: center; }
+.opening-h1 { font-family: var(--font-display); font-weight: 700; letter-spacing: -.02em;
+  font-size: clamp(2.4rem, 6.6vw, 5rem); line-height: 1.04; margin: 0 0 22px;
+  text-shadow: 0 0 50px rgba(236,200,120,.25), 0 6px 34px rgba(0,0,0,.65); }
+.opening .stats { justify-content: center; margin-top: 40px; }
+.scroll-cue { display: inline-flex; flex-direction: column; align-items: center; gap: 2px;
+  margin-top: 34px; color: var(--text-dim); text-decoration: none;
+  font-family: var(--font-mono); font-size: .76rem; letter-spacing: .22em; text-transform: uppercase; }
+.scroll-cue:hover { color: var(--text); }
+.scroll-cue .chev { font-size: 1.5rem; line-height: 1; animation: bounceDown 1.8s infinite; }
+@keyframes bounceDown { 0%,100% { transform: translateY(0); opacity: .55; } 50% { transform: translateY(7px); opacity: 1; } }
+@media (max-width: 560px) {
+  .opening { padding: 84px 0 48px; }
+  .opening .stats { gap: 10px; margin-top: 30px; }
+  .opening .stat { min-width: 132px; padding: 16px 18px; }
+}

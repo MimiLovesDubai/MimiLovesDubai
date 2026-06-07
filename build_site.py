@@ -115,7 +115,7 @@ STR_NL = {
     "hero_alt": "Futuristische gouden AI-figuur in een luxe ruimteschip-lounge",
     "stats": [("{n}", "complete modules"), ("5", "draaibare code-voorbeelden"),
               ("24/7", "autonoom te draaien"), ("∞", "schaalbaar")],
-    "show_k": "De vibe", "show_h": "Zo voelt de toekomst die je bouwt",
+    "show_k": "De vibe", "show_h": "Zo voelt de toekomst die je bouwt", "scroll": "Scroll",
     "why_k": "Waarom deze cursus", "why_h": "Van idee naar draaiende onderneming",
     "why_p": "Alles wat je nodig hebt om verantwoord een AI-gedreven bedrijf te bouwen — techniek, monetisatie en de wet, in één pad.",
     "features": [
@@ -179,7 +179,7 @@ STR_EN = {
     "hero_alt": "Futuristic golden AI figure in a luxury spaceship lounge",
     "stats": [("{n}", "complete modules"), ("5", "runnable code examples"),
               ("24/7", "run autonomously"), ("∞", "scalable")],
-    "show_k": "The vibe", "show_h": "This is the future you're building",
+    "show_k": "The vibe", "show_h": "This is the future you're building", "scroll": "Scroll",
     "why_k": "Why this course", "why_h": "From idea to a running business",
     "why_p": "Everything you need to responsibly build an AI-driven business — tech, monetization and the law, in one path.",
     "features": [
@@ -574,17 +574,23 @@ def build_index(S, modules):
     page = (
         HEAD.format(lang=S["lang"], title=S["title"], desc=S["desc"], root=S["asset_root"], og=OG_IMG, icon=ICON_IMG)
         + nav_html(S, switch_url)
-        + '<header class="hero"><div class="wrap hero-grid"><div class="hero-copy">'
+        # CINEMATISCHE OPENING — video op het volle scherm, titel eroverheen
+        + '<header class="opening">'
+        + '<div class="opening-bg">'
+        + f'<video autoplay loop muted playsinline poster="{S["asset_root"]}assets/media/show-1.png">'
+        + f'<source src="{S["asset_root"]}assets/media/show.mp4" type="video/mp4"></video>'
+        + '<div class="opening-overlay"></div></div>'
+        + '<div class="wrap opening-inner">'
         + f'<div class="eyebrow"><span class="dot"></span> {S["eyebrow"].format(n=n)}</div>'
-        + f'<h1>{S["h1"]}</h1><p class="lead">{html.escape(S["lead"])}</p><div class="cta">'
-        + f'<a class="btn btn-primary" href="{first}">{S["cta1"]} →</a>'
-        + f'<a class="btn btn-ghost" href="#modules">{S["cta2"]}</a></div></div>'
-        + '<div class="hero-visual reveal"><div class="hero-frame">'
-        + f'<video class="hero-video" autoplay loop muted playsinline poster="{S["asset_root"]}assets/media/hero-b.png">'
-        + f'<source src="{S["asset_root"]}assets/media/hero.mp4" type="video/mp4"></video>'
-        + '<div class="hero-frame-glow"></div><div class="hero-scan"></div></div></div></div>'
-        + f'<div class="wrap"><div class="stats">{stats_html}</div></div></header>'
-        + '<section class="showcase"><div class="wrap"><div class="section-head reveal">'
+        + f'<h1 class="opening-h1">{S["h1"]}</h1>'
+        + f'<p class="lead">{html.escape(S["lead"])}</p>'
+        + '<div class="cta">'
+        + f'<a class="btn btn-primary btn-game" href="{first}">{S["cta1"]} →</a>'
+        + f'<a class="btn btn-ghost" href="#modules">{S["cta2"]}</a></div>'
+        + f'<div class="stats">{stats_html}</div>'
+        + f'<a class="scroll-cue" href="#vibe">{S["scroll"]}<span class="chev">⌄</span></a>'
+        + '</div></header>'
+        + '<section class="showcase" id="vibe"><div class="wrap"><div class="section-head reveal">'
         + f'<div class="kicker">{S["show_k"]}</div><h2>{html.escape(S["show_h"])}</h2></div>'
         + '<div class="showcase-grid">'
         + f'<figure class="show-frame reveal"><img src="{S["asset_root"]}assets/media/show-1.png" alt="{S["hero_alt"]}" loading="lazy"></figure>'
@@ -711,8 +717,8 @@ def build_challenge_index(code):
     page = (
         _chrome_head(S, C, switch_url)
         + '<header class="hero hero-game">'
-        + f'<div class="hero-bg-video"><video autoplay loop muted playsinline poster="{S["asset_root"]}assets/media/hero-b.png">'
-        + f'<source src="{S["asset_root"]}assets/media/hero.mp4" type="video/mp4"></video><div class="hero-bg-overlay"></div></div>'
+        + f'<div class="hero-bg-video"><video autoplay loop muted playsinline poster="{S["asset_root"]}assets/media/show-1.png">'
+        + f'<source src="{S["asset_root"]}assets/media/show.mp4" type="video/mp4"></video><div class="hero-bg-overlay"></div></div>'
         + '<div class="wrap">'
         + f'<div class="eyebrow eyebrow-game"><span class="dot"></span> {C["briefing"]} · {C["kicker"]}</div>'
         + f'<h1 class="game-h1">{C["h1"]}</h1>'
