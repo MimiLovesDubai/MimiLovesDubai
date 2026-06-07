@@ -23,7 +23,7 @@ SITE_URL = "https://myaiagent.tech"
 # Verkoop — vervang BUY_URL door je eigen Gumroad-productlink zodra die klaar is.
 PRICE = "€149"
 ORIG_PRICE = "€299"
-BUY_URL = "https://gumroad.com"  # ← VERVANG: jouw Gumroad-link
+BUY_URL = "https://mariskabeen.gumroad.com/l/bjutmc"  # echte Gumroad-productlink
 DOWNLOAD_ZIP = "downloads/myaiagent-cursus.zip"
 
 # Merkbeelden (rechtstreeks van de beeld-CDN; taal-onafhankelijk).
