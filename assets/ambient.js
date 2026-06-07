@@ -137,7 +137,9 @@
     o.start(t); o.stop(t + dur + 0.2); scheduleUfo(r, r[0] + Math.random() * (r[1] - r[0])); }, ms)); }
 
   // ---------------- control ----------------
-  function activate() { if (active || pref !== "on") return; active = true; tryPlay(preset); }
+  function introBlocking() { var i = document.getElementById("intro"); return i && !i.classList.contains("done"); }
+  function activate() { if (active || pref !== "on" || introBlocking()) return; active = true; tryPlay(preset); }
+  window.addEventListener("intro:done", function () { activate(); });
   function applyPreset(key) {
     preset = key; localStorage.setItem(PKEY, key);
     if (nameEl) nameEl.textContent = TRACKS[key][LANG === "en" ? "en" : "nl"];

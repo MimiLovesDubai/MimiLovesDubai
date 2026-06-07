@@ -465,6 +465,7 @@ HEAD = """<!doctype html>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{root}assets/styles.css">
 <script defer src="{root}assets/fx.js"></script>
+<script defer src="{root}assets/intro.js"></script>
 <script defer src="{root}assets/ambient.js"></script>
 </head>
 <body>
@@ -572,8 +573,31 @@ def build_index(S, modules):
     )
     first = "module-00-introductie-en-mindset.html"
     switch_url = S["switch_prefix"] + "index.html"
+    R = S["asset_root"]
+    _en = S["lang"] == "en"
+    intro_t = {
+        "kicker": "MyAIAgent.tech presenteert" if not _en else "MyAIAgent.tech presents",
+        "title":  "Een AI die jouw bedrijf runt" if not _en else "An AI that runs your business",
+        "enter":  "Betreed de ervaring" if not _en else "Enter the experience",
+        "skip":   "Overslaan" if not _en else "Skip",
+    }
+    intro_html = (
+        f'<div id="intro" class="intro">'
+        f'<video class="intro-video" playsinline preload="auto" poster="{R}assets/media/intro.jpg">'
+        f'<source src="{R}assets/media/intro.mp4" type="video/mp4"></video>'
+        f'<div class="intro-veil"></div>'
+        f'<div class="intro-inner">'
+        f'<img class="intro-logo" src="{R}assets/media/logo.png" alt="MyAIAgent">'
+        f'<div class="intro-kicker">{intro_t["kicker"]}</div>'
+        f'<h1 class="intro-title">{intro_t["title"]}</h1>'
+        f'<button class="intro-enter" type="button"><span class="ie-tri">▶</span> {intro_t["enter"]}</button>'
+        f'</div>'
+        f'<button class="intro-skip" type="button">{intro_t["skip"]} →</button>'
+        f'</div>'
+    )
     page = (
         HEAD.format(lang=S["lang"], title=S["title"], desc=S["desc"], root=S["asset_root"], og=OG_IMG, icon=ICON_IMG)
+        + intro_html
         + nav_html(S, switch_url)
         # CINEMATISCHE OPENING — video op het volle scherm, titel eroverheen
         + '<header class="opening">'
