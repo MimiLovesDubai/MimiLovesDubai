@@ -1,9 +1,10 @@
 /* MyAIAgent — cinematic intro.
    One gesture ("Enter") opens a film sequence: the logo clip large, then the
-   main film, with the Flower Duet as the opening music. The videos play muted;
+   main film, over an epic cinematic arrangement of the Tetris theme
+   (Korobeiniki — a public-domain Russian folk song). The videos play muted;
    the music is a separate layer: it uses a real recording when present
-   (assets/media/opening-music.mp3 or a URL) and otherwise plays an elegant
-   synthesized rendition of the Flower Duet so there is always music.
+   (assets/media/opening-music.mp3 or a URL) and otherwise plays the built-in
+   synthesized arrangement, so there is always music.
    When the film ends (or is skipped) it fades into the site. Shows once/session. */
 (function () {
   var KEY = "myaiagent_intro_seen";
@@ -21,62 +22,101 @@
     for (var c = 0; c < 2; c++) { var d = b.getChannelData(c); for (var i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, decay); }
     return b;
   }
-  function note(freq, t, dur, type, peak, vib, dest) {
-    var o = actx.createOscillator(); o.type = type; o.frequency.value = freq;
-    var g = actx.createGain(); g.gain.value = 0;
-    o.connect(g); g.connect(dest || busDry); if (dest !== padNode) g.connect(busWet);
-    var atk = Math.min(0.45, dur * 0.3), rel = Math.min(0.9, dur * 0.45);
-    g.gain.setValueAtTime(0, t);
-    g.gain.linearRampToValueAtTime(peak, t + atk);
-    g.gain.setValueAtTime(peak, Math.max(t + atk, t + dur - rel));
-    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-    if (vib) { var l = actx.createOscillator(); l.frequency.value = 5.4; var lg = actx.createGain(); lg.gain.value = vib; l.connect(lg); lg.connect(o.detune); l.start(t); l.stop(t + dur + 0.05); }
-    o.start(t); o.stop(t + dur + 0.06);
-  }
-  function pluck(freq, t, peak) {
-    var o = actx.createOscillator(); o.type = "triangle"; o.frequency.value = freq;
-    var g = actx.createGain(); g.gain.value = 0; o.connect(g); g.connect(busDry); g.connect(busWet);
-    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(peak, t + 0.012); g.gain.exponentialRampToValueAtTime(0.0001, t + 1.5);
-    o.start(t); o.stop(t + 1.6);
-  }
-  // Lush progression in D major with a flowing two-voice melody (parallel thirds/sixths),
-  // a harp arpeggio and a warm string pad — an instrumental homage to Delibes' Flower Duet.
-  var CH = [
-    { b: 73.42,  tri: [146.83, 185.00, 220.00], top: 880.00, low: 739.99 }, // D
-    { b: 98.00,  tri: [196.00, 246.94, 293.66], top: 783.99, low: 493.88 }, // G
-    { b: 123.47, tri: [246.94, 293.66, 369.99], top: 739.99, low: 587.33 }, // Bm
-    { b: 110.00, tri: [220.00, 277.18, 329.63], top: 659.25, low: 554.37 }, // A
-    { b: 98.00,  tri: [196.00, 246.94, 293.66], top: 587.33, low: 493.88 }, // G
-    { b: 73.42,  tri: [146.83, 185.00, 220.00], top: 739.99, low: 587.33 }, // D
-    { b: 82.41,  tri: [164.81, 196.00, 246.94], top: 493.88, low: 392.00 }, // Em
-    { b: 110.00, tri: [220.00, 277.18, 329.63], top: 659.25, low: 554.37 }, // A
+
+  // --- Cinematic arrangement of the Tetris theme (Korobeiniki — Russian folk, public domain) ---
+  var BPM = 140, SPB = 60 / BPM;
+  var NF = {
+    C2: 65.41, D2: 73.42, E2: 82.41, G2: 98.00, A2: 110.00, B2: 123.47,
+    C3: 130.81, D3: 146.83, E3: 164.81, F3: 174.61, G3: 196.00, "G#3": 207.65, A3: 220.00, B3: 246.94,
+    C4: 261.63, D4: 293.66, E4: 329.63, "G#4": 415.30, A4: 440.00, B4: 493.88,
+    C5: 523.25, D5: 587.33, E5: 659.25, F5: 698.46, G5: 783.99, "G#5": 830.61, A5: 880.00,
+  };
+  // [note, beats] — null note = rest. 12 bars, loops.
+  var MEL = [
+    ["E5", 1], ["B4", .5], ["C5", .5], ["D5", 1], ["C5", .5], ["B4", .5],
+    ["A4", 1], ["A4", .5], ["C5", .5], ["E5", 1], ["D5", .5], ["C5", .5],
+    ["B4", 1.5], ["C5", .5], ["D5", 1], ["E5", 1],
+    ["C5", 1], ["A4", 1], ["A4", 1], [null, 1],
+    [null, .5], ["D5", 1], ["F5", .5], ["A5", 1], ["G5", .5], ["F5", .5],
+    ["E5", 1.5], ["C5", .5], ["E5", 1], ["D5", .5], ["C5", .5],
+    ["B4", 1], ["B4", .5], ["C5", .5], ["D5", 1], ["E5", 1],
+    ["C5", 1], ["A4", 1], ["A4", 1], [null, 1],
+    ["E5", 1], ["C5", 1], ["D5", 1], ["B4", 1],
+    ["C5", 1], ["A4", 1], ["G#4", 2],
+    ["E5", 1], ["C5", 1], ["D5", 1], ["B4", 1],
+    ["C5", .5], ["E5", .5], ["A5", 1], ["G#5", 2],
   ];
+  var CHORD = {
+    Em: { pad: ["E3", "G3", "B3"], root: "E2" }, Am: { pad: ["A3", "C4", "E4"], root: "A2" },
+    Dm: { pad: ["D3", "F3", "A3"], root: "D2" }, C: { pad: ["C3", "E3", "G3"], root: "C2" },
+    G: { pad: ["G3", "B3", "D4"], root: "G2" }, E: { pad: ["E3", "G#3", "B3"], root: "E2" },
+  };
+  // [chord, beats] aligned to the melody bars
+  var PADSEQ = [
+    ["Em", 4], ["Am", 4], ["Em", 4], ["Am", 4], ["Dm", 4], ["C", 4], ["Em", 4], ["Am", 4],
+    ["Am", 4], ["Am", 2], ["E", 2], ["Am", 4], ["Am", 2], ["E", 2],
+  ];
+
+  function lead(freq, t, dur) {
+    var o = actx.createOscillator(); o.type = "sawtooth"; o.frequency.value = freq;
+    var g = actx.createGain(); g.gain.value = 0; o.connect(g); g.connect(busDry); g.connect(busWet);
+    var atk = 0.012, rel = Math.min(0.12, dur * 0.4);
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.15, t + atk);
+    g.gain.setValueAtTime(0.15, Math.max(t + atk, t + dur - rel)); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    var l = actx.createOscillator(); l.frequency.value = 5.5; var lg = actx.createGain(); lg.gain.value = 4; l.connect(lg); lg.connect(o.detune); l.start(t); l.stop(t + dur + 0.05);
+    o.start(t); o.stop(t + dur + 0.05);
+    var s = actx.createOscillator(); s.type = "triangle"; s.frequency.value = freq * 2;     // sparkle octave
+    var sg = actx.createGain(); sg.gain.value = 0; s.connect(sg); sg.connect(busWet);
+    sg.gain.setValueAtTime(0, t); sg.gain.linearRampToValueAtTime(0.045, t + 0.01); sg.gain.exponentialRampToValueAtTime(0.0001, t + Math.min(dur, 0.5));
+    s.start(t); s.stop(t + 0.62);
+  }
+  function padTone(freq, t, dur) {
+    var o = actx.createOscillator(); o.type = "sawtooth"; o.frequency.value = freq;
+    var g = actx.createGain(); g.gain.value = 0; o.connect(g); g.connect(padNode);
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.034, t + 0.3);
+    g.gain.setValueAtTime(0.034, t + dur - 0.3); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.start(t); o.stop(t + dur + 0.05);
+  }
+  function bassTone(freq, t, dur) {
+    var o = actx.createOscillator(); o.type = "sawtooth"; o.frequency.value = freq;
+    var lp = actx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 650;
+    var g = actx.createGain(); g.gain.value = 0; o.connect(lp); lp.connect(g); g.connect(busDry);
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.16, t + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.start(t); o.stop(t + dur + 0.03);
+  }
+  function boom(t) {
+    var o = actx.createOscillator(); o.type = "sine";
+    var g = actx.createGain(); g.gain.value = 0; o.connect(g); g.connect(busDry);
+    o.frequency.setValueAtTime(125, t); o.frequency.exponentialRampToValueAtTime(45, t + 0.18);
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.22, t + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.5);
+    o.start(t); o.stop(t + 0.55);
+  }
   function scheduleLoop() {
     if (synthStopped) return;
-    var dur = 3.0, t0 = actx.currentTime + 0.08;
-    for (var i = 0; i < CH.length; i++) {
-      var c = CH[i], t = t0 + i * dur;
-      c.tri.forEach(function (f) { note(f, t, dur + 0.25, "sawtooth", 0.04, 5, padNode); });   // string pad
-      var arp = [c.b, c.tri[0], c.tri[1], c.tri[2], c.tri[0] * 2, c.tri[1] * 2];                // harp
-      for (var k = 0; k < arp.length; k++) pluck(arp[k], t + k * 0.5, 0.085 - k * 0.006);
-      note(c.top, t + 0.18, dur - 0.36, "triangle", 0.15, 7, busDry);                           // melody (upper)
-      note(c.low, t + 0.18, dur - 0.36, "triangle", 0.10, 7, busDry);                           // melody (lower third)
+    var t0 = actx.currentTime + 0.1, tm = t0, tp = t0, i, j;
+    for (i = 0; i < MEL.length; i++) { var ev = MEL[i]; if (ev[0]) lead(NF[ev[0]], tm, ev[1] * SPB); tm += ev[1] * SPB; }
+    for (i = 0; i < PADSEQ.length; i++) {
+      var ch = CHORD[PADSEQ[i][0]], beats = PADSEQ[i][1], dur = beats * SPB;
+      for (j = 0; j < ch.pad.length; j++) padTone(NF[ch.pad[j]], tp, dur + 0.1);
+      for (j = 0; j < beats; j++) bassTone(NF[ch.root], tp + j * SPB, SPB * 0.92);
+      boom(tp); tp += dur;
     }
-    mTimers.push(setTimeout(scheduleLoop, CH.length * dur * 1000 - 220));
+    var loopLen = (tm - t0);
+    mTimers.push(setTimeout(scheduleLoop, loopLen * 1000 - 120));
   }
   function startSynth() {
     if (actx) return;
     var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
     actx = new AC(); synthStopped = false;
     mGain = actx.createGain(); mGain.gain.value = 0.0001; mGain.connect(actx.destination);
-    var conv = actx.createConvolver(); conv.buffer = impulse(3.8, 2.2);
-    var wet = actx.createGain(); wet.gain.value = 0.95; conv.connect(wet); wet.connect(mGain);
-    busDry = actx.createGain(); busDry.gain.value = 0.7; busDry.connect(mGain);
+    var conv = actx.createConvolver(); conv.buffer = impulse(3.0, 2.4);
+    var wet = actx.createGain(); wet.gain.value = 0.5; conv.connect(wet); wet.connect(mGain);
+    busDry = actx.createGain(); busDry.gain.value = 0.85; busDry.connect(mGain);
     busWet = conv;
-    padNode = actx.createBiquadFilter(); padNode.type = "lowpass"; padNode.frequency.value = 1500; padNode.Q.value = 0.6;
+    padNode = actx.createBiquadFilter(); padNode.type = "lowpass"; padNode.frequency.value = 1700; padNode.Q.value = 0.6;
     padNode.connect(busDry); padNode.connect(busWet);
     actx.resume();
-    var t = actx.currentTime; mGain.gain.setValueAtTime(0.0001, t); mGain.gain.linearRampToValueAtTime(0.85, t + 2.4);
+    var t = actx.currentTime; mGain.gain.setValueAtTime(0.0001, t); mGain.gain.linearRampToValueAtTime(0.9, t + 1.6);
     scheduleLoop();
   }
   function startMusic() {
