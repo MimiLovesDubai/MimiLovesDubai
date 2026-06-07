@@ -98,12 +98,17 @@
     master.gain.exponentialRampToValueAtTime(Math.max(to, 0.0001), t + dur);
   }
 
+  var VOL = 0.26, faded = false;
+
+  // Always resume on a gesture (browsers keep the context suspended until then);
+  // only fade up once.
   function start() {
-    if (started) return;
     if (!ctx && !build()) return;
-    started = true;
-    ctx.resume();
-    if (pref === "on") { fade(0.2, 6); if (btn) btn.classList.remove("pending"); }
+    if (ctx.state === "suspended") ctx.resume();
+    if (pref === "on" && !faded) {
+      faded = true; fade(VOL, 6);
+      if (btn) btn.classList.remove("pending");
+    }
   }
 
   function render() {
@@ -121,18 +126,26 @@
     document.body.appendChild(btn);
     btn.addEventListener("click", function () {
       if (!ctx) build();
-      ctx && ctx.resume();
+      if (ctx && ctx.state === "suspended") ctx.resume();
+      // First click while intended-on but not yet audible = simply start it.
+      if (pref === "on" && !faded) {
+        faded = true; fade(VOL, 2); btn.classList.remove("pending"); render(); return;
+      }
       pref = pref === "on" ? "off" : "on";
       localStorage.setItem(KEY, pref);
-      started = true;
-      fade(pref === "on" ? 0.2 : 0.0001, pref === "on" ? 2.5 : 1.4);
-      btn.classList.remove("pending");
+      if (pref === "on") { faded = true; fade(VOL, 2); btn.classList.remove("pending"); }
+      else { fade(0.0001, 1.4); }
       render();
     });
-    start();
+    // try immediately (will be suspended until a gesture)
+    if (!ctx) build();
+    if (ctx) ctx.resume();
   });
 
-  ["pointerdown", "keydown", "touchstart", "scroll"].forEach(function (ev) {
-    window.addEventListener(ev, function h() { start(); window.removeEventListener(ev, h); }, { passive: true });
+  ["pointerdown", "keydown", "touchstart", "scroll", "click"].forEach(function (ev) {
+    window.addEventListener(ev, function h() {
+      start();
+      if (ctx && ctx.state === "running") window.removeEventListener(ev, h);
+    }, { passive: true });
   });
 })();
