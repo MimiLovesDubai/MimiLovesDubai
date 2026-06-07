@@ -50,6 +50,12 @@ ICONS = {
     "lock": _svg('<rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/>'),
     "sparkle": _svg('<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z"/>'),
     "globe": _svg('<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18z"/>'),
+    "rocket": _svg('<path d="M12 3c3 0 5.5 3 5.5 6.5 0 2.2-1 4-2.7 5.2L12 17l-2.8-2.3C7.5 13.5 6.5 11.7 6.5 9.5 6.5 6 9 3 12 3z"/><circle cx="12" cy="9" r="1.6"/><path d="M9.5 16l-2.5 4 4-1.6M14.5 16l2.5 4-4-1.6"/>'),
+    "box": _svg('<path d="M3 8l9-5 9 5v8l-9 5-9-5V8z"/><path d="M3 8l9 5 9-5M12 13v8"/>'),
+    "megaphone": _svg('<path d="M4 10v4l11 5V5L4 10z"/><path d="M4 10H3a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h1M18 8.5a5 5 0 0 1 0 7"/>'),
+    "target": _svg('<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/>'),
+    "refresh": _svg('<path d="M3 12a9 9 0 0 1 15.5-6.3L21 8M21 4v4h-4M21 12a9 9 0 0 1-15.5 6.3L3 16M3 20v-4h4"/>'),
+    "crown": _svg('<path d="M4 18h16M4 18l-1.2-9 5 3.5L12 5l4.2 7.5 5-3.5L20 18"/>'),
 }
 
 # Iconen voor de feature-kaarten (zelfde volgorde NL/EN).
@@ -226,6 +232,73 @@ STR_EN = {
 
 LANGS = {"nl": STR_NL, "en": STR_EN}
 
+# ── THE AI COMPANY CHALLENGE (gamified track) ────────────────────────────────
+REPO_BLOB = "https://github.com/MimiLovesDubai/MimiLovesDubai/blob/claude/ai-agent-business-course-RZJxN/"
+
+# (slug, level-label, icon, title_nl, title_en, unlock_nl, unlock_en)
+CHALLENGE_LEVELS = [
+    ("level-00", "0",  "rocket",    "Wat als AI je eerste werknemer was?", "What if AI was your first employee?", "Bedrijfs-HQ + AI-strateeg", "Company HQ + AI Strategist"),
+    ("level-01", "1",  "spark",     "Geef AI z'n eerste missie", "Give AI its first mission", "Opportunity Finder", "Opportunity Finder"),
+    ("level-02", "2",  "orbit",     "Huur de Trend Hunter", "Hire the Trend Hunter", "AI Research Team", "AI Research Team"),
+    ("level-03", "3",  "box",       "Laat AI een product ontwerpen", "Let AI design a product", "Product Creator", "Product Creator"),
+    ("level-04", "4",  "sparkle",   "Laat AI een merk bouwen", "Let AI build a brand", "Brand Director", "Brand Director"),
+    ("level-05", "5",  "megaphone", "Kan AI klanten vinden?", "Can AI find customers?", "Marketing-motor", "Marketing engine"),
+    ("level-06", "6",  "cpu",       "Bouw je AI-managementteam", "Build your AI management team", "AI Workforce", "AI Workforce"),
+    ("level-07", "7",  "coin",      "De Eerste Verkoop Challenge", "The First Sale Challenge", "Sales Agent", "Sales Agent"),
+    ("level-08", "8",  "target",    "De €1.000 Challenge", "The €1,000 Challenge", "Omzetsysteem", "Revenue system"),
+    ("level-09", "9",  "refresh",   "Run het bedrijf 7 dagen", "Run the company for 7 days", "AI Business System", "AI Business System"),
+    ("level-10", "10", "crown",     "Het AI-imperium", "The AI Empire", "🏆 Je wint", "🏆 You win"),
+]
+
+CH_NL = {
+    "lang": "nl", "asset_root": "", "dir": "", "switch_prefix": "en/", "switch_label": "EN", "other_name": "English",
+    "src": "challenge/levels-nl", "level_word": "LEVEL", "unlock_word": "Ontgrendelt",
+    "nav": STR_NL["nav"], "nav_challenge": "🎮 Challenge",
+    "kicker": "30-daagse challenge · geen code",
+    "h1": 'Ik gaf een AI <span class="gradient-text">$50</span>.<br>3 dagen later had het z\'n eigen bedrijf.',
+    "lead": "Huur een team van AI-werknemers en bouw in 30 dagen een echt online bedrijf — met Claude/ChatGPT. Geen code. Geen ervaring. Jij bent de oprichter, AI is je personeel.",
+    "cta1": "Start bij Level 0", "cta2": "Bekijk de levelmap",
+    "map_k": "De levelmap", "map_h": "11 levels. 11 werknemers. 1 bedrijf.",
+    "map_p": "Elk level huur je een nieuwe AI-werknemer en ontgrendel je de volgende. Bouwen, niet studeren.",
+    "start": "Start", "rules_h": "De regels (30 seconden)",
+    "rules": [
+        "Jij bent de oprichter. AI is je personeel — elk level komt er een werknemer bij.",
+        "Bouwen, niet studeren. Elk level eindigt met een opdracht van 10–60 min en een screenshot-waardige win.",
+        "Geen code, nooit. Claude/ChatGPT + Canva, Notion, Gumroad, MailerLite.",
+        "Jij keurt geld + publiceren goed. Grotendeels autonoom, niet onbewaakt — zo blijf je veilig.",
+        "Klaar verslaat perfect. Post de win. Momentum is het hele spel.",
+    ],
+    "back": "← Terug naar de challenge", "prev": "← Vorige level", "next": "Volgende level →",
+    "title": "The AI Company Challenge · MyAIAgent.tech",
+    "desc": "Ik gaf een AI $50. 3 dagen later had het z'n eigen bedrijf. Een no-code, gamified 30-dagen-challenge: huur AI-werknemers en bouw een echt online bedrijf.",
+}
+CH_EN = dict(CH_NL, **{
+    "lang": "en", "asset_root": "../", "dir": "en", "switch_prefix": "../", "switch_label": "NL", "other_name": "Nederlands",
+    "src": "challenge/levels", "unlock_word": "Unlocks",
+    "nav": STR_EN["nav"], "nav_challenge": "🎮 Challenge",
+    "kicker": "30-day challenge · no code",
+    "h1": 'I gave an AI <span class="gradient-text">$50</span>.<br>3 days later it had its own company.',
+    "lead": "Hire a team of AI employees and build a real online business in 30 days — with Claude/ChatGPT. No code. No experience. You're the founder, AI is your workforce.",
+    "cta1": "Start at Level 0", "cta2": "See the level map",
+    "map_k": "The level map", "map_h": "11 levels. 11 employees. 1 company.",
+    "map_p": "Each level you hire a new AI employee and unlock the next. Build, don't study.",
+    "rules_h": "The rules (30 seconds)",
+    "rules": [
+        "You're the founder. AI is your workforce — each level adds an employee.",
+        "Build, don't study. Every level ends with a 10–60 min build and a screenshot-able win.",
+        "No code, ever. Claude/ChatGPT + Canva, Notion, Gumroad, MailerLite.",
+        "You approve money + publishing. Largely autonomous, not unattended — that keeps you safe.",
+        "Done beats perfect. Post the win. Momentum is the whole game.",
+    ],
+    "back": "← Back to the challenge", "prev": "← Previous level", "next": "Next level →",
+    "title": "The AI Company Challenge · MyAIAgent.tech",
+    "desc": "I gave an AI $50. 3 days later it had its own company. A no-code, gamified 30-day challenge: hire AI employees and build a real online business.",
+})
+CHALLENGE = {"nl": CH_NL, "en": CH_EN}
+
+# emoji per 8-beat sectie (op volgnummer)
+BEAT_EMOJI = {"1": "💡", "2": "👀", "3": "📋", "4": "🖱️", "5": "✨", "6": "🛠️", "7": "📦", "8": "✅"}
+
 # Globaal gezet per taal; gebruikt door inline() voor gedeelde-map-links.
 ASSET_ROOT = ""
 
@@ -244,6 +317,14 @@ def inline(text: str) -> str:
 
     def link(m):
         label, href = m.group(1), m.group(2)
+        # challenge level-links (zelfde map) → level-XX.html
+        href = re.sub(r"(?:\.\./levels(?:-nl)?/)?level-(\d+)\.md", r"level-\1.html", href)
+        # challenge README / overzicht → challenge.html (zelfde map)
+        href = re.sub(r"(?:\.\./)?challenge/README\.md", "challenge.html", href)
+        # kits / blueprint / viral-missions → openen op GitHub (niet als site-pagina gerenderd)
+        href = re.sub(r"\.\./(kits/?[a-z0-9./-]*)", REPO_BLOB + r"challenge/\1", href)
+        href = re.sub(r"\.\./(BLUEPRINT\.md|viral-missions\.md)", REPO_BLOB + r"challenge/\1", href)
+        href = re.sub(r"\.\./modules/?", REPO_BLOB + "modules/", href)
         # module-links (zelfde map) → module-<slug>.html
         href = re.sub(r"(?:\.\./)?modules/([a-z0-9-]+)\.md", r"module-\1.html", href)
         # README/home (zelfde map)
@@ -381,7 +462,8 @@ HEAD = """<!doctype html>
 def nav_html(S, switch_url):
     links = (f'<a href="index.html#modules">{S["nav"][0]}</a>'
              f'<a href="index.html#waarom">{S["nav"][1]}</a>'
-             f'<a href="index.html#koop">{S["nav"][2]}</a>')
+             f'<a href="index.html#koop">{S["nav"][2]}</a>'
+             f'<a class="nav-game" href="challenge.html">🎮 Challenge</a>')
     switch = (f'<a class="lang-switch" href="{switch_url}" title="{S["other_name"]}">'
               f'{ICONS["globe"]} {S["switch_label"]}</a>')
     return (f'<nav class="nav"><div class="wrap">'
@@ -525,6 +607,93 @@ def build_index(S, modules):
         f.write(page)
 
 
+def _chrome_head(S, C, switch_url, reader_bar=False):
+    head = HEAD.format(lang=S["lang"], title=C["title"], desc=C["desc"], root=S["asset_root"],
+                       og=OG_IMG, icon=ICON_IMG)
+    if reader_bar:
+        head += '<div class="reader-top"><div class="bar" id="rbar"></div></div>'
+    return head + nav_html(S, switch_url)
+
+
+def build_challenge_level(code, idx):
+    global ASSET_ROOT
+    S, C = LANGS[code], CHALLENGE[code]
+    ASSET_ROOT = C["asset_root"]
+    slug, lvl, icon, t_nl, t_en, u_nl, u_en = CHALLENGE_LEVELS[idx]
+    titel = t_nl if code == "nl" else t_en
+    with open(os.path.join(HIER, C["src"], f"{slug}.md"), encoding="utf-8") as f:
+        md = f.read()
+    md = re.sub(r"^#\s+.*?\n", "", md, count=1)                    # eigen header
+    md = re.sub(r"\n+→\s*\[Level.*$", "", md, flags=re.S)          # trailing next-link weg (pager regelt)
+    # leuke icoontjes per 8-beat sectie
+    md = re.sub(r"^(#{2})\s+(\d+)\.\s+(.*)$",
+                lambda m: f'{m.group(1)} {BEAT_EMOJI.get(m.group(2), "")} {m.group(2)}. {m.group(3)}',
+                md, flags=re.M)
+    body = md_to_html(md.strip())
+
+    prev_html = (f'<a class="prev" href="{CHALLENGE_LEVELS[idx-1][0]}.html"><div class="lbl">{C["prev"]}</div>'
+                 f'<div class="ttl">{html.escape(CHALLENGE_LEVELS[idx-1][3] if code=="nl" else CHALLENGE_LEVELS[idx-1][4])}</div></a>'
+                 if idx > 0 else f'<a class="prev disabled" href="#"><div class="lbl">{C["prev"]}</div><div class="ttl">—</div></a>')
+    if idx < len(CHALLENGE_LEVELS) - 1:
+        nx = CHALLENGE_LEVELS[idx + 1]
+        next_html = (f'<a class="next" href="{nx[0]}.html"><div class="lbl">{C["next"]}</div>'
+                     f'<div class="ttl">{html.escape(nx[3] if code=="nl" else nx[4])}</div></a>')
+    else:
+        next_html = f'<a class="next" href="challenge.html"><div class="lbl">{C["next"]}</div><div class="ttl">{C["back"][2:]}</div></a>'
+
+    switch_url = C["switch_prefix"] + f"{slug}.html"
+    page = (
+        _chrome_head(S, C, switch_url, reader_bar=True)
+        + '<article class="article challenge-article">'
+        + f'<a class="crumb-link" href="challenge.html">{C["back"]}</a>'
+        + '<div class="lvl-header">'
+        + f'<div class="lvl-badge"><span class="lvl-ico">{ICONS[icon]}</span>{C["level_word"]} {lvl}</div>'
+        + f'<h1>{html.escape(titel)}</h1></div><hr>'
+        + body
+        + f'<div class="pager">{prev_html}{next_html}</div></article>'
+        + foot_html(S) + READER_JS + "</body></html>"
+    )
+    with open(out_path(S, f"{slug}.html"), "w", encoding="utf-8") as f:
+        f.write(page)
+
+
+def build_challenge_index(code):
+    global ASSET_ROOT
+    S, C = LANGS[code], CHALLENGE[code]
+    ASSET_ROOT = C["asset_root"]
+    cards = ""
+    for slug, lvl, icon, t_nl, t_en, u_nl, u_en in CHALLENGE_LEVELS:
+        titel = t_nl if code == "nl" else t_en
+        unlock = u_nl if code == "nl" else u_en
+        cards += (
+            f'<a class="lvl-card reveal" href="{slug}.html">'
+            f'<div class="lvl-card-top"><span class="lvl-ico">{ICONS[icon]}</span>'
+            f'<span class="lvl-tag">{C["level_word"]} {lvl}</span></div>'
+            f'<h3>{html.escape(titel)}</h3>'
+            f'<div class="lvl-unlock">🔓 {C["unlock_word"]}: {html.escape(unlock)}</div></a>'
+        )
+    rules = "".join(f'<li><span class="chk">{ICONS["check"]}</span> {html.escape(r)}</li>' for r in C["rules"])
+    switch_url = C["switch_prefix"] + "challenge.html"
+    page = (
+        _chrome_head(S, C, switch_url)
+        + '<header class="hero hero-game"><div class="wrap">'
+        + f'<div class="eyebrow"><span class="dot"></span> {C["kicker"]}</div>'
+        + f'<h1 class="game-h1">{C["h1"]}</h1>'
+        + f'<p class="lead">{html.escape(C["lead"])}</p>'
+        + f'<div class="cta"><a class="btn btn-primary" href="level-00.html">🚀 {C["cta1"]}</a>'
+        + f'<a class="btn btn-ghost" href="#map">{C["cta2"]}</a></div>'
+        + '</div></header>'
+        + '<section id="map"><div class="wrap"><div class="section-head reveal">'
+        + f'<div class="kicker">{C["map_k"]}</div><h2>{html.escape(C["map_h"])}</h2><p>{html.escape(C["map_p"])}</p></div>'
+        + f'<div class="lvl-grid">{cards}</div>'
+        + f'<div class="rules-card reveal"><h3>{html.escape(C["rules_h"])}</h3><ul class="outcome-list rules-list">{rules}</ul></div>'
+        + '</div></section>'
+        + foot_html(S) + REVEAL_JS + "</body></html>"
+    )
+    with open(out_path(S, "challenge.html"), "w", encoding="utf-8") as f:
+        f.write(page)
+
+
 def main() -> None:
     global ASSET_ROOT
     total = 0
@@ -538,7 +707,16 @@ def main() -> None:
         total += len(modules)
         loc = S["dir"] or "(root)"
         print(f"✅ {code.upper()}: index + {len(modules)} modulepagina's → {loc}/")
-    print(f"🎉 Tweetalige site gebouwd ({total} modulepagina's totaal).")
+
+    # The AI Company Challenge (gamified track, beide talen)
+    for code in LANGS:
+        build_challenge_index(code)
+        for idx in range(len(CHALLENGE_LEVELS)):
+            build_challenge_level(code, idx)
+        loc = CHALLENGE[code]["dir"] or "(root)"
+        print(f"🎮 {code.upper()}: challenge + {len(CHALLENGE_LEVELS)} levels → {loc}/")
+    ASSET_ROOT = ""
+    print(f"🎉 Tweetalige site gebouwd ({total} modulepagina's + {2*len(CHALLENGE_LEVELS)} levels).")
 
 
 if __name__ == "__main__":

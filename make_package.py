@@ -20,8 +20,8 @@ os.makedirs(UIT, exist_ok=True)
 ZIP_PAD = os.path.join(UIT, "myaiagent-cursus.zip")
 
 # Wat er in het pakket komt (volledige cursus, offline bruikbaar).
-LOSSE_BESTANDEN = ["README.md", "index.html"]
-MAPPEN = ["modules", "code", "templates", "assets", "en"]
+LOSSE_BESTANDEN = ["README.md", "index.html", "challenge.html"]
+MAPPEN = ["modules", "code", "templates", "assets", "en", "challenge"]
 # Ook de gerenderde modulepagina's meenemen voor offline lezen.
 EXTRA_GLOB_PREFIX = "module-"
 
@@ -40,9 +40,9 @@ def main() -> None:
                 voeg_bestand_toe(zf, p)
                 bestanden += 1
 
-        # Gerenderde modulepagina's (module-*.html)
+        # Gerenderde pagina's in de root (module-*.html, level-*.html)
         for naam in sorted(os.listdir(HIER)):
-            if naam.startswith(EXTRA_GLOB_PREFIX) and naam.endswith(".html"):
+            if naam.endswith(".html") and (naam.startswith(EXTRA_GLOB_PREFIX) or naam.startswith("level-")):
                 voeg_bestand_toe(zf, os.path.join(HIER, naam))
                 bestanden += 1
 
