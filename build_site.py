@@ -577,9 +577,9 @@ def build_index(S, modules):
         + nav_html(S, switch_url)
         # CINEMATISCHE OPENING — video op het volle scherm, titel eroverheen
         + '<header class="opening">'
-        + '<div class="opening-bg">'
-        + f'<video autoplay loop muted playsinline poster="{S["asset_root"]}assets/media/show-1.png">'
-        + f'<source src="{S["asset_root"]}assets/media/show.mp4" type="video/mp4"></video>'
+        + '<div class="opening-bg opening-bg--feature">'
+        + f'<video autoplay loop muted playsinline preload="auto" poster="{S["asset_root"]}assets/media/opening.jpg">'
+        + f'<source src="{S["asset_root"]}assets/media/opening.mp4" type="video/mp4"></video>'
         + '<div class="opening-overlay"></div></div>'
         + '<div class="wrap opening-inner">'
         + f'<div class="eyebrow"><span class="dot"></span> {S["eyebrow"].format(n=n)}</div>'
