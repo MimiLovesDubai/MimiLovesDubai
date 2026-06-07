@@ -76,6 +76,19 @@ def price(c, cx, y, big):
     d.text((x + wo + gap, y), new, font=fn, fill=GOLD_BR)
     text(c, cx, y + big + 10, "Levenslange toegang · direct downloaden", fs, GOLD, shadow=2)
 
+def base_bg(w, h):
+    top, bot = (16, 15, 24), (5, 5, 10)
+    g = Image.new("RGB", (1, h)); px = g.load()
+    for y in range(h):
+        f = y / h; px[0, y] = tuple(int(top[i] * (1 - f) + bot[i] * f) for i in range(3))
+    return g.resize((w, h)).convert("RGBA")
+
+def logo_masked(size):
+    lg = Image.open(LOGO).convert("RGB").resize((size, size), Image.LANCZOS)
+    lg = lg.filter(ImageFilter.UnsharpMask(radius=2, percent=90, threshold=2))
+    m = lg.convert("L").point(lambda p: 0 if p < 36 else min(255, int((p - 36) * 1.7)))
+    return lg, m
+
 def make_cover():
     W, H = 1920, 1080
     c = cover_crop(Image.open(FIGURE).convert("RGB"), W, H).convert("RGBA")
@@ -88,24 +101,26 @@ def make_cover():
     m = lg.convert("L").point(lambda p: 0 if p < 38 else min(255, int((p - 38) * 1.7)))
     c.paste(lg, (66, 60), m)
     text(c, 0, 84, "MYAIAGENT.TECH", font(SANS_BI, 38), GOLD_BR, center=False, left=188, shadow=2)
-    badge(c, W - 260, 64, "BESTSELLER", 36)
-    text(c, W / 2, 612, "Bouw een AI-agent", font(BOLD, 96), WHITE, glow=10)
-    text(c, W / 2, 720, "die zélf een bedrijf runt", font(BOLD, 96), GOLD_BR, glow=10)
-    text(c, W / 2, 848, "Laat slimme AI het werk doen — en verdien terwijl jij leeft.", font(REG, 40), WHITE, shadow=2)
-    price(c, W / 2, 922, 60)
+    badge(c, W - 260, 60, "BESTSELLER", 36)
+    text(c, W / 2, 530, "VERDIEN TERWIJL JE SLAAPT", font(SANS_BI, 40), GOLD, glow=8)
+    text(c, W / 2, 594, "Bouw een AI-agent", font(BOLD, 94), WHITE, glow=10)
+    text(c, W / 2, 698, "die zélf een bedrijf runt", font(BOLD, 94), GOLD_BR, glow=10)
+    text(c, W / 2, 826, "Zonder code in 30 dagen, 24/7 voor je aan het werk", font(REG, 40), WHITE, shadow=2)
+    price(c, W / 2, 904, 58)
     c.convert("RGB").save(os.path.join(OUT, "gumroad-cover.png")); print("cover", c.size)
 
 def make_thumb():
     W = 1600
-    c = Image.open(LOGO).convert("RGB").resize((W, W), Image.LANCZOS)
-    c = c.filter(ImageFilter.UnsharpMask(radius=2, percent=90, threshold=2)).convert("RGBA")
-    c.alpha_composite(vgrad(W, W, 0, 250, start=0.45))
-    corners(c, 54, 88, 6)
-    badge(c, W / 2, 70, "BESTSELLER", 44)
-    text(c, W / 2, 1040, "MYAIAGENT.TECH", font(SANS_BI, 40), GOLD_BR, shadow=2)
-    text(c, W / 2, 1095, "AI-AGENT CURSUS", font(BOLD, 132), WHITE, glow=10)
-    text(c, W / 2, 1268, "Jouw bedrijf op de automatische piloot", font(REG, 44), DIM, shadow=2)
-    price(c, W / 2, 1360, 64)
+    c = base_bg(W, W)
+    glow = Image.new("RGBA", (W, W), (0, 0, 0, 0))
+    ImageDraw.Draw(glow).ellipse([W * .5 - 430, 440 - 430, W * .5 + 430, 440 + 430], fill=(236, 200, 120, 85))
+    c.alpha_composite(glow.filter(ImageFilter.GaussianBlur(140)))
+    lg, m = logo_masked(860); c.paste(lg, (int(W / 2 - 430), 20), m)   # logo high; clean band below
+    corners(c, 54, 90, 6)
+    badge(c, W / 2, 66, "BESTSELLER", 44)
+    text(c, W / 2, 980, "AI-AGENT CURSUS", font(BOLD, 128), WHITE, glow=10)
+    text(c, W / 2, 1150, "Verdien terwijl je slaapt, zonder code", font(REG, 46), GOLD_BR, shadow=2)
+    price(c, W / 2, 1270, 64)
     c.convert("RGB").save(os.path.join(OUT, "gumroad-thumbnail.png")); print("thumb", c.size)
 
 if __name__ == "__main__":
