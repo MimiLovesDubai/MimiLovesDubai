@@ -1,5 +1,12 @@
 # 🤖 De Autonome Onderneming — Bouw een AI-Agent die zélf een bedrijf runt
 
+> 🎮 **NEW: [THE AI COMPANY CHALLENGE](challenge/README.md)** — *"I gave an AI $50. 3 days later it
+> had its own company."* A no-code, gamified 30-day challenge where you hire AI employees and build
+> a real online business using Claude/ChatGPT. No code, no experience. **[▶ Start at Level 0](challenge/levels/level-00.md).**
+> *(The course below is the deeper, technical companion track.)*
+
+---
+
 > Een complete, praktische cursus waarin je stap voor stap een AI-agent bouwt die zelfstandig
 > een klein bedrijf runt, taken uitvoert en geld voor je verdient — terwijl jij de regie houdt.
 
