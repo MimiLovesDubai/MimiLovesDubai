@@ -258,6 +258,8 @@ CH_NL = {
     "h1": 'Ik gaf een AI <span class="gradient-text">$50</span>.<br>3 dagen later had het z\'n eigen bedrijf.',
     "lead": "Huur een team van AI-werknemers en bouw in 30 dagen een echt online bedrijf — met Claude/ChatGPT. Geen code. Geen ervaring. Jij bent de oprichter, AI is je personeel.",
     "cta1": "Start bij Level 0", "cta2": "Bekijk de levelmap",
+    "powered": "Aangedreven door de meest geavanceerde AI — Claude &amp; ChatGPT",
+    "briefing": "MISSIE-BRIEFING",
     "map_k": "De levelmap", "map_h": "11 levels. 11 werknemers. 1 bedrijf.",
     "map_p": "Elk level huur je een nieuwe AI-werknemer en ontgrendel je de volgende. Bouwen, niet studeren.",
     "start": "Start", "rules_h": "De regels (30 seconden)",
@@ -280,6 +282,8 @@ CH_EN = dict(CH_NL, **{
     "h1": 'I gave an AI <span class="gradient-text">$50</span>.<br>3 days later it had its own company.',
     "lead": "Hire a team of AI employees and build a real online business in 30 days — with Claude/ChatGPT. No code. No experience. You're the founder, AI is your workforce.",
     "cta1": "Start at Level 0", "cta2": "See the level map",
+    "powered": "Powered by the most advanced AI — Claude &amp; ChatGPT",
+    "briefing": "MISSION BRIEFING",
     "map_k": "The level map", "map_h": "11 levels. 11 employees. 1 company.",
     "map_p": "Each level you hire a new AI employee and unlock the next. Build, don't study.",
     "rules_h": "The rules (30 seconds)",
@@ -661,31 +665,38 @@ def build_challenge_index(code):
     global ASSET_ROOT
     S, C = LANGS[code], CHALLENGE[code]
     ASSET_ROOT = C["asset_root"]
-    cards = ""
-    for slug, lvl, icon, t_nl, t_en, u_nl, u_en in CHALLENGE_LEVELS:
+    n = len(CHALLENGE_LEVELS)
+    nodes = ""
+    for i, (slug, lvl, icon, t_nl, t_en, u_nl, u_en) in enumerate(CHALLENGE_LEVELS):
         titel = t_nl if code == "nl" else t_en
         unlock = u_nl if code == "nl" else u_en
-        cards += (
-            f'<a class="lvl-card reveal" href="{slug}.html">'
-            f'<div class="lvl-card-top"><span class="lvl-ico">{ICONS[icon]}</span>'
-            f'<span class="lvl-tag">{C["level_word"]} {lvl}</span></div>'
+        side = "left" if i % 2 == 0 else "right"
+        extra = " start" if i == 0 else (" boss" if i == n - 1 else "")
+        nodes += (
+            f'<div class="road-node {side}{extra} reveal">'
+            f'<a class="node-badge" href="{slug}.html" aria-label="{C["level_word"]} {lvl}">'
+            f'<span class="node-ico">{ICONS[icon]}</span><span class="node-num">{lvl}</span></a>'
+            f'<a class="node-card" href="{slug}.html">'
+            f'<span class="lvl-tag">{C["level_word"]} {lvl}</span>'
             f'<h3>{html.escape(titel)}</h3>'
             f'<div class="lvl-unlock">🔓 {C["unlock_word"]}: {html.escape(unlock)}</div></a>'
+            f'</div>'
         )
     rules = "".join(f'<li><span class="chk">{ICONS["check"]}</span> {html.escape(r)}</li>' for r in C["rules"])
     switch_url = C["switch_prefix"] + "challenge.html"
     page = (
         _chrome_head(S, C, switch_url)
         + '<header class="hero hero-game"><div class="wrap">'
-        + f'<div class="eyebrow"><span class="dot"></span> {C["kicker"]}</div>'
+        + f'<div class="eyebrow eyebrow-game"><span class="dot"></span> {C["briefing"]} · {C["kicker"]}</div>'
         + f'<h1 class="game-h1">{C["h1"]}</h1>'
         + f'<p class="lead">{html.escape(C["lead"])}</p>'
-        + f'<div class="cta"><a class="btn btn-primary" href="level-00.html">🚀 {C["cta1"]}</a>'
+        + f'<div class="powered-badge">⚡ {C["powered"]}</div>'
+        + f'<div class="cta"><a class="btn btn-primary btn-game" href="level-00.html">▶ {C["cta1"]}</a>'
         + f'<a class="btn btn-ghost" href="#map">{C["cta2"]}</a></div>'
         + '</div></header>'
         + '<section id="map"><div class="wrap"><div class="section-head reveal">'
         + f'<div class="kicker">{C["map_k"]}</div><h2>{html.escape(C["map_h"])}</h2><p>{html.escape(C["map_p"])}</p></div>'
-        + f'<div class="lvl-grid">{cards}</div>'
+        + f'<div class="roadmap"><div class="road-line"></div>{nodes}</div>'
         + f'<div class="rules-card reveal"><h3>{html.escape(C["rules_h"])}</h3><ul class="outcome-list rules-list">{rules}</ul></div>'
         + '</div></section>'
         + foot_html(S) + REVEAL_JS + "</body></html>"

@@ -509,3 +509,60 @@ footer a:hover { color: var(--text); }
 .challenge-article h2 { border-bottom: 1px solid var(--border); padding-bottom: 10px; }
 .challenge-article pre { background: #080a12; }
 .challenge-article pre code { color: #f2d68a; }
+
+/* ============================================================================
+   CHALLENGE — video-game level path (roadmap)
+   ========================================================================== */
+.eyebrow-game { font-family: var(--font-mono); letter-spacing: .14em; }
+.powered-badge { display: inline-flex; align-items: center; gap: 7px; margin: 0 0 26px; padding: 7px 16px;
+  border-radius: 999px; font-size: .82rem; font-weight: 600; color: var(--text);
+  background: var(--grad-soft); border: 1px solid rgba(236,200,120,.35);
+  box-shadow: 0 0 22px -6px rgba(236,200,120,.5); }
+.btn-game { font-size: 1.05rem; padding: 15px 30px; background-size: 220% auto; animation: btnShift 6s linear infinite; }
+.btn-game:hover { box-shadow: 0 0 52px rgba(236,200,120,.7); }
+
+.roadmap { position: relative; max-width: 920px; margin: 0 auto; padding: 14px 0; }
+.road-line { position: absolute; left: 50%; transform: translateX(-50%); top: 8px; bottom: 8px; width: 5px;
+  border-radius: 99px; overflow: hidden;
+  background: linear-gradient(180deg, rgba(236,200,120,.25), rgba(201,154,62,.55), rgba(214,221,232,.3));
+  box-shadow: 0 0 22px rgba(236,200,120,.45); }
+.road-line::after { content: ""; position: absolute; left: 0; right: 0; height: 38%;
+  background: linear-gradient(180deg, transparent, var(--gold-bright), transparent);
+  animation: flowDown 3.5s linear infinite; }
+@keyframes flowDown { from { transform: translateY(-110%); } to { transform: translateY(360%); } }
+
+.road-node { display: grid; grid-template-columns: 1fr 72px 1fr; align-items: center; column-gap: 26px; margin: 8px 0; }
+.node-badge { grid-column: 2; justify-self: center; position: relative; z-index: 2; width: 72px; height: 72px;
+  border-radius: 50%; display: grid; place-items: center; text-decoration: none;
+  background: radial-gradient(circle at 32% 26%, #1c1408, #0b0910);
+  box-shadow: 0 0 0 2px rgba(236,200,120,.55), 0 0 26px -2px rgba(236,200,120,.6), inset 0 0 18px rgba(0,0,0,.6);
+  transition: transform .25s, box-shadow .3s; }
+.node-badge:hover { transform: scale(1.09); box-shadow: 0 0 0 2px var(--gold-bright), 0 0 42px rgba(236,200,120,.85); }
+.node-ico svg { width: 30px; height: 30px; color: var(--gold-bright); filter: drop-shadow(0 0 8px rgba(236,200,120,.6)); }
+.node-num { position: absolute; bottom: -8px; right: -8px; min-width: 24px; height: 24px; padding: 0 6px;
+  border-radius: 999px; background: var(--grad); color: #1a140a; font-family: var(--font-display);
+  font-weight: 700; font-size: .8rem; display: grid; place-items: center; box-shadow: 0 0 12px rgba(236,200,120,.6); }
+
+.node-card { display: block; text-decoration: none; color: inherit; background: var(--panel);
+  border: 1px solid var(--border); border-radius: var(--r-md); padding: 18px 20px;
+  transition: transform .25s, border-color .25s, box-shadow .3s; }
+.node-card:hover { transform: translateY(-3px); border-color: rgba(236,200,120,.5); box-shadow: var(--shadow); }
+.road-node.left .node-card { grid-column: 1; text-align: right; }
+.road-node.right .node-card { grid-column: 3; text-align: left; }
+.node-card .lvl-tag { font-family: var(--font-mono); font-size: .76rem; letter-spacing: .14em; color: var(--cyan); }
+.node-card h3 { font-family: var(--font-display); font-size: 1.1rem; margin: 6px 0 8px; line-height: 1.25; }
+.node-card .lvl-unlock { font-size: .85rem; color: var(--text-dim); }
+
+.road-node.start .node-badge::before { content: ""; position: absolute; inset: -6px; border-radius: 50%;
+  border: 2px solid rgba(236,200,120,.6); animation: pulseRing 2s ease-out infinite; }
+@keyframes pulseRing { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(1.55); opacity: 0; } }
+.road-node.boss .node-badge { box-shadow: 0 0 0 2px var(--gold-bright), 0 0 48px rgba(236,200,120,.9); }
+.road-node.boss .node-ico svg { color: #fff; }
+
+@media (max-width: 680px) {
+  .road-line { left: 34px; transform: none; }
+  .road-node { grid-template-columns: 64px 1fr; column-gap: 18px; }
+  .node-badge { grid-column: 1; justify-self: start; width: 60px; height: 60px; }
+  .node-ico svg { width: 26px; height: 26px; }
+  .road-node .node-card { grid-column: 2 !important; text-align: left !important; }
+}
