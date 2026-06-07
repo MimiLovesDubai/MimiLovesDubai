@@ -34,7 +34,7 @@ Houd het samenhangend, modern en passend bij Gen Z. Eindig met de vraag welke na
 
 ## 4. PLAK HET IN CLOUD AI
 
-1. Plak het in je AI-chat / Project; verwissel de **MY BUSINESS**-regel.
+1. Plak het in je AI-chat / Project; verwissel de **MIJN BEDRIJF**-regel.
 2. Stuur. Kies je naam en tagline.
 3. Open **Canva → Logo** en bouw het logoconcept na (gratis templates + de opgegeven kleuren/fonts).
 
