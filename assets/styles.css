@@ -111,6 +111,11 @@ body {
   width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center;
   background: var(--grad); box-shadow: var(--glow-violet); font-size: 16px;
 }
+.brand-logo {
+  width: 34px; height: 34px; border-radius: 10px; display: block; object-fit: cover;
+  background: #07060a; box-shadow: 0 0 0 1px rgba(236,200,120,.35), 0 0 18px rgba(236,200,120,.35);
+}
+footer .brand-logo { width: 30px; height: 30px; }
 .nav-links { display: flex; gap: 26px; align-items: center; }
 .nav-links a { color: var(--text-dim); text-decoration: none; font-size: .92rem; font-weight: 500; transition: color .2s; }
 .nav-links a:hover { color: var(--text); }
@@ -652,6 +657,13 @@ footer a:hover { color: var(--text); }
     radial-gradient(ellipse 85% 70% at 50% 38%, rgba(7,6,10,.28), transparent 62%),
     linear-gradient(180deg, rgba(7,6,10,.62) 0%, rgba(7,6,10,.8) 58%, rgba(7,6,10,.97) 100%); }
 .opening-inner { position: relative; z-index: 1; max-width: 880px; }
+.opening-logo {
+  width: clamp(94px, 13vw, 150px); height: auto; display: block; margin: 0 auto 18px;
+  mix-blend-mode: screen; filter: drop-shadow(0 0 26px rgba(236,200,120,.5));
+  animation: logoFloat 5.5s ease-in-out infinite;
+}
+@keyframes logoFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@media (prefers-reduced-motion: reduce) { .opening-logo { animation: none; } }
 .opening-inner .eyebrow { margin-left: auto; margin-right: auto; }
 .opening-inner .lead { margin: 0 auto 30px; max-width: 660px; }
 .opening-inner .cta { justify-content: center; }

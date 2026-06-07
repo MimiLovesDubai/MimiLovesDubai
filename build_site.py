@@ -458,8 +458,8 @@ HEAD = """<!doctype html>
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="{og}">
 <meta name="theme-color" content="#07060a">
-<link rel="icon" href="{icon}">
-<link rel="apple-touch-icon" href="{icon}">
+<link rel="icon" href="{root}assets/favicon.png">
+<link rel="apple-touch-icon" href="{root}assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -481,14 +481,14 @@ def nav_html(S, switch_url):
     switch = (f'<a class="lang-switch" href="{switch_url}" title="{S["other_name"]}">'
               f'{ICONS["globe"]} {S["switch_label"]}</a>')
     return (f'<nav class="nav"><div class="wrap">'
-            f'<a class="brand" href="index.html"><span class="mark">◆</span> {SITE_NAME}</a>'
+            f'<a class="brand" href="index.html"><img class="brand-logo" src="{S["asset_root"]}assets/media/logo.png" alt="" width="34" height="34"> {SITE_NAME}</a>'
             f'<div class="nav-right"><div class="nav-links">{links}</div>{switch}</div>'
             f'</div></nav>')
 
 
 def foot_html(S):
     return (f'<footer><div class="wrap"><div>'
-            f'<div class="brand" style="margin-bottom:6px"><span class="mark">◆</span> {SITE_NAME}</div>'
+            f'<div class="brand" style="margin-bottom:6px"><img class="brand-logo" src="{S["asset_root"]}assets/media/logo.png" alt="" width="30" height="30"> {SITE_NAME}</div>'
             f'<div class="disclaimer">{S["disclaimer"]}</div></div>'
             f'<div style="text-align:right"><a href="index.html">Home</a> &nbsp;·&nbsp; '
             f'<a href="module-00-introductie-en-mindset.html">Start</a><br>'
@@ -582,6 +582,7 @@ def build_index(S, modules):
         + f'<source src="{S["asset_root"]}assets/media/opening.mp4" type="video/mp4"></video>'
         + '<div class="opening-overlay"></div></div>'
         + '<div class="wrap opening-inner">'
+        + f'<img class="opening-logo" src="{S["asset_root"]}assets/media/logo.png" alt="MyAIAgent">'
         + f'<div class="eyebrow"><span class="dot"></span> {S["eyebrow"].format(n=n)}</div>'
         + f'<h1 class="opening-h1">{S["h1"]}</h1>'
         + f'<p class="lead">{html.escape(S["lead"])}</p>'
