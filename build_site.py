@@ -583,7 +583,9 @@ def build_index(S, modules):
     }
     intro_html = (
         f'<div id="intro" class="intro">'
-        f'<video class="intro-video" playsinline preload="auto" poster="{R}assets/media/intro.jpg">'
+        f'<video class="intro-logovid" muted playsinline preload="auto" poster="{R}assets/media/logo.png">'
+        f'<source src="{R}assets/media/logo.mp4" type="video/mp4"></video>'
+        f'<video class="intro-video" muted playsinline preload="auto" poster="{R}assets/media/intro.jpg">'
         f'<source src="{R}assets/media/intro.mp4" type="video/mp4"></video>'
         f'<div class="intro-veil"></div>'
         f'<div class="intro-inner">'
