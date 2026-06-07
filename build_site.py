@@ -260,6 +260,9 @@ CH_NL = {
     "cta1": "Start bij Level 0", "cta2": "Bekijk de levelmap",
     "powered": "Aangedreven door de meest geavanceerde AI — Claude &amp; ChatGPT",
     "briefing": "MISSIE-BRIEFING",
+    "xp_tpl": "LEVEL {n}/{t} VOLTOOID · {p}% XP",
+    "complete_btn": "Markeer dit level als voltooid",
+    "completed_btn": "✓ Voltooid! Goed bezig 🎉",
     "map_k": "De levelmap", "map_h": "11 levels. 11 werknemers. 1 bedrijf.",
     "map_p": "Elk level huur je een nieuwe AI-werknemer en ontgrendel je de volgende. Bouwen, niet studeren.",
     "start": "Start", "rules_h": "De regels (30 seconden)",
@@ -284,6 +287,9 @@ CH_EN = dict(CH_NL, **{
     "cta1": "Start at Level 0", "cta2": "See the level map",
     "powered": "Powered by the most advanced AI — Claude &amp; ChatGPT",
     "briefing": "MISSION BRIEFING",
+    "xp_tpl": "LEVEL {n}/{t} CLEARED · {p}% XP",
+    "complete_btn": "Mark this level complete",
+    "completed_btn": "✓ Completed! Nice one 🎉",
     "map_k": "The level map", "map_h": "11 levels. 11 employees. 1 company.",
     "map_p": "Each level you hire a new AI employee and unlock the next. Build, don't study.",
     "rules_h": "The rules (30 seconds)",
@@ -654,8 +660,13 @@ def build_challenge_level(code, idx):
         + f'<div class="lvl-badge"><span class="lvl-ico">{ICONS[icon]}</span>{C["level_word"]} {lvl}</div>'
         + f'<h1>{html.escape(titel)}</h1></div><hr>'
         + body
+        + f'<div class="lvl-complete-wrap"><button class="btn btn-primary complete-btn" '
+        + f'data-complete="{slug}" data-done-label="{html.escape(C["completed_btn"])}">'
+        + f'{ICONS["check"]} {html.escape(C["complete_btn"])}</button></div>'
         + f'<div class="pager">{prev_html}{next_html}</div></article>'
-        + foot_html(S) + READER_JS + "</body></html>"
+        + foot_html(S) + READER_JS
+        + f'<script src="{S["asset_root"]}assets/game.js"></script>'
+        + "</body></html>"
     )
     with open(out_path(S, f"{slug}.html"), "w", encoding="utf-8") as f:
         f.write(page)
@@ -673,7 +684,7 @@ def build_challenge_index(code):
         side = "left" if i % 2 == 0 else "right"
         extra = " start" if i == 0 else (" boss" if i == n - 1 else "")
         nodes += (
-            f'<div class="road-node {side}{extra} reveal">'
+            f'<div class="road-node {side}{extra} reveal" data-level="{slug}">'
             f'<a class="node-badge" href="{slug}.html" aria-label="{C["level_word"]} {lvl}">'
             f'<span class="node-ico">{ICONS[icon]}</span><span class="node-num">{lvl}</span></a>'
             f'<a class="node-card" href="{slug}.html">'
@@ -696,10 +707,14 @@ def build_challenge_index(code):
         + '</div></header>'
         + '<section id="map"><div class="wrap"><div class="section-head reveal">'
         + f'<div class="kicker">{C["map_k"]}</div><h2>{html.escape(C["map_h"])}</h2><p>{html.escape(C["map_p"])}</p></div>'
+        + f'<div class="xp-bar reveal"><div class="xp-fill"></div>'
+        + f'<span class="xp-label" data-tpl="{C["xp_tpl"]}">{C["xp_tpl"].replace("{n}","0").replace("{t}",str(n)).replace("{p}","0")}</span></div>'
         + f'<div class="roadmap"><div class="road-line"></div>{nodes}</div>'
         + f'<div class="rules-card reveal"><h3>{html.escape(C["rules_h"])}</h3><ul class="outcome-list rules-list">{rules}</ul></div>'
         + '</div></section>'
-        + foot_html(S) + REVEAL_JS + "</body></html>"
+        + foot_html(S) + REVEAL_JS
+        + f'<script src="{S["asset_root"]}assets/game.js"></script>'
+        + "</body></html>"
     )
     with open(out_path(S, "challenge.html"), "w", encoding="utf-8") as f:
         f.write(page)

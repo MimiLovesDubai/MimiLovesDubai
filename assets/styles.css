@@ -566,3 +566,26 @@ footer a:hover { color: var(--text); }
   .node-ico svg { width: 26px; height: 26px; }
   .road-node .node-card { grid-column: 2 !important; text-align: left !important; }
 }
+
+/* ---- Challenge progress: XP bar, done nodes, complete button, confetti ---- */
+.xp-bar { max-width: 540px; margin: 0 auto 40px; height: 36px; position: relative; overflow: hidden;
+  background: var(--panel); border: 1px solid var(--border); border-radius: 999px; display: flex; align-items: center; }
+.xp-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: 999px;
+  background: var(--grad); box-shadow: 0 0 22px rgba(236,200,120,.6); transition: width .7s cubic-bezier(.2,.7,.3,1); }
+.xp-label { position: relative; z-index: 1; width: 100%; text-align: center; mix-blend-mode: difference;
+  color: #fff; font-family: var(--font-display); font-weight: 700; font-size: .82rem; letter-spacing: .08em; }
+
+.road-node.done .node-badge { box-shadow: 0 0 0 2px #3ddc84, 0 0 28px -2px rgba(61,220,132,.6); }
+.road-node.done .node-badge::after { content: "✓"; position: absolute; top: -7px; left: -7px;
+  width: 24px; height: 24px; border-radius: 50%; background: #3ddc84; color: #06210f;
+  display: grid; place-items: center; font-weight: 800; font-size: .8rem; box-shadow: 0 0 12px rgba(61,220,132,.7); }
+.road-node.done .node-card { border-color: rgba(61,220,132,.4); }
+
+.lvl-complete-wrap { text-align: center; margin: 44px 0 8px; }
+.complete-btn { cursor: pointer; font-family: var(--font-display); }
+.complete-btn svg { width: 18px; height: 18px; }
+.complete-btn.is-done { background: rgba(61,220,132,.14); color: #9ff0c0;
+  border: 1px solid rgba(61,220,132,.5); box-shadow: none; }
+.complete-btn.is-done svg { display: none; }
+
+.confetti-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 9999; }
