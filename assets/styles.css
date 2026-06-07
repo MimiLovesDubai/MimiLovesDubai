@@ -670,3 +670,35 @@ footer a:hover { color: var(--text); }
   .opening .stats { gap: 10px; margin-top: 30px; }
   .opening .stat { min-width: 132px; padding: 16px 18px; }
 }
+
+/* ============================================================================
+   Sound toggle + 100% medal
+   ========================================================================== */
+.sound-toggle { position: fixed; left: 20px; bottom: 20px; z-index: 60; width: 46px; height: 46px;
+  border-radius: 50%; display: grid; place-items: center; cursor: pointer; color: var(--gold-bright);
+  background: rgba(12,10,16,.7); border: 1px solid var(--border); backdrop-filter: blur(8px);
+  box-shadow: 0 0 22px -6px rgba(236,200,120,.5); transition: transform .2s, box-shadow .3s, color .2s; }
+.sound-toggle:hover { transform: scale(1.08); box-shadow: 0 0 30px rgba(236,200,120,.6); }
+.sound-toggle svg { width: 22px; height: 22px; }
+.sound-toggle.muted { color: var(--text-faint); }
+.sound-toggle.pending::after { content: ""; position: absolute; inset: -4px; border-radius: 50%;
+  border: 2px solid rgba(236,200,120,.6); animation: pulseRing 2s ease-out infinite; }
+
+.medal-overlay { position: fixed; inset: 0; z-index: 9998; display: flex; align-items: center;
+  justify-content: center; padding: 24px; background: rgba(5,4,8,.82); backdrop-filter: blur(10px);
+  opacity: 0; animation: fadeIn .4s forwards; }
+@keyframes fadeIn { to { opacity: 1; } }
+.medal-card { text-align: center; max-width: 460px; perspective: 700px;
+  background: var(--panel-strong); border: 1px solid rgba(236,200,120,.45); border-radius: var(--r-lg);
+  padding: 42px 32px; box-shadow: var(--shadow), 0 0 90px -20px rgba(236,200,120,.65); }
+.medal { width: 132px; height: 132px; margin: 0 auto 22px; filter: drop-shadow(0 0 24px rgba(236,200,120,.7));
+  animation: medalSpin 6s linear infinite; transform-style: preserve-3d; }
+@keyframes medalSpin { to { transform: rotateY(360deg); } }
+.medal-card h3 { font-family: var(--font-display); font-size: 1.8rem; margin: 0 0 10px; }
+.medal-card p { color: var(--text-dim); margin: 0 0 24px; }
+.medal-close { cursor: pointer; }
+
+.map-medal { display: inline-flex; align-items: center; gap: 10px; margin-top: 16px; padding: 8px 16px 8px 8px;
+  border-radius: 999px; background: var(--grad-soft); border: 1px solid rgba(236,200,120,.45);
+  font-family: var(--font-display); font-weight: 700; font-size: .85rem; box-shadow: 0 0 22px -6px rgba(236,200,120,.5); }
+.map-medal-ico { width: 30px; height: 30px; filter: drop-shadow(0 0 8px rgba(236,200,120,.6)); }

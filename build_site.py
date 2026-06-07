@@ -465,6 +465,7 @@ HEAD = """<!doctype html>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{root}assets/styles.css">
 <script defer src="{root}assets/fx.js"></script>
+<script defer src="{root}assets/ambient.js"></script>
 </head>
 <body>
 <div class="bg-fx"></div><div class="bg-grid"></div>
