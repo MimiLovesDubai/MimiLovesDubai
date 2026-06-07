@@ -51,11 +51,10 @@ def main() -> None:
             if not os.path.isdir(mappad):
                 continue
             for root, _dirs, files in os.walk(mappad):
-                # sla weggegooide/cache-bestanden over
-                if "__pycache__" in root or "/img" in root.replace("\\", "/"):
-                    # afbeeldingen worden los geladen; laat de img-map weg om klein te blijven
-                    if "/img" in root.replace("\\", "/"):
-                        continue
+                rp = root.replace("\\", "/")
+                # afbeeldingen/zware media worden los/online geladen — buiten het pakket houden
+                if "__pycache__" in rp or "/img" in rp or "/media" in rp:
+                    continue
                 for f in files:
                     if f.endswith(".pyc"):
                         continue

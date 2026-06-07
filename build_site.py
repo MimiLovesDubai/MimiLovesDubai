@@ -462,6 +462,7 @@ HEAD = """<!doctype html>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{root}assets/styles.css">
+<script defer src="{root}assets/fx.js"></script>
 </head>
 <body>
 <div class="bg-fx"></div><div class="bg-grid"></div>
@@ -577,9 +578,9 @@ def build_index(S, modules):
         + f'<a class="btn btn-primary" href="{first}">{S["cta1"]} →</a>'
         + f'<a class="btn btn-ghost" href="#modules">{S["cta2"]}</a></div></div>'
         + '<div class="hero-visual reveal"><div class="hero-frame">'
-        + f'<img src="{HERO_IMG}" alt="{S["hero_alt"]}" '
-        + 'onerror="this.style.display=\'none\';this.parentNode.classList.add(\'empty\')">'
-        + '<div class="hero-frame-glow"></div></div></div></div>'
+        + f'<video class="hero-video" autoplay loop muted playsinline poster="{S["asset_root"]}assets/media/hero-b.png">'
+        + f'<source src="{S["asset_root"]}assets/media/hero.mp4" type="video/mp4"></video>'
+        + '<div class="hero-frame-glow"></div><div class="hero-scan"></div></div></div></div>'
         + f'<div class="wrap"><div class="stats">{stats_html}</div></div></header>'
         + '<section id="waarom"><div class="wrap"><div class="section-head reveal">'
         + f'<div class="kicker">{S["why_k"]}</div><h2>{html.escape(S["why_h"])}</h2><p>{html.escape(S["why_p"])}</p>'
@@ -697,7 +698,10 @@ def build_challenge_index(code):
     switch_url = C["switch_prefix"] + "challenge.html"
     page = (
         _chrome_head(S, C, switch_url)
-        + '<header class="hero hero-game"><div class="wrap">'
+        + '<header class="hero hero-game">'
+        + f'<div class="hero-bg-video"><video autoplay loop muted playsinline poster="{S["asset_root"]}assets/media/hero-b.png">'
+        + f'<source src="{S["asset_root"]}assets/media/hero.mp4" type="video/mp4"></video><div class="hero-bg-overlay"></div></div>'
+        + '<div class="wrap">'
         + f'<div class="eyebrow eyebrow-game"><span class="dot"></span> {C["briefing"]} · {C["kicker"]}</div>'
         + f'<h1 class="game-h1">{C["h1"]}</h1>'
         + f'<p class="lead">{html.escape(C["lead"])}</p>'
