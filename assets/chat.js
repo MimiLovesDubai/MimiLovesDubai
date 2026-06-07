@@ -150,6 +150,18 @@
 
     launch.addEventListener("click", openChat);
     panel.querySelector(".chat-x").addEventListener("click", closeChat);
+
+    // Proactively open once per session to start more conversations — but never over the intro.
+    var AUTO = "myaiagent_aria_auto";
+    function maybeAuto() {
+      if (sessionStorage.getItem(AUTO) === "1" || panel.classList.contains("open")) return;
+      var intro = document.getElementById("intro");
+      if (intro && !intro.classList.contains("done")) return;
+      sessionStorage.setItem(AUTO, "1"); openChat();
+    }
+    var introEl = document.getElementById("intro");
+    if (introEl && !introEl.classList.contains("done")) window.addEventListener("intro:done", function () { setTimeout(maybeAuto, 5000); });
+    else setTimeout(maybeAuto, 9000);
     document.addEventListener("keydown", function (e) { if (e.key === "Escape" && panel.classList.contains("open")) closeChat(); });
     document.addEventListener("click", function (e) {
       if (panel.classList.contains("open") && !panel.contains(e.target) && !launch.contains(e.target)) closeChat();

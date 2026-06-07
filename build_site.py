@@ -582,11 +582,37 @@ def build_index(S, modules):
         "enter":  "Betreed de ervaring" if not _en else "Enter the experience",
         "skip":   "Overslaan" if not _en else "Skip",
     }
+    faq_items = ([
+        ("Moet ik kunnen programmeren?", "Nee. Je begint bij de basis en krijgt 5 werkende code-voorbeelden die je kopieert, draait en aanpast — plus kant-en-klare sjablonen."),
+        ("Hoeveel tijd kost het?", "De cursus doorwerken kost een weekend tot 2 weken. Je eerste werkende agent kan al in een avond–weekend staan. Je werkt in je eigen tempo, met levenslange toegang."),
+        ("Hoe verdien ik er geld mee?", "Je laat een AI-agent (of een team) werk leveren waar mensen voor betalen — content, klantenservice, onderzoek, leads of kleine diensten — met een verdienmodel-keuze en een concreet 30-dagen-plan."),
+        ("Wat krijg ik precies?", "Alle modules, 5 werkende code-voorbeelden, sjablonen (business-plan &amp; system-prompt), de complete cursus als download (offline + de hele website) en levenslange gratis updates."),
+        ("Is het veilig en juridisch in orde?", "Ja. Budgetlimieten, mens-in-de-loop en guardrails zijn ingebouwd, en KvK, btw, AVG en de EU AI Act worden helder uitgelegd."),
+        ("Hoe en wanneer krijg ik toegang?", "Direct. Je rekent veilig af via Gumroad en downloadt meteen alles — daarna werk je in je eigen tempo door."),
+    ] if S["lang"] != "en" else [
+        ("Do I need to know how to code?", "No. You start from the basics and get 5 working code examples you copy, run and adapt — plus ready-made templates."),
+        ("How much time does it take?", "Working through the course takes a weekend to 2 weeks. Your first working agent can be live in an evening–weekend. Go at your own pace, with lifetime access."),
+        ("How do I earn money with it?", "You have an AI agent (or team) deliver work people pay for — content, support, research, leads or small services — with a business-model choice and a concrete 30-day plan."),
+        ("What exactly do I get?", "All modules, 5 working code examples, templates (business plan &amp; system prompt), the complete course as a download (offline + the whole website) and lifetime free updates."),
+        ("Is it safe and legally sound?", "Yes. Budget limits, human-in-the-loop and guardrails are built in, and registration, VAT, GDPR and the EU AI Act are explained clearly."),
+        ("How and when do I get access?", "Instantly. You pay securely via Gumroad and download everything right away — then work through it at your own pace."),
+    ])
+    faq_title = "Veelgestelde vragen" if S["lang"] != "en" else "Frequently asked questions"
+    faq_html = (
+        '<section id="faq"><div class="wrap"><div class="section-head reveal">'
+        + f'<div class="kicker">FAQ</div><h2>{faq_title}</h2></div>'
+        + '<div class="faq-list reveal">'
+        + "".join(
+            f'<details class="faq-item"><summary><span>{q}</span><span class="faq-plus">+</span></summary>'
+            f'<div class="faq-a">{a}</div></details>' for q, a in faq_items
+        )
+        + "</div></div></section>"
+    )
     intro_html = (
         f'<div id="intro" class="intro">'
         f'<video class="intro-logovid" muted playsinline preload="auto" poster="{R}assets/media/logo.png">'
         f'<source src="{R}assets/media/logo.mp4" type="video/mp4"></video>'
-        f'<video class="intro-video" muted playsinline preload="auto" poster="{R}assets/media/intro.jpg">'
+        f'<video class="intro-video" muted playsinline preload="metadata" poster="{R}assets/media/intro.jpg">'
         f'<source src="{R}assets/media/intro.mp4" type="video/mp4"></video>'
         f'<div class="intro-veil"></div>'
         f'<div class="intro-inner">'
@@ -659,6 +685,7 @@ def build_index(S, modules):
         + f'<a class="btn btn-primary btn-buy" href="{BUY_URL}">{ICONS["lock"]} {S["buy_btn"]}</a>'
         + f'<a class="btn btn-ghost" href="{first}">{ICONS["sparkle"]} {S["free_btn"]}</a>'
         + f'<p class="guarantee">{S["guarantee"]}</p></div></div></section>'
+        + faq_html
         + foot_html(S) + REVEAL_JS + "</body></html>"
     )
     with open(out_path(S, "index.html"), "w", encoding="utf-8") as f:

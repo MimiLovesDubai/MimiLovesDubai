@@ -850,3 +850,19 @@ html.intro-lock, html.intro-lock body { overflow: hidden; }
   background: linear-gradient(135deg, #f9e7ad, #ecc878 55%, #c79a3e); }
 .chat-send:hover { filter: brightness(1.05); }
 @media (max-width: 560px) { .chat-panel { right: 8px; bottom: 8px; height: min(74vh, 560px); } }
+
+/* ============================================================================
+   FAQ accordion
+   ========================================================================== */
+.faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+.faq-item { background: rgba(255,255,255,.03); border: 1px solid rgba(236,200,120,.16); border-radius: 14px; overflow: hidden; }
+.faq-item[open] { border-color: rgba(236,200,120,.4); background: rgba(236,200,120,.05); }
+.faq-item summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  padding: 17px 20px; font-family: var(--font-display); font-weight: 600; font-size: 1.02rem; color: var(--text); }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary:hover { color: var(--gold-bright); }
+.faq-plus { flex: none; width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%;
+  background: rgba(236,200,120,.12); color: var(--gold-bright); font-size: 1.1rem; line-height: 1; transition: transform .25s ease; }
+.faq-item[open] .faq-plus { transform: rotate(45deg); }
+.faq-a { padding: 0 20px 18px; color: var(--text-dim); line-height: 1.65; font-size: .96rem; }
+.faq-a strong { color: var(--text); }

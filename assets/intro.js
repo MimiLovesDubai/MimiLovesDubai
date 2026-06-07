@@ -172,6 +172,8 @@
     });
     logoVid.addEventListener("ended", toFilm);
     film.addEventListener("ended", finish);
+    // Buffer the heavy film a bit later so it doesn't compete with the header video on first paint.
+    setTimeout(function () { try { film.preload = "auto"; film.load(); } catch (e) {} }, 2500);
     skip.addEventListener("click", function () {
       // first skip jumps from logo to film; a skip during the film exits
       if (ov.classList.contains("stage-logo")) toFilm(); else finish();

@@ -1,24 +1,3 @@
-# Secrets — NOOIT committen
-.env
-code/.env
-*.env
-!.env.example
-!code/.env.example
-
-# Python
-.venv/
-venv/
+previews/
 __pycache__/
 *.pyc
-.pytest_cache/
-
-# Agent-uitvoer & logs
-*.log
-agent_logs/
-agent_state/
-outputs/
-
-# OS / editor
-.DS_Store
-.idea/
-.vscode/
