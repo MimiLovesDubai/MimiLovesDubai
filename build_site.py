@@ -74,6 +74,7 @@ MODULES_NL = [
     ("12-launch-en-groei",           "MODULE 12", "Launch-checklist & groei",      "Van prototype naar een draaiend bedrijf."),
     ("praktijkvoorbeeld",            "PRAKTIJK",  "Praktijkvoorbeeld: 7-dagen-plan", "Eén volledig uitgewerkt voorbeeld — van nul naar je eerste klant."),
     ("agent-bedrijf-blauwdruk",      "BLAUWDRUK", "Bouw je autonome agent-bedrijf",  "De capstone: een groep samenwerkende agents die zelf een bedrijf runt."),
+    ("creatieve-virale-agents",      "VIRAAL",    "Creatieve & virale agent-bedrijven", "Gen Z-niches die viraal gaan — met hoe je er echt geld mee verdient."),
 ]
 
 MODULES_EN = [
@@ -93,6 +94,7 @@ MODULES_EN = [
     ("12-launch-en-groei",           "MODULE 12", "Launch checklist & growth",     "From prototype to a running business."),
     ("praktijkvoorbeeld",            "HANDS-ON",  "Worked example: 7-day plan",    "One fully worked example — from zero to your first customer."),
     ("agent-bedrijf-blauwdruk",      "BLUEPRINT", "Build your autonomous agent company", "The capstone: a group of collaborating agents that runs a business itself."),
+    ("creatieve-virale-agents",      "VIRAL",     "Creative & viral agent businesses", "Gen Z niches that go viral — and how you actually make money with them."),
 ]
 
 # ── UI-teksten per taal ──────────────────────────────────────────────────────
