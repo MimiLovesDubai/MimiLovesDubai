@@ -1,5 +1,6 @@
 /* MyAIAgent — generative cinematic space/UFO ambient (Web Audio, no file).
-   Starts on first user gesture (browsers block autoplay), with a sound toggle. */
+   Mysterious A-minor drone with convolution reverb (galm), echo, distant bells
+   and UFO sweeps. Starts on first user gesture; toggle remembers preference. */
 (function () {
   var KEY = "myaiagent_sound";
   var pref = localStorage.getItem(KEY) || "on"; // 'on' | 'off'
@@ -7,41 +8,66 @@
   var ON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 8a5 5 0 0 1 0 8M18.7 6a8 8 0 0 1 0 12"/></svg>';
   var OFF = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M22 9.5l-6 5M16 9.5l6 5"/></svg>';
 
+  function impulse(sec, decay) {
+    var rate = ctx.sampleRate, len = Math.floor(rate * sec), b = ctx.createBuffer(2, len, rate);
+    for (var ch = 0; ch < 2; ch++) {
+      var d = b.getChannelData(ch);
+      for (var i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, decay);
+    }
+    return b;
+  }
+
   function build() {
     var AC = window.AudioContext || window.webkitAudioContext;
     if (!AC) return false;
     ctx = new AC();
     master = ctx.createGain(); master.gain.value = 0.0001; master.connect(ctx.destination);
 
-    // spacey feedback "reverb"
-    var delay = ctx.createDelay(2.0); delay.delayTime.value = 0.45;
-    var fb = ctx.createGain(); fb.gain.value = 0.34;
-    var wet = ctx.createGain(); wet.gain.value = 0.45;
-    delay.connect(fb); fb.connect(delay); delay.connect(wet); wet.connect(master);
+    // long mysterious reverb (galm) via generated impulse
+    var conv = ctx.createConvolver(); conv.buffer = impulse(4.2, 2.3);
+    var wet = ctx.createGain(); wet.gain.value = 0.85; conv.connect(wet); wet.connect(master);
+    // slow echo tails
+    var delay = ctx.createDelay(2.0); delay.delayTime.value = 0.6;
+    var fb = ctx.createGain(); fb.gain.value = 0.42;
+    var dwet = ctx.createGain(); dwet.gain.value = 0.28;
+    delay.connect(fb); fb.connect(delay); delay.connect(dwet); dwet.connect(master);
 
-    bus = ctx.createGain(); bus.connect(master); bus.connect(delay);
-    lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 650; lp.Q.value = 0.8; lp.connect(bus);
+    bus = ctx.createGain(); bus.connect(master); bus.connect(conv); bus.connect(delay);
+    lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 480; lp.Q.value = 1.1; lp.connect(bus);
 
-    // deep evolving pad — an open-fifth drone (A / E)
-    [55, 82.41, 110, 164.81].forEach(function (f, i) {
+    // moody A-minor drone (A1, A2, C3, E3) with slow detune drift
+    [55, 110, 130.81, 164.81].forEach(function (f, i) {
       var o = ctx.createOscillator(); o.type = i < 2 ? "sine" : "triangle";
       o.frequency.value = f; o.detune.value = i * 5 - 7;
-      var g = ctx.createGain(); g.gain.value = 0.13 / (i + 1);
+      var g = ctx.createGain(); g.gain.value = 0.12 / (i + 1);
       o.connect(g); g.connect(lp); o.start();
+      var dl = ctx.createOscillator(); dl.frequency.value = 0.03 + i * 0.008;
+      var dg = ctx.createGain(); dg.gain.value = 7; dl.connect(dg); dg.connect(o.detune); dl.start();
     });
-    // slow filter sweep for movement
-    var lfo = ctx.createOscillator(); lfo.frequency.value = 0.05;
-    var lfg = ctx.createGain(); lfg.gain.value = 320;
-    lfo.connect(lfg); lfg.connect(lp.frequency); lfo.start();
-    // faint high shimmer with tremolo
-    var sh = ctx.createOscillator(); sh.type = "sine"; sh.frequency.value = 1318.5;
-    var shg = ctx.createGain(); shg.gain.value = 0.004;
-    var trem = ctx.createOscillator(); trem.frequency.value = 0.18;
-    var tremg = ctx.createGain(); tremg.gain.value = 0.004;
-    trem.connect(tremg); tremg.connect(shg.gain); sh.connect(shg); shg.connect(bus); sh.start(); trem.start();
+    // slow dark filter sweep for movement
+    var lfo = ctx.createOscillator(); lfo.frequency.value = 0.04;
+    var lfg = ctx.createGain(); lfg.gain.value = 300; lfo.connect(lfg); lfg.connect(lp.frequency); lfo.start();
 
-    scheduleUfo(7000);
+    scheduleBell(4500);
+    scheduleUfo(9000);
     return true;
+  }
+
+  // distant bell tones (A-minor pentatonic) with long reverb tails
+  function scheduleBell(ms) {
+    setTimeout(function () {
+      if (!ctx) return;
+      var notes = [329.63, 392.0, 440.0, 523.25, 587.33, 659.25];
+      var f = notes[Math.floor(Math.random() * notes.length)];
+      var o = ctx.createOscillator(); o.type = "sine"; o.frequency.value = f;
+      var g = ctx.createGain(); g.gain.value = 0; o.connect(g); g.connect(bus);
+      var t = ctx.currentTime;
+      g.gain.setValueAtTime(0, t);
+      g.gain.linearRampToValueAtTime(0.045, t + 0.03);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 3.4);
+      o.start(t); o.stop(t + 3.6);
+      scheduleBell(8000 + Math.random() * 10000);
+    }, ms);
   }
 
   function scheduleUfo(ms) {
@@ -51,16 +77,16 @@
       var g = ctx.createGain(); g.gain.value = 0;
       var pan = ctx.createStereoPanner ? ctx.createStereoPanner() : null;
       o.connect(g); if (pan) { g.connect(pan); pan.connect(bus); } else { g.connect(bus); }
-      var t = ctx.currentTime, dur = 6.2;
-      var f0 = 300 + Math.random() * 260, f1 = Math.random() < 0.5 ? f0 + 600 : 90;
+      var t = ctx.currentTime, dur = 7;
+      var f0 = 260 + Math.random() * 240, f1 = Math.random() < 0.5 ? f0 + 520 : 80;
       o.frequency.setValueAtTime(f0, t);
-      o.frequency.exponentialRampToValueAtTime(Math.max(f1, 70), t + dur);
+      o.frequency.exponentialRampToValueAtTime(Math.max(f1, 60), t + dur);
       g.gain.setValueAtTime(0, t);
-      g.gain.linearRampToValueAtTime(0.045, t + 2);
+      g.gain.linearRampToValueAtTime(0.04, t + 2.5);
       g.gain.linearRampToValueAtTime(0, t + dur);
       if (pan) { pan.pan.setValueAtTime(-1, t); pan.pan.linearRampToValueAtTime(1, t + dur); }
       o.start(t); o.stop(t + dur + 0.2);
-      scheduleUfo(13000 + Math.random() * 13000);
+      scheduleUfo(15000 + Math.random() * 14000);
     }, ms);
   }
 
@@ -77,7 +103,7 @@
     if (!ctx && !build()) return;
     started = true;
     ctx.resume();
-    if (pref === "on") { fade(0.2, 5); if (btn) btn.classList.remove("pending"); }
+    if (pref === "on") { fade(0.2, 6); if (btn) btn.classList.remove("pending"); }
   }
 
   function render() {
@@ -99,7 +125,7 @@
       pref = pref === "on" ? "off" : "on";
       localStorage.setItem(KEY, pref);
       started = true;
-      fade(pref === "on" ? 0.2 : 0.0001, pref === "on" ? 2 : 1.2);
+      fade(pref === "on" ? 0.2 : 0.0001, pref === "on" ? 2.5 : 1.4);
       btn.classList.remove("pending");
       render();
     });
