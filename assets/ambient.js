@@ -1,6 +1,7 @@
-/* MyAIAgent — space ambient player.
-   Plays REAL NASA-style recordings when available (assets/media/nasa-*.mp3 or a URL),
-   and falls back to a generative Web-Audio synth per vibe so the site is never silent.
+/* MyAIAgent — sparkly cosmic ambient player.
+   Plays a real recording when available (assets/media/nasa-*.mp3 or a URL),
+   and otherwise falls back to a warm, uplifting generative Web-Audio synth
+   (major/pentatonic pads + twinkling bells) so the site is never silent.
    Starts on first gesture; mute toggle + 5-track menu; remembers preferences. */
 (function () {
   var KEY = "myaiagent_sound", PKEY = "myaiagent_preset";
@@ -15,26 +16,32 @@
   // ---- Track config. Put a NASA file in assets/media/ with these names, OR
   //      replace the value with a full https:// URL to a NASA recording. ----
   var TRACKS = {
-    deepspace: { nl: "Diepe ruimte", en: "Deep space", file: "media/nasa-deepspace.mp3" },
-    pulsar:    { nl: "Pulsar",        en: "Pulsar",       file: "media/nasa-pulsar.mp3" },
-    solarwind: { nl: "Zonnewind",     en: "Solar wind",   file: "media/nasa-solarwind.mp3" },
-    ufo:       { nl: "UFO-ontmoeting", en: "UFO encounter", file: "media/nasa-ufo.mp3" },
-    blackhole: { nl: "Zwart gat",     en: "Black hole",   file: "media/nasa-blackhole.mp3" },
+    deepspace: { nl: "Sterrenstof",  en: "Stardust",       file: "media/nasa-deepspace.mp3" },
+    pulsar:    { nl: "Aurora",       en: "Aurora",         file: "media/nasa-pulsar.mp3" },
+    solarwind: { nl: "Dromerig",     en: "Dreamy",         file: "media/nasa-solarwind.mp3" },
+    ufo:       { nl: "Sprankeling",  en: "Sparkle",        file: "media/nasa-ufo.mp3" },
+    blackhole: { nl: "Zonsopkomst",  en: "Sunrise",        file: "media/nasa-blackhole.mp3" },
   };
   function srcFor(key) { var f = TRACKS[key].file; return /^https?:/.test(f) ? f : ASSETS + f; }
 
   // ---- Generative fallback presets (Web Audio) ----
+  // Warm major/pentatonic pads with frequent twinkling bells — bright, dreamy, motivating.
   var SYNTH = {
-    deepspace: { vol: 0.26, notes: [55, 110, 130.81, 164.81], cutoff: 480, q: 1.1, lfo: [0.04, 300], rev: [4.2, 2.3],
-      bells: { scale: [329.63, 392, 440, 523.25, 587.33, 659.25], every: [8000, 18000], gain: 0.045 }, ufo: [15000, 29000] },
-    pulsar: { vol: 0.24, notes: [65.41, 98], cutoff: 620, q: 1, lfo: [0.05, 240], rev: [3.0, 2.2],
-      pulse: { freq: 196, rate: 2.4, gain: 0.13 }, ufo: [22000, 40000] },
-    solarwind: { vol: 0.3, notes: [55], cutoff: 420, q: 0.8, lfo: [0.03, 200], rev: [3.6, 2.4],
-      noise: { freq: 520, q: 1.4, lfoRate: 0.08, lfoDepth: 380, gain: 0.13 } },
-    ufo: { vol: 0.24, notes: [110, 146.83], cutoff: 720, q: 2, lfo: [0.12, 380], rev: [3.4, 2.2],
-      theremin: { base: 660, gain: 0.05 }, bells: { scale: [440, 554.37, 659.25, 880], every: [9000, 18000], gain: 0.04 }, ufo: [6000, 13000] },
-    blackhole: { vol: 0.3, notes: [36.71, 55], cutoff: 300, q: 1.4, lfo: [0.025, 170], rev: [6.0, 2.0],
-      sub: { freq: 30, gain: 0.14 }, bells: { scale: [164.81, 196, 220], every: [12000, 24000], gain: 0.05 } },
+    // Stardust — Cadd9 pad, gentle high twinkles
+    deepspace: { vol: 0.26, notes: [130.81, 196, 261.63, 329.63], cutoff: 1400, q: 0.7, lfo: [0.05, 380], rev: [3.6, 2.2],
+      bells: { scale: [523.25, 587.33, 659.25, 783.99, 880, 1046.5], every: [3200, 7000], gain: 0.05 } },
+    // Aurora — D major shimmer
+    pulsar: { vol: 0.25, notes: [146.83, 220, 293.66, 440], cutoff: 1600, q: 0.7, lfo: [0.06, 440], rev: [3.8, 2.2],
+      bells: { scale: [587.33, 659.25, 739.99, 880, 987.77, 1174.66], every: [2800, 6500], gain: 0.05 } },
+    // Dreamy — Cmaj7 soft and slow
+    solarwind: { vol: 0.25, notes: [130.81, 164.81, 196, 246.94], cutoff: 1150, q: 0.6, lfo: [0.03, 300], rev: [4.6, 2.3],
+      bells: { scale: [523.25, 659.25, 783.99, 987.77, 1318.51], every: [3800, 8500], gain: 0.045 } },
+    // Sparkle — bright Gsus pad, many twinkles
+    ufo: { vol: 0.24, notes: [196, 293.66, 392, 587.33], cutoff: 1850, q: 0.7, lfo: [0.07, 480], rev: [3.2, 2.1],
+      bells: { scale: [659.25, 783.99, 987.77, 1174.66, 1318.51, 1567.98], every: [1900, 4600], gain: 0.05 } },
+    // Sunrise — warm C major with a soft, friendly low note
+    blackhole: { vol: 0.26, notes: [130.81, 261.63, 329.63, 392], cutoff: 1300, q: 0.7, lfo: [0.04, 340], rev: [4.0, 2.2],
+      sub: { freq: 65.41, gain: 0.05 }, bells: { scale: [523.25, 659.25, 783.99, 1046.5], every: [3300, 7500], gain: 0.045 } },
   };
 
   var ON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 8a5 5 0 0 1 0 8M18.7 6a8 8 0 0 1 0 12"/></svg>';
@@ -112,9 +119,14 @@
     if (pref === "on") { faded = true; fade(VOL, 5); }
   }
   function scheduleBell(cfg, ms) { timers.push(setTimeout(function () { if (!ctx) return;
-    var f = cfg.scale[Math.floor(Math.random() * cfg.scale.length)]; var o = osc("sine", f); var g = ctx.createGain(); g.gain.value = 0; o.connect(g); g.connect(bus);
-    var t = ctx.currentTime; g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(cfg.gain, t + 0.03); g.gain.exponentialRampToValueAtTime(0.0001, t + 3.4);
-    o.start(t); o.stop(t + 3.6); scheduleBell(cfg, cfg.every[0] + Math.random() * (cfg.every[1] - cfg.every[0])); }, ms)); }
+    var f = cfg.scale[Math.floor(Math.random() * cfg.scale.length)];
+    var o = osc("sine", f); var g = ctx.createGain(); g.gain.value = 0; o.connect(g); g.connect(bus);
+    var sh = osc("sine", f * 2); var sg = ctx.createGain(); sg.gain.value = 0; sh.connect(sg); sg.connect(bus); // octave shimmer
+    var t = ctx.currentTime;
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(cfg.gain, t + 0.015); g.gain.exponentialRampToValueAtTime(0.0001, t + 2.8);
+    sg.gain.setValueAtTime(0, t); sg.gain.linearRampToValueAtTime(cfg.gain * 0.35, t + 0.01); sg.gain.exponentialRampToValueAtTime(0.0001, t + 1.8);
+    o.start(t); o.stop(t + 3.0); sh.start(t); sh.stop(t + 2.0);
+    scheduleBell(cfg, cfg.every[0] + Math.random() * (cfg.every[1] - cfg.every[0])); }, ms)); }
   function scheduleUfo(r, ms) { timers.push(setTimeout(function () { if (!ctx) return;
     var o = osc("sine", 300); var g = ctx.createGain(); g.gain.value = 0; var pan = ctx.createStereoPanner ? ctx.createStereoPanner() : null;
     o.connect(g); if (pan) { g.connect(pan); pan.connect(bus); } else g.connect(bus);
@@ -143,7 +155,7 @@
     muteBtn.title = "Geluid aan/uit"; muteBtn.setAttribute("aria-label", "Geluid aan of uit"); renderMute();
     var picker = document.createElement("div"); picker.className = "sound-picker";
     nameEl = document.createElement("span"); nameEl.className = "sound-name"; nameEl.textContent = TRACKS[preset][LANG === "en" ? "en" : "nl"];
-    var pbtn = document.createElement("button"); pbtn.className = "preset-btn"; pbtn.innerHTML = "🛰️ "; pbtn.appendChild(nameEl); pbtn.insertAdjacentHTML("beforeend", ' <span class="chev">⌄</span>');
+    var pbtn = document.createElement("button"); pbtn.className = "preset-btn"; pbtn.innerHTML = "✨ "; pbtn.appendChild(nameEl); pbtn.insertAdjacentHTML("beforeend", ' <span class="chev">⌄</span>');
     var menu = document.createElement("div"); menu.className = "sound-menu";
     Object.keys(TRACKS).forEach(function (k) {
       var it = document.createElement("button"); it.className = "sound-item" + (k === preset ? " active" : ""); it.textContent = TRACKS[k][LANG === "en" ? "en" : "nl"];
