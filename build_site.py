@@ -115,6 +115,7 @@ STR_NL = {
     "hero_alt": "Futuristische gouden AI-figuur in een luxe ruimteschip-lounge",
     "stats": [("{n}", "complete modules"), ("5", "draaibare code-voorbeelden"),
               ("24/7", "autonoom te draaien"), ("∞", "schaalbaar")],
+    "show_k": "De vibe", "show_h": "Zo voelt de toekomst die je bouwt",
     "why_k": "Waarom deze cursus", "why_h": "Van idee naar draaiende onderneming",
     "why_p": "Alles wat je nodig hebt om verantwoord een AI-gedreven bedrijf te bouwen — techniek, monetisatie en de wet, in één pad.",
     "features": [
@@ -178,6 +179,7 @@ STR_EN = {
     "hero_alt": "Futuristic golden AI figure in a luxury spaceship lounge",
     "stats": [("{n}", "complete modules"), ("5", "runnable code examples"),
               ("24/7", "run autonomously"), ("∞", "scalable")],
+    "show_k": "The vibe", "show_h": "This is the future you're building",
     "why_k": "Why this course", "why_h": "From idea to a running business",
     "why_p": "Everything you need to responsibly build an AI-driven business — tech, monetization and the law, in one path.",
     "features": [
@@ -582,6 +584,12 @@ def build_index(S, modules):
         + f'<source src="{S["asset_root"]}assets/media/hero.mp4" type="video/mp4"></video>'
         + '<div class="hero-frame-glow"></div><div class="hero-scan"></div></div></div></div>'
         + f'<div class="wrap"><div class="stats">{stats_html}</div></div></header>'
+        + '<section class="showcase"><div class="wrap"><div class="section-head reveal">'
+        + f'<div class="kicker">{S["show_k"]}</div><h2>{html.escape(S["show_h"])}</h2></div>'
+        + '<div class="showcase-grid">'
+        + f'<figure class="show-frame reveal"><img src="{S["asset_root"]}assets/media/show-1.png" alt="{S["hero_alt"]}" loading="lazy"></figure>'
+        + f'<figure class="show-frame reveal"><img src="{S["asset_root"]}assets/media/show-2.png" alt="{S["hero_alt"]}" loading="lazy"></figure>'
+        + '</div></div></section>'
         + '<section id="waarom"><div class="wrap"><div class="section-head reveal">'
         + f'<div class="kicker">{S["why_k"]}</div><h2>{html.escape(S["why_h"])}</h2><p>{html.escape(S["why_p"])}</p>'
         + f'</div><div class="features">{feat_html}</div></div></section>'
