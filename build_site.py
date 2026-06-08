@@ -31,7 +31,7 @@ DOWNLOAD_ZIP = "downloads/myaiagent-cursus.zip"
 # Bezoekersstatistieken — vul ÉÉN waarde in zodra je een (gratis) account hebt.
 # Daarna verschijnt de teller automatisch op elke pagina. Leeg = geen teller.
 ANALYTICS = {
-    "ga4": "",          # Google Analytics 4, bv. "G-XXXXXXXXXX"
+    "ga4": "G-0NRR97LLVN",  # Google Analytics 4, bv. "G-XXXXXXXXXX"
     "cloudflare": "",   # Cloudflare Web Analytics beacon-token
     "plausible": "",    # Plausible, bv. "myaiagent.tech"
     "goatcounter": "",  # GoatCounter-code, bv. "myaiagent"
@@ -41,10 +41,8 @@ ANALYTICS = {
 def analytics_snippet():
     a = ANALYTICS
     if a.get("ga4"):
-        gid = a["ga4"]
-        return (f'<script async src="https://www.googletagmanager.com/gtag/js?id={gid}"></script>'
-                '<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}'
-                f"gtag('js',new Date());gtag('config','{gid}');</script>")
+        # GA uses cookies -> load only after consent (handled by assets/consent.js)
+        return f'<script>window.__GA_ID="{a["ga4"]}";</script>'
     if a.get("cloudflare"):
         return ('<script defer src="https://static.cloudflareinsights.com/beacon.min.js" '
                 f'data-cf-beacon=\'{{"token": "{a["cloudflare"]}"}}\'></script>')
@@ -502,6 +500,7 @@ HEAD = """<!doctype html>
 <script defer src="{root}assets/intro.js"></script>
 <script defer src="{root}assets/ambient.js"></script>
 <script defer src="{root}assets/chat.js"></script>
+<script defer src="{root}assets/consent.js"></script>
 </head>
 <body>
 <div class="bg-fx"></div><div class="bg-grid"></div>
