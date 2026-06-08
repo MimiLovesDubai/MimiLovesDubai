@@ -28,6 +28,36 @@ ORIG_PRICE = "€299"
 BUY_URL = "https://mariskabeen.gumroad.com/l/bjutmc"  # echte Gumroad-productlink
 DOWNLOAD_ZIP = "downloads/myaiagent-cursus.zip"
 
+# Bezoekersstatistieken — vul ÉÉN waarde in zodra je een (gratis) account hebt.
+# Daarna verschijnt de teller automatisch op elke pagina. Leeg = geen teller.
+ANALYTICS = {
+    "ga4": "",          # Google Analytics 4, bv. "G-XXXXXXXXXX"
+    "cloudflare": "",   # Cloudflare Web Analytics beacon-token
+    "plausible": "",    # Plausible, bv. "myaiagent.tech"
+    "goatcounter": "",  # GoatCounter-code, bv. "myaiagent"
+}
+
+
+def analytics_snippet():
+    a = ANALYTICS
+    if a.get("ga4"):
+        gid = a["ga4"]
+        return (f'<script async src="https://www.googletagmanager.com/gtag/js?id={gid}"></script>'
+                '<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}'
+                f"gtag('js',new Date());gtag('config','{gid}');</script>")
+    if a.get("cloudflare"):
+        return ('<script defer src="https://static.cloudflareinsights.com/beacon.min.js" '
+                f'data-cf-beacon=\'{{"token": "{a["cloudflare"]}"}}\'></script>')
+    if a.get("plausible"):
+        return f'<script defer data-domain="{a["plausible"]}" src="https://plausible.io/js/script.js"></script>'
+    if a.get("goatcounter"):
+        return (f'<script data-goatcounter="https://{a["goatcounter"]}.goatcounter.com/count" '
+                'async src="//gc.zgo.at/count.js"></script>')
+    return ""
+
+
+ANALYTICS_TAGS = analytics_snippet()
+
 # Merkbeelden (rechtstreeks van de beeld-CDN; taal-onafhankelijk).
 HERO_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_3EV64GaphhBt3vnsJcygYZCjJZa/hf_20260606_152320_c81ed183-7881-46fb-8a7f-7f5d8d6acafa.png"
 OG_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_3EV64GaphhBt3vnsJcygYZCjJZa/hf_20260606_152832_ced37d1b-044a-4c0f-97f3-fd873371a7da.png"
@@ -494,6 +524,8 @@ def seo_block(core, lang, jsonld=""):
     ]
     if jsonld:
         parts.append('<script type="application/ld+json">' + jsonld + '</script>')
+    if ANALYTICS_TAGS:
+        parts.append(ANALYTICS_TAGS)
     return "\n".join(parts)
 
 
