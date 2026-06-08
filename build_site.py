@@ -521,9 +521,10 @@ def course_jsonld(S, lang, faq_items=None):
 
 
 def nav_html(S, switch_url):
+    gl = "Gidsen" if S["lang"] == "nl" else "Guides"
     links = (f'<a href="index.html#modules">{S["nav"][0]}</a>'
-             f'<a href="index.html#waarom">{S["nav"][1]}</a>'
              f'<a href="index.html#koop">{S["nav"][2]}</a>'
+             f'<a href="guides.html">{gl}</a>'
              f'<a class="nav-game" href="challenge.html">🎮 Challenge</a>')
     switch = (f'<a class="lang-switch" href="{switch_url}" title="{S["other_name"]}">'
               f'{ICONS["globe"]} {S["switch_label"]}</a>')
@@ -845,6 +846,225 @@ def build_challenge_index(code):
         f.write(page)
 
 
+ARTICLES = [
+    {"slug": "ai-agent-bouwen",
+     "nl": {"title": "AI-agent bouwen: complete gids voor beginners (2026) | MyAIAgent.tech",
+            "desc": "Leer wat een AI-agent is en hoe je er zelf een bouwt — stap voor stap, zonder ervaring. Plus hoe je er een bedrijf mee runt en geld mee verdient.",
+            "h1": "AI-agent bouwen: de complete gids voor beginners", "kicker": "Gids",
+            "body": """Een **AI-agent** is software die zelfstandig taken uitvoert: hij denkt na, gebruikt hulpmiddelen (tools) en werkt door tot het doel bereikt is. In deze gids lees je wat een AI-agent is, hoe je er zelf een bouwt en hoe je er een bedrijf mee runt — ook zonder programmeerervaring.
+
+## Wat is een AI-agent?
+Waar een gewone chatbot één vraag beantwoordt, jaagt een agent een **doel** na: informatie opzoeken, beslissingen nemen, acties uitvoeren en zichzelf corrigeren. Zie het als een digitale medewerker die klantvragen afhandelt, content maakt of bestellingen verwerkt.
+
+## Wat heb je nodig?
+- Een **taalmodel** (zoals de Claude API) als brein.
+- **Tools**: koppelingen waarmee de agent echt iets kan doen — e-mail, een database, betalingen.
+- **Een veilige lus**: duidelijke regels, budgetlimieten en een mens-in-de-loop, zodat het niet misgaat.
+
+## In 5 stappen je eerste agent
+1. Kies een klein, concreet doel (bijvoorbeeld: veelgestelde vragen beantwoorden).
+2. Schrijf een heldere system-prompt: wie is de agent en wat mag hij wel en niet.
+3. Geef hem één of twee tools.
+4. Test met echte voorbeelden en stuur bij.
+5. Zet budgetlimieten en logging aan vóór je live gaat.
+
+## Van agent naar bedrijf
+Eén agent bespaart tijd; een **team agents** kan een dienst leveren waar mensen voor betalen. Kies een verdienmodel, valideer het en laat je agents 24/7 draaien.
+
+Wil je dit stap voor stap leren — met werkende code en sjablonen? Bekijk de volledige aanpak hieronder."""},
+     "en": {"title": "How to Build an AI Agent: Complete Beginner Guide (2026) | MyAIAgent.tech",
+            "desc": "Learn what an AI agent is and how to build one yourself — step by step, no experience needed. Plus how to run a business with it and earn money.",
+            "h1": "How to build an AI agent: the complete beginner guide", "kicker": "Guide",
+            "body": """An **AI agent** is software that performs tasks on its own: it reasons, uses tools and keeps working until the goal is reached. This guide explains what an AI agent is, how to build one, and how to run a business with it — even without coding experience.
+
+## What is an AI agent?
+Where a normal chatbot answers a single question, an agent pursues a **goal**: it looks things up, makes decisions, takes actions and corrects itself. Think of it as a digital employee that handles customer questions, creates content or processes orders.
+
+## What you need
+- A **language model** (such as the Claude API) as the brain.
+- **Tools**: connections that let the agent actually do things — email, a database, payments.
+- **A safe loop**: clear rules, budget limits and a human in the loop, so nothing goes wrong.
+
+## Your first agent in 5 steps
+1. Pick a small, concrete goal (for example: answer frequently asked questions).
+2. Write a clear system prompt: who the agent is and what it may and may not do.
+3. Give it one or two tools.
+4. Test with real examples and adjust.
+5. Turn on budget limits and logging before you go live.
+
+## From agent to business
+One agent saves time; a **team of agents** can deliver a service people pay for. Choose a business model, validate it and let your agents run 24/7.
+
+Want to learn this step by step — with working code and templates? See the full approach below."""}},
+    {"slug": "geld-verdienen-met-ai",
+     "nl": {"title": "Geld verdienen met AI in 2026: 5 realistische manieren | MyAIAgent.tech",
+            "desc": "Ontdek hoe je in 2026 echt geld verdient met AI — geen trucs, maar realistische verdienmodellen met AI-agents die 24/7 voor je werken.",
+            "h1": "Geld verdienen met AI: 5 realistische manieren", "kicker": "Gids",
+            "body": """**Geld verdienen met AI** is in 2026 toegankelijker dan ooit — niet door 'snel rijk'-trucs, maar door slim werk te automatiseren en diensten te leveren. Deze gids laat realistische manieren zien.
+
+## 5 realistische verdienmodellen
+1. **Diensten leveren met AI** — content, vertalingen, onderzoek of klantenservice, sneller en goedkoper dankzij AI-agents.
+2. **Automatisering verkopen** — bouw voor bedrijven een agent die een vervelende taak overneemt.
+3. **Een eigen product** — een tool, nieuwsbrief of cursus die grotendeels vanzelf draait.
+4. **Leads & affiliate** — laat agents content maken die verkeer en commissies oplevert.
+5. **Productiviteit** — bespaar uren in je eigen werk; bespaarde tijd is ook geld.
+
+## Waarom AI-agents het verschil maken
+Een agent werkt 24/7, schaalt mee en maakt geen overuren. Daardoor kun je met een klein team — of in je eentje — iets bouwen waar vroeger een heel bedrijf voor nodig was.
+
+## Begin verstandig
+- Kies één model en valideer of mensen er echt voor willen betalen.
+- Houd de mens in de loop en stel budgetlimieten in.
+- Werk juridisch netjes: btw, AVG en de EU AI Act.
+
+Hieronder lees je hoe je dit stap voor stap aanpakt, met een concreet plan naar je eerste betalende klant."""},
+     "en": {"title": "How to Make Money with AI in 2026: 5 Realistic Ways | MyAIAgent.tech",
+            "desc": "Discover how to actually make money with AI in 2026 — no tricks, just realistic business models with AI agents that work for you 24/7.",
+            "h1": "How to make money with AI: 5 realistic ways", "kicker": "Guide",
+            "body": """**Making money with AI** is more accessible than ever in 2026 — not through 'get rich quick' tricks, but by automating smart work and delivering services. This guide shows realistic ways.
+
+## 5 realistic business models
+1. **Deliver services with AI** — content, translation, research or customer support, faster and cheaper thanks to AI agents.
+2. **Sell automation** — build an agent for businesses that takes over a tedious task.
+3. **Your own product** — a tool, newsletter or course that largely runs itself.
+4. **Leads & affiliate** — let agents create content that drives traffic and commissions.
+5. **Productivity** — save hours in your own work; saved time is money too.
+
+## Why AI agents make the difference
+An agent works 24/7, scales with you and never does overtime. That lets you — with a small team or solo — build something that used to require a whole company.
+
+## Start wisely
+- Pick one model and validate that people will actually pay for it.
+- Keep a human in the loop and set budget limits.
+- Stay compliant: VAT, GDPR and the EU AI Act.
+
+Below you'll see how to do this step by step, with a concrete plan to your first paying customer."""}},
+    {"slug": "bedrijf-starten-met-ai",
+     "nl": {"title": "Bedrijf starten met AI zonder code: zo doe je het | MyAIAgent.tech",
+            "desc": "Start een online bedrijf met AI zonder te programmeren. Huur 'AI-werknemers' in en bouw in 30 dagen iets dat grotendeels vanzelf draait.",
+            "h1": "Een bedrijf starten met AI (zonder code)", "kicker": "Gids",
+            "body": """Je kunt tegenwoordig een **online bedrijf starten met AI zonder te programmeren**. In plaats van code schrijf je heldere instructies en koppel je kant-en-klare tools. Zo werkt het.
+
+## Het idee: AI-werknemers inhuren
+Zie AI als een team digitale medewerkers. Jij bent de oprichter die de richting bepaalt; de agents doen het uitvoerende werk: schrijven, plannen, beantwoorden en verwerken.
+
+## In 4 stappen zonder code
+1. **Kies een niche** die je begrijpt en waar vraag naar is.
+2. **Beschrijf de taken** die je AI-team moet doen, in gewone taal.
+3. **Koppel tools** met no-code platforms: formulieren, betalingen, e-mail.
+4. **Lanceer klein**, vraag feedback en verbeter.
+
+## Valkuilen vermijden
+- Begin niet te groot: één dienst, één doelgroep.
+- Controleer de output (mens-in-de-loop) voordat het naar klanten gaat.
+- Houd kosten in de gaten met budgetlimieten.
+
+## Sneller leren
+Wil je dit in een duidelijk pad, level voor level? Bekijk hieronder hoe je in 30 dagen je eigen AI-bedrijf bouwt."""},
+     "en": {"title": "How to Start a Business with AI (No Code): Step by Step | MyAIAgent.tech",
+            "desc": "Start an online business with AI without coding. Hire 'AI employees' and build something that largely runs itself in 30 days.",
+            "h1": "How to start a business with AI (no code)", "kicker": "Guide",
+            "body": """Today you can **start an online business with AI without coding**. Instead of writing code, you write clear instructions and connect ready-made tools. Here's how.
+
+## The idea: hiring AI employees
+Think of AI as a team of digital employees. You're the founder who sets the direction; the agents do the execution: writing, planning, answering and processing.
+
+## In 4 steps, no code
+1. **Pick a niche** you understand and where there's demand.
+2. **Describe the tasks** your AI team should do, in plain language.
+3. **Connect tools** with no-code platforms: forms, payments, email.
+4. **Launch small**, ask for feedback and improve.
+
+## Avoiding pitfalls
+- Don't start too big: one service, one audience.
+- Check the output (human in the loop) before it reaches customers.
+- Watch costs with budget limits.
+
+## Learn faster
+Want this as a clear path, level by level? See below how to build your own AI company in 30 days."""}},
+]
+
+GUIDES_META = {
+    "nl": {"title": "Gidsen over AI-agents, geld verdienen & een bedrijf starten | MyAIAgent.tech",
+           "desc": "Praktische, eerlijke gidsen: AI-agents bouwen, geld verdienen met AI en een online bedrijf starten zonder code.",
+           "h1": "Gidsen", "kicker": "Kennisbank",
+           "intro": "Praktische, eerlijke gidsen om met AI te bouwen en te verdienen. Lees verder en zet daarna de stap naar de volledige cursus."},
+    "en": {"title": "Guides on AI Agents, Making Money & Starting a Business | MyAIAgent.tech",
+           "desc": "Practical, honest guides: building AI agents, making money with AI and starting an online business with no code.",
+           "h1": "Guides", "kicker": "Knowledge base",
+           "intro": "Practical, honest guides to build and earn with AI. Read on, then take the step to the full course."},
+}
+
+ARTICLE_CTA = {
+    "nl": ("Klaar om het écht te bouwen?", "In de cursus bouw je stap voor stap een AI-agent die zélf een bedrijf runt — met werkende code, sjablonen en een 30-dagen-plan.",
+           "Bekijk de cursus — " + PRICE, "Start de gratis Challenge"),
+    "en": ("Ready to actually build it?", "In the course you build, step by step, an AI agent that runs a business by itself — with working code, templates and a 30-day plan.",
+           "See the course — " + PRICE, "Start the free Challenge"),
+}
+
+
+def _article_cta(S):
+    h, p, b1, b2 = ARTICLE_CTA[S["lang"]]
+    return ('<div class="price-card glow-ring article-cta">'
+            '<span class="hud tl"></span><span class="hud tr"></span><span class="hud bl"></span><span class="hud br"></span>'
+            f'<h3>{h}</h3><p>{html.escape(p)}</p>'
+            f'<a class="btn btn-primary btn-buy" href="{BUY_URL}">{ICONS["lock"]} {b1}</a> '
+            f'<a class="btn btn-ghost" href="challenge.html">{ICONS["rocket"]} {b2}</a></div>')
+
+
+def build_article(S, art):
+    lang = S["lang"]; A = art[lang]; slug = art["slug"]
+    switch_url = S["switch_prefix"] + f"{slug}.html"
+    self_url = SITE_URL + ("/" if lang == "nl" else "/en/") + f"{slug}.html"
+    jsonld = json.dumps({
+        "@context": "https://schema.org", "@type": "Article",
+        "headline": A["h1"], "description": A["desc"], "inLanguage": lang,
+        "mainEntityOfPage": self_url,
+        "author": {"@type": "Organization", "name": SITE_NAME},
+        "publisher": {"@type": "Organization", "name": SITE_NAME,
+                      "logo": {"@type": "ImageObject", "url": SITE_URL + "/assets/favicon.png"}},
+    }, ensure_ascii=False)
+    page = (
+        HEAD.format(lang=lang, title=A["title"], desc=A["desc"], root=S["asset_root"], og=OG_IMG, icon=ICON_IMG,
+                    seo=seo_block(f"{slug}.html", lang, jsonld=jsonld))
+        + '<div class="reader-top"><div class="bar" id="rbar"></div></div>'
+        + nav_html(S, switch_url)
+        + '<article class="article">'
+        + f'<a class="crumb-link" href="guides.html">← {GUIDES_META[lang]["h1"]}</a>'
+        + f'<div class="kicker">{A["kicker"]}</div>'
+        + f'<h1>{html.escape(A["h1"])}</h1><hr>'
+        + md_to_html(A["body"].strip())
+        + _article_cta(S)
+        + '</article>'
+        + foot_html(S) + READER_JS + "</body></html>"
+    )
+    with open(out_path(S, f"{slug}.html"), "w", encoding="utf-8") as f:
+        f.write(page)
+
+
+def build_guides_index(S):
+    lang = S["lang"]; M = GUIDES_META[lang]
+    switch_url = S["switch_prefix"] + "guides.html"
+    cards = "".join(
+        f'<a class="mod-card reveal" href="{a["slug"]}.html">'
+        f'<div class="mod-num"><span class="mod-dot"></span> {a[lang]["kicker"]}</div>'
+        f'<h3>{html.escape(a[lang]["h1"])}</h3><p>{html.escape(a[lang]["desc"])}</p>'
+        f'<span class="go">{"Lees gids" if lang=="nl" else "Read guide"} <span>→</span></span></a>'
+        for a in ARTICLES
+    )
+    page = (
+        HEAD.format(lang=lang, title=M["title"], desc=M["desc"], root=S["asset_root"], og=OG_IMG, icon=ICON_IMG,
+                    seo=seo_block("guides.html", lang))
+        + nav_html(S, switch_url)
+        + '<section style="padding-top:120px"><div class="wrap"><div class="section-head reveal">'
+        + f'<div class="kicker">{M["kicker"]}</div><h2>{html.escape(M["h1"])}</h2><p>{html.escape(M["intro"])}</p></div>'
+        + f'<div class="modules">{cards}</div></div></section>'
+        + foot_html(S) + REVEAL_JS + "</body></html>"
+    )
+    with open(out_path(S, "guides.html"), "w", encoding="utf-8") as f:
+        f.write(page)
+
+
 def write_seo_files(modules_by_lang):
     """Generate sitemap.xml and robots.txt so Google can find and index every page."""
     today = date.today().isoformat()
@@ -861,6 +1081,9 @@ def write_seo_files(modules_by_lang):
         for m in modules_by_lang[code]:
             add(pre, f"module-{m[0]}.html", "0.8")
         add(pre, "challenge.html", "0.9")
+        add(pre, "guides.html", "0.7")
+        for a in ARTICLES:
+            add(pre, f"{a['slug']}.html", "0.7")
         for lvl in CHALLENGE_LEVELS:
             add(pre, f"{lvl[0]}.html", "0.6")
 
@@ -888,9 +1111,12 @@ def main() -> None:
         for idx in range(len(modules)):
             build_module(S, modules, idx)
         build_index(S, modules)
+        build_guides_index(S)
+        for art in ARTICLES:
+            build_article(S, art)
         total += len(modules)
         loc = S["dir"] or "(root)"
-        print(f"✅ {code.upper()}: index + {len(modules)} modulepagina's → {loc}/")
+        print(f"✅ {code.upper()}: index + {len(modules)} modulepagina's + {len(ARTICLES)} gidsen → {loc}/")
 
     # The AI Company Challenge (gamified track, beide talen)
     for code in LANGS:
