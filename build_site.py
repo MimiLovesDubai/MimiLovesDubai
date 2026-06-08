@@ -13,6 +13,8 @@ Draai (geen externe pakketten nodig):
 import html
 import os
 import re
+import json
+from datetime import date
 
 HIER = os.path.dirname(os.path.abspath(__file__))
 
@@ -458,6 +460,8 @@ HEAD = """<!doctype html>
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="{og}">
 <meta name="theme-color" content="#07060a">
+<meta name="robots" content="index, follow, max-image-preview:large">
+{seo}
 <link rel="icon" href="{root}assets/favicon.png">
 <link rel="apple-touch-icon" href="{root}assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -473,6 +477,40 @@ HEAD = """<!doctype html>
 <div class="bg-fx"></div><div class="bg-grid"></div>
 <div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
 """
+
+
+def seo_block(core, lang, jsonld=""):
+    """Canonical + hreflang (NL/EN) + og:url, and optional JSON-LD. `core` is the
+    path relative to the site root, language-agnostic ("" for the home page)."""
+    nl_url = SITE_URL + "/" + core
+    en_url = SITE_URL + "/en/" + core
+    self_url = nl_url if lang == "nl" else en_url
+    parts = [
+        f'<link rel="canonical" href="{self_url}">',
+        f'<meta property="og:url" content="{self_url}">',
+        f'<link rel="alternate" hreflang="nl" href="{nl_url}">',
+        f'<link rel="alternate" hreflang="en" href="{en_url}">',
+        f'<link rel="alternate" hreflang="x-default" href="{nl_url}">',
+    ]
+    if jsonld:
+        parts.append('<script type="application/ld+json">' + jsonld + '</script>')
+    return "\n".join(parts)
+
+
+def course_jsonld(S, lang):
+    data = {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": S["title"],
+        "description": S["desc"],
+        "inLanguage": lang,
+        "url": SITE_URL + ("/" if lang == "nl" else "/en/"),
+        "provider": {"@type": "Organization", "name": SITE_NAME, "url": SITE_URL,
+                     "logo": SITE_URL + "/assets/favicon.png"},
+        "offers": {"@type": "Offer", "price": "149", "priceCurrency": "EUR",
+                   "availability": "https://schema.org/InStock", "url": BUY_URL},
+    }
+    return json.dumps(data, ensure_ascii=False)
 
 
 def nav_html(S, switch_url):
@@ -535,7 +573,8 @@ def build_module(S, modules, idx):
     switch_url = S["switch_prefix"] + f"module-{slug}.html"
     page = (
         HEAD.format(lang=S["lang"], title=f"{titel} · {S['mod_title_suffix']}", desc=desc,
-                    root=S["asset_root"], og=OG_IMG, icon=ICON_IMG)
+                    root=S["asset_root"], og=OG_IMG, icon=ICON_IMG,
+                    seo=seo_block(f"module-{slug}.html", S["lang"]))
         + '<div class="reader-top"><div class="bar" id="rbar"></div></div>'
         + nav_html(S, switch_url)
         + '<article class="article">'
@@ -625,7 +664,8 @@ def build_index(S, modules):
         f'</div>'
     )
     page = (
-        HEAD.format(lang=S["lang"], title=S["title"], desc=S["desc"], root=S["asset_root"], og=OG_IMG, icon=ICON_IMG)
+        HEAD.format(lang=S["lang"], title=S["title"], desc=S["desc"], root=S["asset_root"], og=OG_IMG, icon=ICON_IMG,
+                    seo=seo_block("", S["lang"], jsonld=course_jsonld(S, S["lang"])))
         + intro_html
         + nav_html(S, switch_url)
         # CINEMATISCHE OPENING — video op het volle scherm, titel eroverheen
@@ -692,9 +732,9 @@ def build_index(S, modules):
         f.write(page)
 
 
-def _chrome_head(S, C, switch_url, reader_bar=False):
+def _chrome_head(S, C, switch_url, core, reader_bar=False):
     head = HEAD.format(lang=S["lang"], title=C["title"], desc=C["desc"], root=S["asset_root"],
-                       og=OG_IMG, icon=ICON_IMG)
+                       og=OG_IMG, icon=ICON_IMG, seo=seo_block(core, S["lang"]))
     if reader_bar:
         head += '<div class="reader-top"><div class="bar" id="rbar"></div></div>'
     return head + nav_html(S, switch_url)
@@ -728,7 +768,7 @@ def build_challenge_level(code, idx):
 
     switch_url = C["switch_prefix"] + f"{slug}.html"
     page = (
-        _chrome_head(S, C, switch_url, reader_bar=True)
+        _chrome_head(S, C, switch_url, f"{slug}.html", reader_bar=True)
         + '<article class="article challenge-article">'
         + f'<a class="crumb-link" href="challenge.html">{C["back"]}</a>'
         + '<div class="lvl-header">'
@@ -771,7 +811,7 @@ def build_challenge_index(code):
     rules = "".join(f'<li><span class="chk">{ICONS["check"]}</span> {html.escape(r)}</li>' for r in C["rules"])
     switch_url = C["switch_prefix"] + "challenge.html"
     page = (
-        _chrome_head(S, C, switch_url)
+        _chrome_head(S, C, switch_url, "challenge.html")
         + '<header class="hero hero-game">'
         + f'<div class="hero-bg-video"><video autoplay loop muted playsinline poster="{S["asset_root"]}assets/media/show-1.png">'
         + f'<source src="{S["asset_root"]}assets/media/show.mp4" type="video/mp4"></video><div class="hero-bg-overlay"></div></div>'
@@ -798,6 +838,39 @@ def build_challenge_index(code):
         f.write(page)
 
 
+def write_seo_files(modules_by_lang):
+    """Generate sitemap.xml and robots.txt so Google can find and index every page."""
+    today = date.today().isoformat()
+    rows = []
+
+    def add(prefix, core, prio):
+        loc = SITE_URL + prefix + core
+        rows.append(f'  <url><loc>{loc}</loc><lastmod>{today}</lastmod>'
+                    f'<changefreq>weekly</changefreq><priority>{prio}</priority></url>')
+
+    for code in LANGS:
+        pre = "/" if code == "nl" else "/en/"
+        add(pre, "", "1.0")                                   # home
+        for m in modules_by_lang[code]:
+            add(pre, f"module-{m[0]}.html", "0.8")
+        add(pre, "challenge.html", "0.9")
+        for lvl in CHALLENGE_LEVELS:
+            add(pre, f"{lvl[0]}.html", "0.6")
+
+    sitemap = ('<?xml version="1.0" encoding="UTF-8"?>\n'
+               '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+               + "\n".join(rows) + "\n</urlset>\n")
+    with open(os.path.join(HIER, "sitemap.xml"), "w", encoding="utf-8") as f:
+        f.write(sitemap)
+
+    robots = ("User-agent: *\n"
+              "Allow: /\n\n"
+              f"Sitemap: {SITE_URL}/sitemap.xml\n")
+    with open(os.path.join(HIER, "robots.txt"), "w", encoding="utf-8") as f:
+        f.write(robots)
+    print(f"🔎 SEO: sitemap.xml ({len(rows)} URL's) + robots.txt geschreven")
+
+
 def main() -> None:
     global ASSET_ROOT
     total = 0
@@ -820,6 +893,7 @@ def main() -> None:
         loc = CHALLENGE[code]["dir"] or "(root)"
         print(f"🎮 {code.upper()}: challenge + {len(CHALLENGE_LEVELS)} levels → {loc}/")
     ASSET_ROOT = ""
+    write_seo_files(modules_by_lang)
     print(f"🎉 Tweetalige site gebouwd ({total} modulepagina's + {2*len(CHALLENGE_LEVELS)} levels).")
 
 
