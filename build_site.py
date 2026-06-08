@@ -161,8 +161,8 @@ STR_NL = {
     ],
     "buy_btn": "Koop &amp; download nu — " + PRICE, "free_btn": "Eerst gratis lezen",
     "guarantee": "Veilig betalen via Gumroad · direct downloaden na aankoop",
-    "title": "De Autonome Onderneming · Bouw een AI-agent die zélf een bedrijf runt",
-    "desc": "De complete, futuristische cursus: bouw stap voor stap een autonome AI-agent die echt bedrijfswerk doet en geld voor je verdient — met de mens op de juiste plek.",
+    "title": "AI-agent bouwen die zélf een bedrijf runt | Cursus | MyAIAgent.tech",
+    "desc": "Leer stap voor stap een AI-agent bouwen die zélf een online bedrijf runt en geld voor je verdient — zonder code, in 30 dagen. Cursus met levenslange toegang.",
     "mod_title_suffix": "De Autonome Onderneming",
     "disclaimer": "Educatief materiaal — geen financieel, juridisch of fiscaal advies. Jij bent verantwoordelijk voor wat je agent doet. Bouw verantwoord.",
     "foot_built": "Gebouwd met de Claude API · Opus 4.8",
@@ -225,8 +225,8 @@ STR_EN = {
     ],
     "buy_btn": "Buy &amp; download now — " + PRICE, "free_btn": "Read it free first",
     "guarantee": "Secure payment via Gumroad · instant download after purchase",
-    "title": "MyAIAgent.tech · Build an AI agent that runs a business by itself",
-    "desc": "The complete, futuristic course: build a largely autonomous AI agent that does real business work and earns money for you — step by step, with a human in the loop.",
+    "title": "Build an AI Agent That Runs a Business | Course | MyAIAgent.tech",
+    "desc": "Learn to build an AI agent that runs an online business and earns money for you — no code, in 30 days. Step-by-step course with lifetime access.",
     "mod_title_suffix": "MyAIAgent.tech",
     "disclaimer": "Educational material — not financial, legal or tax advice. You are responsible for what your agent does. Build responsibly.",
     "foot_built": "Built with the Claude API · Opus 4.8",
@@ -497,9 +497,8 @@ def seo_block(core, lang, jsonld=""):
     return "\n".join(parts)
 
 
-def course_jsonld(S, lang):
-    data = {
-        "@context": "https://schema.org",
+def course_jsonld(S, lang, faq_items=None):
+    course = {
         "@type": "Course",
         "name": S["title"],
         "description": S["desc"],
@@ -510,7 +509,15 @@ def course_jsonld(S, lang):
         "offers": {"@type": "Offer", "price": "149", "priceCurrency": "EUR",
                    "availability": "https://schema.org/InStock", "url": BUY_URL},
     }
-    return json.dumps(data, ensure_ascii=False)
+    graph = [course]
+    if faq_items:
+        def plain(t): return html.unescape(re.sub(r"<[^>]+>", "", t)).strip()
+        graph.append({
+            "@type": "FAQPage",
+            "mainEntity": [{"@type": "Question", "name": plain(q),
+                            "acceptedAnswer": {"@type": "Answer", "text": plain(a)}} for q, a in faq_items],
+        })
+    return json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False)
 
 
 def nav_html(S, switch_url):
@@ -665,7 +672,7 @@ def build_index(S, modules):
     )
     page = (
         HEAD.format(lang=S["lang"], title=S["title"], desc=S["desc"], root=S["asset_root"], og=OG_IMG, icon=ICON_IMG,
-                    seo=seo_block("", S["lang"], jsonld=course_jsonld(S, S["lang"])))
+                    seo=seo_block("", S["lang"], jsonld=course_jsonld(S, S["lang"], faq_items)))
         + intro_html
         + nav_html(S, switch_url)
         # CINEMATISCHE OPENING — video op het volle scherm, titel eroverheen
