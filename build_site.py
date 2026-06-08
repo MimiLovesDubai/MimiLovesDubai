@@ -501,6 +501,7 @@ HEAD = """<!doctype html>
 <script defer src="{root}assets/ambient.js"></script>
 <script defer src="{root}assets/chat.js"></script>
 <script defer src="{root}assets/consent.js"></script>
+<script defer src="{root}assets/owner.js"></script>
 </head>
 <body>
 <div class="bg-fx"></div><div class="bg-grid"></div>
