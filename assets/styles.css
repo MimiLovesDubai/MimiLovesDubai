@@ -892,13 +892,22 @@ html.intro-lock, html.intro-lock body { overflow: hidden; }
 @media (max-width: 560px) { .cookie-bar { bottom: 10px; } .cookie-btns { width: 100%; }
   .cookie-no, .cookie-ok { flex: 1; } }
 
-/* Owner-only visit counter (hidden from visitors) */
-.owner-counter { position: fixed; top: 78px; right: 16px; z-index: 4100; cursor: pointer;
-  display: inline-flex; align-items: baseline; gap: 7px; padding: 8px 13px; border-radius: 999px;
-  background: rgba(13,12,19,.82); backdrop-filter: blur(8px); color: var(--text);
-  border: 1px solid rgba(236,200,120,.4); box-shadow: 0 8px 24px rgba(0,0,0,.45);
-  font-family: var(--font-mono); user-select: none; }
-.owner-counter .oc-ico { font-size: .9rem; }
-.owner-counter .oc-n { font-weight: 700; font-size: 1rem; color: var(--gold-bright); font-family: var(--font-display); }
-.owner-counter .oc-lbl { font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; color: var(--text-dim); }
-.owner-counter.min .oc-n, .owner-counter.min .oc-lbl { display: none; }
+/* Owner-only visit counter + country breakdown (hidden from visitors) */
+.owner-counter { position: fixed; top: 78px; right: 16px; z-index: 4100;
+  background: rgba(13,12,19,.85); backdrop-filter: blur(8px); color: var(--text);
+  border: 1px solid rgba(236,200,120,.4); border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,.45);
+  font-family: var(--font-mono); user-select: none; overflow: hidden; min-width: 0; }
+.oc-main { display: flex; align-items: baseline; gap: 7px; padding: 8px 13px; cursor: pointer; }
+.oc-main .oc-ico { font-size: .9rem; }
+.oc-main .oc-n { font-weight: 700; font-size: 1rem; color: var(--gold-bright); font-family: var(--font-display); }
+.oc-main .oc-lbl { font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; color: var(--text-dim); }
+.oc-main .oc-caret { margin-left: 4px; color: var(--text-dim); transition: transform .25s ease; }
+.owner-counter.open .oc-caret { transform: rotate(180deg); }
+.oc-geo { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+.owner-counter.open .oc-geo { max-height: 340px; border-top: 1px solid rgba(236,200,120,.2); }
+.oc-row { display: flex; align-items: center; gap: 8px; padding: 6px 13px; font-size: .8rem; }
+.oc-row:nth-child(odd) { background: rgba(255,255,255,.03); }
+.oc-fl { font-size: 1rem; }
+.oc-cn { flex: 1; white-space: nowrap; color: var(--text); }
+.oc-cv { font-weight: 700; color: var(--gold-bright); font-family: var(--font-display); }
+.oc-empty { padding: 10px 13px; font-size: .76rem; color: var(--text-dim); }
