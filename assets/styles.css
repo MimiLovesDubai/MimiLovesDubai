@@ -893,7 +893,7 @@ html.intro-lock, html.intro-lock body { overflow: hidden; }
   .cookie-no, .cookie-ok { flex: 1; } }
 
 /* Owner-only visit counter (hidden from visitors) */
-.owner-counter { position: fixed; top: 78px; right: 16px; z-index: 90; cursor: pointer;
+.owner-counter { position: fixed; top: 78px; right: 16px; z-index: 4100; cursor: pointer;
   display: inline-flex; align-items: baseline; gap: 7px; padding: 8px 13px; border-radius: 999px;
   background: rgba(13,12,19,.82); backdrop-filter: blur(8px); color: var(--text);
   border: 1px solid rgba(236,200,120,.4); box-shadow: 0 8px 24px rgba(0,0,0,.45);
