@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-background text-zinc-100 font-body antialiased;
+  background-image: radial-gradient(
+      ellipse 80% 50% at 50% -10%,
+      rgba(139, 124, 246, 0.12),
+      transparent 60%
+    ),
+    radial-gradient(ellipse 60% 40% at 90% 110%, rgba(236, 200, 120, 0.07), transparent 60%);
+  background-attachment: fixed;
+}
+
+::selection {
+  background: rgba(236, 200, 120, 0.3);
+}
+
+/* Thin, dark scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.14) transparent;
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/[0.04] backdrop-blur-xl border border-white/[0.07];
+  }
+  .gold-text {
+    background: linear-gradient(135deg, #f9e7ad, #ecc878 55%, #c79a3e);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hud-ring {
+    @apply relative rounded-2xl border border-gold/25;
+    box-shadow: inset 0 0 40px rgba(236, 200, 120, 0.05);
+  }
+}
+
+/* Markdown-ish rendering for agent messages */
+.msg-body :is(h1, h2, h3) {
+  @apply font-display font-semibold text-zinc-100 mt-4 mb-1.5;
+}
+.msg-body h1 { @apply text-lg; }
+.msg-body h2 { @apply text-base; }
+.msg-body h3 { @apply text-sm; }
+.msg-body p { @apply my-2 leading-relaxed; }
+.msg-body ul { @apply list-disc pl-5 my-2 space-y-1; }
+.msg-body ol { @apply list-decimal pl-5 my-2 space-y-1; }
+.msg-body strong { @apply text-gold-bright font-semibold; }
+.msg-body code {
+  @apply font-mono text-[0.85em] bg-white/[0.07] rounded px-1.5 py-0.5;
+}
+.msg-body pre {
+  @apply bg-black/40 border border-white/10 rounded-xl p-3 my-2 overflow-x-auto;
+}
+.msg-body pre code { @apply bg-transparent p-0; }
