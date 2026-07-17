@@ -38,10 +38,14 @@
   `assets/generator/` in deze repository — jouw eigendom, reproduceerbaar en uitbreidbaar.
 
 ### Logo
-- Schone merkversie gemaakt zoals gevraagd — **alleen de huisjes + "GALLERY DUTCH ART"** (zonder www,
-  .NL en functietitels): `assets/logo/gallery-dutch-art-logo.svg` + `.png` (transparant). Ook geüpload
-  naar de Wix Media Manager. In de Editor: vervang het huidige logo in de header (Editor → header →
-  afbeelding vervangen → kies "gallery-dutch-art-logo" uit Media).
+- **Officieel logo (jouw aangeleverde bestand, bijgesneden):** de onderste tekst (naam + functietitels)
+  en de sierkrullen zijn eraf gehaald; over blijft www-boog + "GALLERY DUTCH ART.NL" + de drie huisjes.
+  Bestanden: `assets/logo/gallery-dutch-art-logo-original.png` (witte achtergrond) en
+  `…-original-transparent.png` (transparant, voor donkere vlakken). Beide staan ook in de Wix Media
+  Manager. In de Editor: header → afbeelding vervangen → kies dit bestand uit Media.
+- Extra: een vector-merkversie (alleen huisjes + "GALLERY DUTCH ART", strak hertekend) in
+  `assets/logo/gallery-dutch-art-logo.svg` + `.png` — handig als klein beeldmerk in de siteheader,
+  waar het volledige gestapelde logo onleesbaar klein zou worden.
 
 ### Cinematografische homepage (masterfile)
 - `design/homepage-cinematic.html` — volledig uitgewerkt ontwerp (desktop + mobiel getest, incl.
