@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gallery Dutch Art — Bespoke Art for Iconic Hotels, Residences and Destinations</title>
+<style>
+  :root{
+    --obsidian:#131114; --obsidian2:#1B181C; --obsidian3:#221E24; --ivory:#F2EDE3; --dim:#A79E90;
+    --champagne:#CBA35C; --hairline:rgba(242,237,227,.12);
+    --serif:Georgia,'Times New Roman',serif;
+    --sans:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--obsidian);color:var(--ivory);font-family:var(--sans);line-height:1.65;overflow-x:hidden}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+
+  /* header */
+  header{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+    padding:18px 4vw;transition:background .5s,border-color .5s;border-bottom:1px solid transparent}
+  header.scrolled{background:rgba(19,17,20,.9);backdrop-filter:blur(12px);border-color:var(--hairline)}
+  .brand img{height:60px;width:auto;transition:height .4s}
+  header.scrolled .brand img{height:46px}
+  nav ul{display:flex;gap:32px;list-style:none;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim)}
+  nav a{padding-bottom:4px;border-bottom:1px solid transparent;transition:all .3s}
+  nav a:hover{color:var(--ivory);border-color:var(--champagne)}
+  .cta-nav{border:1px solid var(--champagne);color:var(--champagne);padding:12px 24px;font-size:11px;
+    letter-spacing:.2em;text-transform:uppercase;transition:all .3s;white-space:nowrap}
+  .cta-nav:hover{background:var(--champagne);color:var(--obsidian)}
+
+  /* shared */
+  section{padding:12vh 4vw}
+  .wrap{max-width:1400px;margin:0 auto}
+  .label{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--champagne);margin-bottom:16px}
+  h2{font-family:var(--serif);font-weight:400;font-size:clamp(26px,3vw,42px);max-width:26ch;text-wrap:balance;line-height:1.2}
+  .lead{color:var(--dim);max-width:62ch;margin-top:18px;font-size:16px}
+  .btn{display:inline-block;padding:16px 36px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;transition:all .3s}
+  .btn-primary{background:var(--champagne);color:var(--obsidian)}
+  .btn-primary:hover{filter:brightness(1.12);transform:translateY(-2px)}
+  .btn-ghost{border:1px solid var(--hairline);color:var(--ivory)}
+  .btn-ghost:hover{border-color:var(--ivory);transform:translateY(-2px)}
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity .9s ease,transform .9s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* hero */
+  .hero{position:relative;overflow:hidden;min-height:100vh;display:grid;grid-template-columns:1.05fr .95fr;
+    align-items:center;gap:4vw;padding:14vh 4vw 8vh;max-width:1400px;margin:0 auto}
+  .hero::before{content:'';position:absolute;top:-30%;right:-12%;width:80%;height:170%;pointer-events:none;
+    background:radial-gradient(closest-side,rgba(203,163,92,.17),rgba(203,163,92,.05) 55%,transparent 75%);
+    animation:breathe 9s ease-in-out infinite alternate}
+  @keyframes breathe{from{opacity:.75;transform:scale(1)}to{opacity:1;transform:scale(1.06)}}
+  .kicker{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--champagne);margin-bottom:26px}
+  h1{font-family:var(--serif);font-weight:400;font-size:clamp(31px,4vw,57px);line-height:1.15;text-wrap:balance}
+  h1 em{font-style:italic;color:var(--champagne)}
+  .sub{margin-top:24px;color:var(--dim);max-width:50ch;font-size:16px}
+  .hero-ctas{display:flex;gap:18px;margin-top:42px;flex-wrap:wrap}
+  .spotlight{position:relative;z-index:1;justify-self:center;max-width:430px;width:100%}
+  .spot-frame{background:#0C0A0D;border:1px solid rgba(203,163,92,.4);padding:18px;
+    box-shadow:0 60px 120px rgba(0,0,0,.6),0 0 90px rgba(203,163,92,.10);transition:transform .6s ease}
+  .spot-frame:hover{transform:translateY(-6px)}
+  .spot-cap{display:flex;justify-content:space-between;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--dim);padding-top:14px}
+  .scroll-hint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);width:1px;height:52px;overflow:hidden}
+  .scroll-hint::after{content:'';position:absolute;left:0;top:-52px;width:1px;height:52px;
+    background:linear-gradient(180deg,transparent,var(--champagne));animation:drop 2.6s ease-in-out infinite}
+  @keyframes drop{60%{top:52px}100%{top:52px}}
+
+  /* serve */
+  .serve{display:flex;margin-top:42px;flex-wrap:wrap}
+  .serve span{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);
+    padding:16px 26px;border:1px solid var(--hairline);margin:-1px 0 0 -1px;transition:color .3s,border-color .3s}
+  .serve span:hover{color:var(--champagne);border-color:rgba(203,163,92,.5);position:relative}
+
+  /* selected work */
+  .work-card{display:grid;grid-template-columns:1.1fr .9fr;gap:5vw;align-items:center;margin-top:80px}
+  .work-card.flip{direction:rtl}
+  .work-card>*{direction:ltr}
+  .work-media{position:relative;overflow:hidden;border:1px solid var(--hairline)}
+  .work-media img{transition:transform 1.2s cubic-bezier(.2,.6,.2,1);width:100%;aspect-ratio:4/5;object-fit:cover;opacity:.94}
+  .work-card:hover .work-media img{transform:scale(1.04)}
+  .work-tag{position:absolute;top:18px;left:18px;background:rgba(19,17,20,.78);backdrop-filter:blur(8px);
+    padding:8px 16px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--champagne)}
+  .work-info .meta{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--champagne);margin-bottom:12px}
+  .work-info h3{font-family:var(--serif);font-weight:400;font-size:clamp(23px,2.4vw,33px)}
+  .work-info p{color:var(--dim);margin-top:14px}
+  .link-arrow{display:inline-flex;align-items:center;gap:10px;margin-top:24px;font-size:11px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--ivory)}
+  .link-arrow span{transition:transform .35s}
+  .link-arrow:hover span{transform:translateX(8px)} .link-arrow:hover{color:var(--champagne)}
+
+  /* capabilities */
+  .caps{background:var(--obsidian2);border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}
+  .caps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hairline);margin-top:52px}
+  .cap{background:var(--obsidian2);padding:42px 32px;transition:background .4s}
+  .cap:hover{background:var(--obsidian3)}
+  .cap .n{font-family:var(--serif);color:var(--champagne);font-size:15px;letter-spacing:.08em}
+  .cap h3{font-family:var(--serif);font-weight:400;font-size:22px;margin:14px 0 10px}
+  .cap p{color:var(--dim);font-size:14px}
+
+  /* transformation spaces */
+  .spaces{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hairline);margin-top:52px}
+  .space{background:var(--obsidian);padding:34px 30px;min-height:170px;display:flex;flex-direction:column;
+    justify-content:flex-end;transition:background .4s;position:relative;overflow:hidden}
+  .space::after{content:'';position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--champagne);transition:width .5s}
+  .space:hover{background:var(--obsidian3)} .space:hover::after{width:100%}
+  .space h3{font-family:var(--serif);font-weight:400;font-size:20px}
+  .space p{color:var(--dim);font-size:13px;margin-top:8px}
+
+  /* editions strip */
+  .ed-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:52px}
+  .ed-card{background:var(--obsidian2);border:1px solid var(--hairline);overflow:hidden;
+    transition:transform .45s,border-color .45s,box-shadow .45s}
+  .ed-card:hover{transform:translateY(-8px);border-color:rgba(203,163,92,.5);box-shadow:0 30px 60px rgba(0,0,0,.5)}
+  .ed-card img{aspect-ratio:4/5;object-fit:cover;width:100%}
+  .ed-body{padding:22px 24px}
+  .ed-body h3{font-family:var(--serif);font-weight:400;font-size:20px}
+  .ed-body .m{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--champagne);margin-top:6px}
+
+  /* process */
+  .process{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin-top:52px}
+  .step .n{font-family:var(--serif);color:var(--champagne);font-size:15px;letter-spacing:.08em}
+  .step h3{font-family:var(--serif);font-weight:400;font-size:19px;margin:10px 0 8px}
+  .step p{font-size:13px;color:var(--dim)}
+
+  /* quote */
+  .quote{background:linear-gradient(180deg,var(--obsidian) 0%,#1E1817 50%,var(--obsidian) 100%);text-align:center}
+  blockquote{font-family:var(--serif);font-size:clamp(23px,2.8vw,36px);line-height:1.4;font-style:italic;
+    max-width:26ch;margin:0 auto}
+  .quote .who{margin-top:24px;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--dim)}
+  .quote .who b{color:var(--champagne);font-weight:600}
+
+  /* enquiry */
+  .enquiry{text-align:center;position:relative;overflow:hidden}
+  .enquiry::before{content:'';position:absolute;left:50%;top:0;transform:translateX(-50%);width:70%;height:100%;
+    background:radial-gradient(closest-side,rgba(203,163,92,.10),transparent 75%);pointer-events:none}
+  .enquiry .wrap{position:relative}
+  .enquiry h2{margin:0 auto}
+  .enquiry .lead{margin-left:auto;margin-right:auto}
+  .enquiry .hero-ctas{justify-content:center;margin-top:38px}
+
+  footer{border-top:1px solid var(--hairline);padding:36px 4vw;display:flex;justify-content:space-between;gap:20px;
+    font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);flex-wrap:wrap;align-items:center}
+  footer img{height:46px}
+
+  @media(max-width:900px){
+    nav ul{display:none}
+    .hero{grid-template-columns:1fr;min-height:auto;padding-top:16vh}
+    .work-card,.work-card.flip{grid-template-columns:1fr;direction:ltr;gap:24px;margin-top:56px}
+    .caps-grid,.ed-grid,.spaces{grid-template-columns:1fr}
+    .process{grid-template-columns:1fr 1fr}
+    section{padding:10vh 6vw}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hero::before{animation:none}
+    .reveal{opacity:1;transform:none;transition:none}
+    html{scroll-behavior:auto}
+    .scroll-hint{display:none}
+  }
+</style>
+</head>
+<body>
+<header id="top">
+  <a class="brand" href="#top"><img src="{{LOGO_DARK}}" alt="Gallery Dutch Art"></a>
+  <nav aria-label="Main"><ul>
+    <li><a href="#work">Selected Work</a></li>
+    <li><a href="#capabilities">Hospitality Art</a></li>
+    <li><a href="#editions">Digital Editions</a></li>
+    <li><a href="#process">Studio</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul></nav>
+  <a class="cta-nav" href="#contact">Start a Project</a>
+</header>
+
+<main>
+  <!-- 1 · CINEMATIC HERO -->
+  <section class="hero" style="padding-left:4vw;padding-right:4vw">
+    <div>
+      <p class="kicker">Amsterdam · Dubai · Riyadh · Monaco</p>
+      <h1>Bespoke Art and <em>Immersive Experiences</em> for Iconic Hotels, Residences and Destinations</h1>
+      <p class="sub">Gallery Dutch Art creates distinctive art collections, visual identities and immersive
+        experiences for luxury hospitality and landmark developments worldwide.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#contact">Discuss Your Project</a>
+        <a class="btn btn-ghost" href="#work">Enter Selected Work</a>
+      </div>
+    </div>
+    <div class="spotlight">
+      <div class="spot-frame">
+        <img src="{{ART_TULIP}}" alt="Tulipomania Nocturne — original digital artwork by Gallery Dutch Art">
+        <p class="spot-cap"><span>Tulipomania — Nocturne</span><span>Edition of 10</span></p>
+      </div>
+    </div>
+    <div class="scroll-hint" aria-hidden="true"></div>
+  </section>
+
+  <!-- 2 · AUTHORITY -->
+  <section>
+    <div class="wrap">
+      <p class="label reveal">Who we serve</p>
+      <h2 class="reveal">One creative partner for the spaces that define a destination.</h2>
+      <p class="lead reveal">From a single statement artwork to the complete visual identity of a resort —
+        we work alongside owners, developers, architects and interior studios from first concept to installation.</p>
+      <div class="serve reveal">
+        <span>Luxury Hotels</span><span>Resorts</span><span>Branded Residences</span><span>Architects</span>
+        <span>Developers</span><span>Interior Studios</span><span>Wellness &amp; Yachts</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · SELECTED WORK -->
+  <section id="work" style="padding-top:4vh">
+    <div class="wrap">
+      <p class="label reveal">Selected Work</p>
+      <h2 class="reveal">Concepts and collections, presented honestly.</h2>
+
+      <article class="work-card reveal">
+        <div class="work-media"><img src="{{ART_DELFT}}" alt="Milkmaid holographic NFT concept">
+          <span class="work-tag">Digital Art &amp; Blockchain</span></div>
+        <div class="work-info">
+          <p class="meta">Proposal · Rijksmuseum Amsterdam</p>
+          <h3>Milkmaid — Holographic NFT Collection</h3>
+          <p>An exclusive holographic collection that lets a Dutch master breathe in light —
+            blockchain-certified digital editions created as an ode to Vermeer.</p>
+          <a class="link-arrow" href="#contact">View project <span>→</span></a>
+        </div>
+      </article>
+
+      <article class="work-card flip reveal">
+        <div class="work-media"><img src="{{ART_AMSTERDAM}}" alt="War Museum immersive concept">
+          <span class="work-tag">Immersive Experiences</span></div>
+        <div class="work-info">
+          <p class="meta">Concept study · Museum experience</p>
+          <h3>War Museum — Bring History Back</h3>
+          <p>Layered projection, holographic scenes and curated artefact staging turn remembrance
+            into a cinematic, walk-through narrative.</p>
+          <a class="link-arrow" href="#contact">View project <span>→</span></a>
+        </div>
+      </article>
+
+      <article class="work-card reveal">
+        <div class="work-media"><img src="{{ART_PATTERN}}" alt="KLM Heritage Couture concept">
+          <span class="work-tag">Concept Studies</span></div>
+        <div class="work-info">
+          <p class="meta">Concept study · Couture &amp; heritage</p>
+          <h3>KLM Heritage Couture</h3>
+          <p>Couture concept merging the tailoring of KLM flight crews with Dutch cultural
+            inheritance — aviation heritage restitched into wearable art.</p>
+          <a class="link-arrow" href="#contact">View project <span>→</span></a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 4 · CAPABILITIES -->
+  <section class="caps" id="capabilities">
+    <div class="wrap">
+      <p class="label reveal">What we do</p>
+      <h2 class="reveal">Three disciplines. One signature.</h2>
+      <div class="caps-grid">
+        <article class="cap reveal"><p class="n">01</p><h3>Hospitality Art</h3>
+          <p>Original works and curated collections conceived for hotels, resorts and residences —
+            art that gives a property a soul and its guests a story to tell.</p></article>
+        <article class="cap reveal"><p class="n">02</p><h3>Immersive Experiences</h3>
+          <p>Holographic scenes, projection concepts and walk-through narratives that turn lobbies,
+            museums and landmark spaces into cinematic destinations.</p></article>
+        <article class="cap reveal"><p class="n">03</p><h3>Bespoke Commissions &amp; Digital Editions</h3>
+          <p>One-of-a-kind commissions in paint and pixel — including limited digital editions,
+            certified on the blockchain.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · TRANSFORMATION -->
+  <section>
+    <div class="wrap">
+      <p class="label reveal">Transformation</p>
+      <h2 class="reveal">Every space has an untold story. We give it a voice.</h2>
+      <div class="spaces">
+        <div class="space reveal"><h3>The Lobby</h3><p>The first ten seconds of every stay — a statement collection that sets the tone.</p></div>
+        <div class="space reveal"><h3>Suites &amp; Rooms</h3><p>Intimate works that make a night unforgettable and a suite photographable.</p></div>
+        <div class="space reveal"><h3>Restaurants &amp; Bars</h3><p>Atmosphere you can taste — art directing the evening's mood.</p></div>
+        <div class="space reveal"><h3>Wellness &amp; Spa</h3><p>Quiet, immersive imagery that deepens serenity.</p></div>
+        <div class="space reveal"><h3>Façades &amp; Public Space</h3><p>Landmark gestures — projection, sculpture and light at architectural scale.</p></div>
+        <div class="space reveal"><h3>Branded Residences</h3><p>Collections that carry a brand's identity into private life.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · DIGITAL EDITIONS -->
+  <section id="editions" style="padding-top:4vh">
+    <div class="wrap">
+      <p class="label reveal">Digital Editions</p>
+      <h2 class="reveal">Dutch Masters, reimagined — certified on the blockchain.</h2>
+      <div class="ed-grid">
+        <article class="ed-card reveal"><img src="{{ART_DELFT}}" alt="Delft Flow — Digital Edition 01">
+          <div class="ed-body"><h3>Delft Flow</h3><p class="m">Edition 01 · Limited to 10</p></div></article>
+        <article class="ed-card reveal"><img src="{{ART_TULIP}}" alt="Tulipomania Nocturne — Digital Edition 02">
+          <div class="ed-body"><h3>Tulipomania — Nocturne</h3><p class="m">Edition 02 · Limited to 10</p></div></article>
+        <article class="ed-card reveal"><img src="{{ART_AMSTERDAM}}" alt="Golden Hour Amsterdam — Digital Edition 03">
+          <div class="ed-body"><h3>Golden Hour — Amsterdam</h3><p class="m">Edition 03 · Limited to 10</p></div></article>
+      </div>
+      <div class="hero-ctas reveal" style="margin-top:40px">
+        <a class="btn btn-ghost" href="#contact">Acquire an Edition</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · PROCESS -->
+  <section id="process" class="caps">
+    <div class="wrap">
+      <p class="label reveal">Process</p>
+      <h2 class="reveal">From first conversation to unforgettable space.</h2>
+      <div class="process">
+        <div class="step reveal"><p class="n">01</p><h3>Discovery</h3><p>Your destination, brand and ambitions — understood in depth.</p></div>
+        <div class="step reveal"><p class="n">02</p><h3>Creative Direction</h3><p>A distinctive artistic concept, tailored to the space and its story.</p></div>
+        <div class="step reveal"><p class="n">03</p><h3>Curation &amp; Creation</h3><p>Bespoke works, curated collections and immersive media.</p></div>
+        <div class="step reveal"><p class="n">04</p><h3>Delivery</h3><p>Installation, certification and ongoing creative partnership.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · QUOTE -->
+  <section class="quote">
+    <div class="wrap reveal">
+      <blockquote>"Art is not decoration. It is the reason a guest never forgets a place."</blockquote>
+      <p class="who"><b>Mariska Beenen</b> · Founder, Gallery Dutch Art</p>
+    </div>
+  </section>
+
+  <!-- 9 · ENQUIRY -->
+  <section class="enquiry" id="contact">
+    <div class="wrap reveal">
+      <p class="label">Start a project</p>
+      <h2>Let's create something iconic together.</h2>
+      <p class="lead">Tell us about your hotel, residence or destination — we respond personally
+        within one business day.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="mailto:info@gallerydutchart.nl">Discuss Your Project</a>
+        <a class="btn btn-ghost" href="#work">Request the Hospitality Portfolio</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <a href="#top"><img src="{{LOGO_DARK}}" alt="Gallery Dutch Art"></a>
+  <p>© Gallery Dutch Art · Amsterdam · Bespoke art for iconic destinations</p>
+  <p>gallerydutchart.nl</p>
+</footer>
+
+<script>
+  const hdr = document.querySelector('header');
+  addEventListener('scroll', () => hdr.classList.toggle('scrolled', scrollY > 40), { passive: true });
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
