@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gallery Dutch Art — Direction 2: Obsidian &amp; Champagne</title>
+<style>
+  :root{
+    --obsidian:#131114; --obsidian2:#1B181C; --ivory:#F2EDE3; --dim:#A79E90;
+    --champagne:#CBA35C; --champagne-soft:rgba(203,163,92,.35); --hairline:rgba(242,237,227,.12);
+    --serif:Georgia,'Times New Roman',serif;
+    --sans:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--obsidian);color:var(--ivory);font-family:var(--sans);line-height:1.65}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+
+  header{display:flex;align-items:center;justify-content:space-between;padding:24px 4vw;border-bottom:1px solid var(--hairline)}
+  .brand img{height:66px;width:auto}
+  nav ul{display:flex;gap:32px;list-style:none;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim)}
+  nav a{padding-bottom:4px;border-bottom:1px solid transparent;transition:all .3s}
+  nav a:hover{color:var(--ivory);border-color:var(--champagne)}
+  .cta-nav{border:1px solid var(--champagne);color:var(--champagne);padding:12px 24px;font-size:11px;
+    letter-spacing:.2em;text-transform:uppercase;transition:all .3s}
+  .cta-nav:hover{background:var(--champagne);color:var(--obsidian)}
+
+  .hero{position:relative;overflow:hidden;min-height:88vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;
+    gap:4vw;padding:6vh 4vw;max-width:1400px;margin:0 auto}
+  .hero::before{content:'';position:absolute;top:-30%;right:-10%;width:75%;height:160%;pointer-events:none;
+    background:radial-gradient(closest-side,rgba(203,163,92,.16),rgba(203,163,92,.05) 55%,transparent 75%)}
+  .kicker{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--champagne);margin-bottom:26px}
+  h1{font-family:var(--serif);font-weight:400;font-size:clamp(32px,4.1vw,58px);line-height:1.15;text-wrap:balance}
+  h1 em{font-style:italic;color:var(--champagne)}
+  .sub{margin-top:24px;color:var(--dim);max-width:50ch;font-size:16px}
+  .hero-ctas{display:flex;gap:18px;margin-top:42px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:16px 36px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;transition:all .3s}
+  .btn-primary{background:var(--champagne);color:var(--obsidian)}
+  .btn-primary:hover{filter:brightness(1.1)}
+  .btn-ghost{border:1px solid var(--hairline);color:var(--ivory)}
+  .btn-ghost:hover{border-color:var(--ivory)}
+  .spotlight{position:relative;z-index:1;justify-self:center;max-width:440px;width:100%}
+  .spot-frame{background:#0C0A0D;border:1px solid rgba(203,163,92,.4);padding:18px;
+    box-shadow:0 60px 120px rgba(0,0,0,.6), 0 0 90px rgba(203,163,92,.10)}
+  .spot-frame img{width:100%}
+  .spot-cap{display:flex;justify-content:space-between;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--dim);padding-top:14px}
+
+  .band{border-top:1px solid var(--hairline);padding:9vh 4vw;max-width:1400px;margin:0 auto}
+  .label{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--champagne);margin-bottom:16px}
+  h2{font-family:var(--serif);font-weight:400;font-size:clamp(26px,3vw,42px);max-width:26ch;text-wrap:balance}
+  .serve{display:flex;gap:0;margin-top:44px;flex-wrap:wrap}
+  .serve span{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);
+    padding:16px 26px;border:1px solid var(--hairline);margin:-1px 0 0 -1px}
+
+  .work{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hairline);margin-top:48px}
+  .work figure{background:var(--obsidian2);padding:0;transition:background .4s}
+  .work figure:hover{background:#241F26}
+  .work img{aspect-ratio:4/5;object-fit:cover;width:100%;opacity:.92}
+  .work figcaption{padding:20px 22px 26px}
+  .work .t{font-family:var(--serif);font-size:18px}
+  .work .m{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--champagne);margin-top:6px}
+
+  .process{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin-top:48px}
+  .step .n{font-family:var(--serif);color:var(--champagne);font-size:15px;letter-spacing:.08em}
+  .step h3{font-family:var(--serif);font-weight:400;font-size:19px;margin:10px 0 8px}
+  .step p{font-size:13px;color:var(--dim)}
+
+  footer{border-top:1px solid var(--hairline);padding:36px 4vw;display:flex;justify-content:space-between;gap:20px;
+    font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);flex-wrap:wrap}
+  @media(max-width:900px){
+    .hero{grid-template-columns:1fr;min-height:auto}
+    nav ul{display:none}
+    .work{grid-template-columns:1fr}
+    .process{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<header>
+  <a class="brand" href="#"><img src="{{LOGO_DARK}}" alt="Gallery Dutch Art"></a>
+  <nav><ul><li><a href="#">Selected Work</a></li><li><a href="#">Hospitality Art</a></li><li><a href="#">Digital Editions</a></li><li><a href="#">Studio</a></li><li><a href="#">Contact</a></li></ul></nav>
+  <a class="cta-nav" href="#">Discuss Your Project</a>
+</header>
+
+<section class="hero">
+  <div>
+    <p class="kicker">Amsterdam · Dubai · Riyadh · Monaco</p>
+    <h1>Bespoke Art and <em>Immersive Experiences</em> for Iconic Hotels, Residences and Destinations</h1>
+    <p class="sub">Gallery Dutch Art creates distinctive art collections, visual identities and immersive
+      experiences for luxury hospitality and landmark developments worldwide.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="#">Discuss Your Project</a>
+      <a class="btn btn-ghost" href="#">Enter Selected Work</a>
+    </div>
+  </div>
+  <div class="spotlight">
+    <div class="spot-frame">
+      <img src="{{ART_TULIP}}" alt="Tulipomania Nocturne — original digital artwork">
+      <p class="spot-cap"><span>Tulipomania — Nocturne</span><span>Edition of 10</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <p class="label">Who we serve</p>
+  <h2>One creative partner for the spaces that define a destination.</h2>
+  <div class="serve">
+    <span>Luxury Hotels</span><span>Resorts</span><span>Branded Residences</span>
+    <span>Architects</span><span>Developers</span><span>Interior Studios</span><span>Wellness &amp; Yachts</span>
+  </div>
+</section>
+
+<section class="band">
+  <p class="label">Selected Work</p>
+  <h2>Concepts and collections, presented honestly.</h2>
+  <div class="work">
+    <figure><img src="{{ART_AMSTERDAM}}" alt="Golden Hour Amsterdam">
+      <figcaption><p class="t">War Museum — Bring History Back</p><p class="m">Concept study · Immersive</p></figcaption></figure>
+    <figure><img src="{{ART_DELFT}}" alt="Delft Flow">
+      <figcaption><p class="t">Milkmaid — Holographic NFT Collection</p><p class="m">Proposal · Rijksmuseum Amsterdam</p></figcaption></figure>
+    <figure><img src="{{ART_PATTERN}}" alt="Dutch Heritage Pattern">
+      <figcaption><p class="t">Dutch Heritage Pattern Library</p><p class="m">Design asset · Commercial licence</p></figcaption></figure>
+  </div>
+</section>
+
+<section class="band">
+  <p class="label">Process</p>
+  <h2>From first conversation to unforgettable space.</h2>
+  <div class="process">
+    <div class="step"><p class="n">01</p><h3>Discovery</h3><p>Your destination, brand and ambitions — understood in depth.</p></div>
+    <div class="step"><p class="n">02</p><h3>Creative Direction</h3><p>A distinctive artistic concept, tailored to the space and its story.</p></div>
+    <div class="step"><p class="n">03</p><h3>Curation &amp; Creation</h3><p>Bespoke works, curated collections and immersive media.</p></div>
+    <div class="step"><p class="n">04</p><h3>Delivery</h3><p>Installation, certification and ongoing creative partnership.</p></div>
+  </div>
+</section>
+
+<footer>
+  <span>© Gallery Dutch Art · Amsterdam</span>
+  <span>Bespoke art for iconic destinations</span>
+  <span>gallerydutchart.nl</span>
+</footer>
+</body>
+</html>
