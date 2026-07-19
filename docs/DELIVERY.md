@@ -54,6 +54,37 @@
   De klassieke Wix Editor laat pagina-ontwerp niet via API toe — dit is bewust als masterfile geleverd
   zodat niets van de bestaande site kapot kan gaan.
 
+## Fase A-update (19 juli 2026) — chatbot & leadformulier geïnstalleerd
+Uitgevoerd door het lagere Claude-model; end-to-end geverifieerd waar de API dat toeliet:
+- **Wix Chat geïnstalleerd** (app-instance `26192560-99ba-4a82-9e64-68eeb389ca7e`).
+- **Wix Forms geïnstalleerd** en formulier **"Leave your details for a personal response"** aangemaakt
+  (form ID `b086667a-8084-40ed-a0e9-ceb44c466edf`): First name, Last name, Business email (verplicht),
+  Company, Phone/WhatsApp, Message, verplichte consent-checkbox ("May Gallery Dutch Art store these
+  details and contact you about this enquiry?") en het bedanktbericht al ingesteld.
+- **Contactopslag geverifieerd**: testcontact aangemaakt, gecontroleerd en verwijderd — de route werkt.
+- Beperkingen via API (dus handmatig): het Message-veld is één regel (Forms-API kent geen meerregelig
+  veld — evt. in de Editor aanpassen) en "inzender → contact toevoegen" moet in de formulierinstellingen
+  aangevinkt worden.
+
+**Jouw 7 klikstappen om alles live te zetten (belangrijkste eerst):**
+1. Editor → Wix Chat-widget zichtbaar zetten (desktop + mobiel) → publiceren.
+2. **Inbox → Settings → e-mailmeldingen AAN + juist e-mailadres** (het site-e-mailadres is nu leeg!).
+3. Automations: "Form submitted → e-mail naar mij" en "Form submitted → bevestigingsmail naar bezoeker".
+4. Wix Owner-app op je telefoon voor pushmeldingen.
+5. Formulier op de contactpagina plaatsen (kies het bestáánde formulier) + "voeg inzenders toe als
+   contact" aanvinken.
+6. Chat-welkomst- en offline-bericht instellen (teksten hieronder in dit document).
+7. Zelf testen: één chatbericht + één forminzending → check Inbox, Forms & Submissions, Contacts en je e-mail.
+
+**Chatteksten (kant-en-klaar):** welkom: "Hi! Thanks for visiting Gallery Dutch Art. How can we help you
+today?" · gegevens: "Could you share your name and business email address so we can get back to you
+personally?" · consent: "May Gallery Dutch Art store these details and contact you about this enquiry?" ·
+succes: "Thank you. Your enquiry has been received successfully. Gallery Dutch Art will contact you using
+the details you provided." · offline: "We're currently offline, but we've saved your message. Please leave
+your name and business email address and Gallery Dutch Art will get back to you as soon as possible."
+
+Alles hierboven is native Wix en blijft werken zonder AI-credits.
+
 ## Waar vind je je leads?
 - **Dashboard → Contacts (CRM)**: alle contacten en leads. Vandaag: 6 contacten (alleen members).
 - **Dashboard → Inbox**: berichten en chats.
