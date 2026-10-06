@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><style>html,body{margin:0;padding:0;background:#131114}canvas{display:block}</style></head>
+<body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<script>
+// Gallery Dutch Art — blog covers, "Obsidian & Champagne".
+// Companion to art.html: same deterministic approach (seeded RNG, canvas 2D, no external services).
+// Usage: covers.html?piece=prism | hourglass   (1920x1080)
+function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;var t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+
+const canvas=document.getElementById('c');let ctx=canvas.getContext('2d');
+const qp=new URLSearchParams(location.search);
+const piece=qp.get('piece')||'prism';
+let W=canvas.width,H=canvas.height;
+function setSize(w,h){canvas.width=w;canvas.height=h;W=w;H=h;}
+
+// ---------- shared helpers ----------
+function grain(alpha,seed){
+  const r=rng(seed);const n=Math.floor(W*H/900);
+  for(let i=0;i<n;i++){const x=r()*W,y=r()*H,a=r()*alpha;
+    ctx.fillStyle='rgba('+(r()>0.5?'255,255,255':'0,0,0')+','+a+')';
+    ctx.fillRect(x,y,1.5,1.5);}
+}
+function vignette(strength){
+  const g=ctx.createRadialGradient(W/2,H/2,H*0.30,W/2,H/2,H*0.95);
+  g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(0,0,0,'+strength+')');
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+}
+function gauss(r){return Math.sqrt(-2*Math.log(r()+1e-9))*Math.cos(2*Math.PI*r());}
+function lerp(a,b,t){return a+(b-a)*t;}
+function lerp2(p,q,t){return [lerp(p[0],q[0],t),lerp(p[1],q[1],t)];}
+// canal house silhouette path (three gable types), identical to art.html
+function housePath(x,base,w,h,type){
+  ctx.beginPath();
+  if(type===0){ // step gable
+    const steps=5,sw=w/2/steps,sh=h*0.45/steps;
+    ctx.moveTo(x,base);ctx.lineTo(x,base-h*0.55);
+    for(let i=0;i<steps;i++){ctx.lineTo(x+i*sw,base-h*0.55-(i)*sh);ctx.lineTo(x+(i+1)*sw,base-h*0.55-(i)*sh);}
+    ctx.lineTo(x+w/2,base-h);
+    for(let i=steps-1;i>=0;i--){ctx.lineTo(x+w-(i+1)*sw,base-h*0.55-(i)*sh);ctx.lineTo(x+w-i*sw,base-h*0.55-(i)*sh);}
+    ctx.lineTo(x+w,base-h*0.55);ctx.lineTo(x+w,base);
+  } else if(type===1){ // bell gable
+    ctx.moveTo(x,base);ctx.lineTo(x,base-h*0.6);
+    ctx.bezierCurveTo(x+w*0.05,base-h*0.75,x+w*0.28,base-h*0.72,x+w*0.32,base-h*0.9);
+    ctx.quadraticCurveTo(x+w*0.4,base-h*1.02,x+w*0.5,base-h*1.02);
+    ctx.quadraticCurveTo(x+w*0.6,base-h*1.02,x+w*0.68,base-h*0.9);
+    ctx.bezierCurveTo(x+w*0.72,base-h*0.72,x+w*0.95,base-h*0.75,x+w,base-h*0.6);
+    ctx.lineTo(x+w,base);
+  } else { // neck gable
+    ctx.moveTo(x,base);ctx.lineTo(x,base-h*0.62);ctx.lineTo(x+w*0.3,base-h*0.62);
+    ctx.lineTo(x+w*0.3,base-h*0.95);
+    ctx.quadraticCurveTo(x+w*0.5,base-h*1.08,x+w*0.7,base-h*0.95);
+    ctx.lineTo(x+w*0.7,base-h*0.62);ctx.lineTo(x+w,base-h*0.62);ctx.lineTo(x+w,base);
+  }
+  ctx.closePath();
+}
+
+// ======================================================================
+// COVER 1 — PRISM OF PROVENANCE
+// A tall glass prism on obsidian. One thread of light enters, and leaves as a restrained
+// spectrum that breaks across cobalt canal-house silhouettes. No text, no brand marks.
+// ======================================================================
+function prism(){
+  const r=rng(20261006);
+  // ---- ground: warm obsidian, a breath of champagne behind the prism ----
+  const bg=ctx.createRadialGradient(W*0.36,H*0.42,H*0.04,W*0.5,H*0.55,H*1.05);
+  bg.addColorStop(0,'#272024');bg.addColorStop(0.42,'#181519');bg.addColorStop(1,'#09080A');
+  ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+  const haze=ctx.createRadialGradient(W*0.34,H*0.44,10,W*0.34,H*0.44,H*0.66);
+  haze.addColorStop(0,'rgba(203,163,92,0.16)');haze.addColorStop(0.5,'rgba(203,163,92,0.05)');haze.addColorStop(1,'rgba(203,163,92,0)');
+  ctx.fillStyle=haze;ctx.fillRect(0,0,W,H);
+
+  const base=H*0.875;                    // waterline / street level of the canal houses
+
+  // ---- canal houses, deep cobalt, dissolving into the dark towards the prism ----
+  const houses=[];
+  let hx=W*0.43;
+  while(hx<W+80){
+    const w=W*(0.098+r()*0.03), h=H*(0.27+r()*0.15), t=Math.floor(r()*3);
+    houses.push({x:hx,w:w*0.94,h,t,a:1});
+    hx+=w*0.975;
+  }
+  const far=[];
+  hx=W*0.46;
+  while(hx<W+80){
+    const w=W*(0.085+r()*0.03), h=H*(0.21+r()*0.11), t=Math.floor(r()*3);
+    far.push({x:hx,w:w*0.94,h,t});
+    hx+=w*0.99;
+  }
+  // draw the skyline on its own layer so it can be faded out with a mask
+  const mainCtx=ctx;
+  const layer=document.createElement('canvas');layer.width=W;layer.height=H;
+  ctx=layer.getContext('2d');
+  for(const f of far){
+    const g=ctx.createLinearGradient(0,base-f.h,0,base);
+    g.addColorStop(0,'#10285A');g.addColorStop(1,'#08132C');
+    ctx.globalAlpha=0.70;ctx.fillStyle=g;housePath(f.x,base,f.w,f.h,f.t);ctx.fill();
+  }
+  ctx.globalAlpha=1;
+  for(const h of houses){
+    const g=ctx.createLinearGradient(0,base-h.h,0,base);
+    g.addColorStop(0,'#112D68');g.addColorStop(0.55,'#0C2252');g.addColorStop(1,'#07163A');
+    ctx.fillStyle=g;housePath(h.x,base,h.w,h.h,h.t);ctx.fill();
+    ctx.strokeStyle='rgba(4,9,22,0.5)';ctx.lineWidth=1.6;ctx.stroke();
+    // windows: dark insets with a quiet ivory frame, a few lit in champagne
+    const rows=3+Math.floor(r()*2),cols=2;
+    for(let i=0;i<rows;i++)for(let j=0;j<cols;j++){
+      const wx=h.x+h.w*0.20+j*h.w*0.34, wy=base-h.h*0.56+i*h.h*0.118, ww=h.w*0.15, wh=h.h*0.078;
+      ctx.fillStyle='rgba(3,8,22,0.55)';ctx.fillRect(wx,wy,ww,wh);
+      if(r()<0.09){ctx.fillStyle='rgba(224,186,110,0.30)';ctx.fillRect(wx+ww*0.12,wy+wh*0.12,ww*0.76,wh*0.76);}
+      ctx.strokeStyle='rgba(242,237,227,0.17)';ctx.lineWidth=1.3;ctx.strokeRect(wx,wy,ww,wh);
+      ctx.beginPath();ctx.moveTo(wx+ww/2,wy);ctx.lineTo(wx+ww/2,wy+wh);ctx.stroke();
+    }
+    // door on the ground floor
+    ctx.fillStyle='rgba(3,8,22,0.26)';ctx.fillRect(h.x+h.w*0.38,base-h.h*0.15,h.w*0.2,h.h*0.15);
+  }
+  // low mist at street level, inside the layer so the mask fades it too
+  const mist=ctx.createLinearGradient(0,base-H*0.20,0,base);
+  mist.addColorStop(0,'rgba(203,163,92,0)');mist.addColorStop(1,'rgba(203,163,92,0.08)');
+  ctx.fillStyle=mist;ctx.fillRect(0,base-H*0.20,W,H*0.20);
+  // fade the row out to the left (mask), so houses emerge from the dark
+  ctx.globalCompositeOperation='destination-in';
+  const mk=ctx.createLinearGradient(W*0.42,0,W*0.76,0);
+  mk.addColorStop(0,'rgba(0,0,0,0)');mk.addColorStop(1,'rgba(0,0,0,1)');
+  ctx.fillStyle=mk;ctx.fillRect(0,0,W,H);
+  ctx.globalCompositeOperation='source-over';
+  ctx=mainCtx;
+  ctx.drawImage(layer,0,0);
+  // water: rippled mirror of the houses, fading out
+  const refl=Math.floor(H-base);
+  const rr=rng(4242);
+  for(let i=0;i<refl/3;i++){
+    const dy=base+i*3, sy=base-(i*3)-3;
+    if(sy<0)break;
+    const depth=i*3/refl;
+    ctx.globalAlpha=0.55*Math.pow(1-depth,1.5);
+    ctx.drawImage(canvas,0,sy,W,3,Math.sin(i*0.35+rr()*0.6)*3*(1-depth*0.4),dy,W,3);
+  }
+  ctx.globalAlpha=1;
+  const wl=ctx.createLinearGradient(0,0,W,0);
+  wl.addColorStop(0,'rgba(203,163,92,0)');wl.addColorStop(0.32,'rgba(203,163,92,0.26)');wl.addColorStop(1,'rgba(203,163,92,0.10)');
+  ctx.fillStyle=wl;ctx.fillRect(0,base,W,1.4);
+
+  // ---- prism geometry (two visible faces + top facet, turned off-axis) ----
+  const pcx=W*0.318, ptop=H*0.12, ph=H*0.665, pw=H*0.150, pd=H*0.046, rot=-0.085;
+  const mid=[pcx,ptop+ph/2];
+  const cs=Math.cos(rot),sn=Math.sin(rot);
+  function P(x,y){const dx=x-mid[0],dy=y-mid[1];return [mid[0]+dx*cs-dy*sn,mid[1]+dx*sn+dy*cs];}
+  const fx=pcx+pw*0.22;
+  const Lt=P(pcx-pw*0.85,ptop-pd), Ft=P(fx,ptop+pd), Rt=P(pcx+pw*1.0,ptop-pd);
+  const Lb=P(pcx-pw*0.85,ptop-pd+ph), Fb=P(fx,ptop+pd+ph), Rb=P(pcx+pw*1.0,ptop-pd+ph);
+  const poly=(pts)=>{ctx.beginPath();ctx.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)ctx.lineTo(pts[i][0],pts[i][1]);ctx.closePath();};
+  const leftFace=[Lt,Ft,Fb,Lb], rightFace=[Ft,Rt,Rb,Fb], topFace=[Lt,Ft,Rt];
+  const facePt=(face,u,v)=>lerp2(lerp2(face[1],face[0],u),lerp2(face[2],face[3],u),v); // u: front edge -> outer edge, v: top -> bottom
+  const Pin=facePt(leftFace,0.50,0.40);
+  const exitAng=0.33;
+  const Pout=(function(){
+    let best=null;
+    for(let t=0;t<=1;t+=0.002){
+      const p=facePt(rightFace,0.42,t);
+      const d=Math.atan2(p[1]-Pin[1],p[0]-Pin[0]);
+      if(!best||Math.abs(d-exitAng)<best.e)best={e:Math.abs(d-exitAng),p};
+    }
+    return best.p;
+  })();
+  const spec=[[214,120,104],[216,156,96],[214,196,120],[140,190,160],[112,170,196],[96,128,205],[150,118,200]];
+
+  // luminous bloom around the prism: it is made of light
+  ctx.save();ctx.globalCompositeOperation='lighter';
+  const pb=ctx.createRadialGradient(mid[0],mid[1],10,mid[0],mid[1],H*0.5);
+  pb.addColorStop(0,'rgba(214,184,128,0.11)');pb.addColorStop(0.6,'rgba(180,170,210,0.035)');pb.addColorStop(1,'rgba(180,170,210,0)');
+  ctx.fillStyle=pb;ctx.fillRect(0,0,W,H);ctx.restore();
+  // pool of light beneath it (it floats)
+  ctx.save();ctx.translate(0,base+10);ctx.scale(1,0.12);
+  const pool=ctx.createRadialGradient(pcx,0,2,pcx,0,pw*3.6);
+  pool.addColorStop(0,'rgba(203,163,92,0.16)');pool.addColorStop(1,'rgba(203,163,92,0)');
+  ctx.fillStyle=pool;ctx.fillRect(0,-H*4,W,H*8);ctx.restore();
+
+  // incoming thread of light, from the upper left
+  const inAng=0.20;
+  const S=[-30,Pin[1]-(Pin[0]+30)*Math.tan(inAng)];
+  function thread(a,b,wid,col,alpha){
+    const g=ctx.createLinearGradient(a[0],a[1],b[0],b[1]);
+    g.addColorStop(0,'rgba('+col+',0)');g.addColorStop(0.55,'rgba('+col+','+(alpha*0.55)+')');g.addColorStop(1,'rgba('+col+','+alpha+')');
+    ctx.strokeStyle=g;ctx.lineWidth=wid;ctx.lineCap='round';
+    ctx.beginPath();ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);ctx.stroke();
+  }
+  ctx.save();ctx.globalCompositeOperation='lighter';
+  thread(S,Pin,26,'203,163,92',0.035);
+  thread(S,Pin,10,'236,222,196',0.10);
+  thread(S,Pin,2.6,'250,246,238',0.92);
+  ctx.restore();
+
+  // ---- glass body: iridescent, holographic ----
+  function iri(face,alpha,rev){
+    const g=ctx.createLinearGradient(face[0][0],face[0][1],face[2][0],face[2][1]);
+    const cols=rev?[[150,118,200],[96,128,205],[112,170,196],[214,196,120],[216,156,96]]:[[236,222,196],[150,170,230],[214,150,170],[203,163,92]];
+    cols.forEach((c,i)=>g.addColorStop(i/(cols.length-1),'rgba('+c.join(',')+','+alpha+')'));
+    ctx.fillStyle=g;poly(face);ctx.fill();
+    const v=ctx.createLinearGradient(0,face[0][1],0,face[3][1]);
+    v.addColorStop(0,'rgba(250,244,232,0.12)');v.addColorStop(0.5,'rgba(250,244,232,0.03)');v.addColorStop(1,'rgba(203,163,92,0.05)');
+    ctx.fillStyle=v;poly(face);ctx.fill();
+  }
+  iri(leftFace,0.135,false);
+  iri(rightFace,0.175,true);
+  (function(){ // top facet, brighter
+    const g=ctx.createLinearGradient(Lt[0],Lt[1],Rt[0],Rt[1]);
+    g.addColorStop(0,'rgba(246,238,222,0.26)');g.addColorStop(0.55,'rgba(190,200,240,0.14)');g.addColorStop(1,'rgba(214,170,150,0.16)');
+    ctx.fillStyle=g;poly(topFace);ctx.fill();
+  })();
+  // holographic foil: fine hairline hatch and a few soft sheens
+  function foil(face,ang,hatch,sheen,seed){
+    ctx.save();poly(face);ctx.clip();ctx.globalCompositeOperation='lighter';
+    const minX=Math.min(...face.map(p=>p[0])),maxX=Math.max(...face.map(p=>p[0]));
+    const minY=Math.min(...face.map(p=>p[1])),maxY=Math.max(...face.map(p=>p[1]));
+    const wd=maxX-minX+80, ty=Math.tan(ang)*wd;
+    ctx.strokeStyle='rgba(242,237,227,'+hatch+')';ctx.lineWidth=1;
+    for(let y=minY-ty;y<maxY;y+=8){ctx.beginPath();ctx.moveTo(minX-40,y);ctx.lineTo(maxX+40,y+ty);ctx.stroke();}
+    const fr=rng(seed);
+    for(let k=0;k<5;k++){
+      const c=spec[Math.floor(fr()*spec.length)];
+      const y0=minY+(maxY-minY)*(0.08+fr()*0.84), wdt=24+fr()*60;
+      const g=ctx.createLinearGradient(0,y0-wdt,0,y0+wdt*2+ty);
+      const cc=c.join(',');
+      g.addColorStop(0,'rgba('+cc+',0)');g.addColorStop(0.5,'rgba('+cc+','+sheen+')');g.addColorStop(1,'rgba('+cc+',0)');
+      ctx.fillStyle=g;ctx.beginPath();
+      ctx.moveTo(minX-40,y0-wdt);ctx.lineTo(maxX+40,y0-wdt+ty);ctx.lineTo(maxX+40,y0+wdt*2+ty);ctx.lineTo(minX-40,y0+wdt*2);ctx.closePath();ctx.fill();
+    }
+    ctx.restore();
+  }
+  foil(leftFace,0.20,0.024,0.060,11);
+  foil(rightFace,0.26,0.030,0.090,23);
+  // inner refraction path
+  ctx.save();poly([Lt,Rt,Rb,Lb]);ctx.clip();
+  ctx.globalCompositeOperation='lighter';
+  const ig=ctx.createLinearGradient(Pin[0],Pin[1],Pout[0],Pout[1]);
+  ig.addColorStop(0,'rgba(255,250,240,0.95)');ig.addColorStop(1,'rgba(240,226,196,0.85)');
+  for(const [lw,col] of [[28,'rgba(203,163,92,0.09)'],[10,'rgba(236,222,196,0.20)']]){
+    ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.lineCap='round';
+    ctx.beginPath();ctx.moveTo(Pin[0],Pin[1]);ctx.lineTo(Pout[0],Pout[1]);ctx.stroke();
+  }
+  ctx.strokeStyle=ig;ctx.lineWidth=2.2;
+  ctx.beginPath();ctx.moveTo(Pin[0],Pin[1]);ctx.lineTo(Pout[0],Pout[1]);ctx.stroke();
+  ctx.restore();
+  // edges: crisp ivory with a faint chromatic split (rose / teal)
+  ctx.lineJoin='round';
+  ctx.save();ctx.globalCompositeOperation='lighter';
+  for(const [dx,col] of [[-1.4,'rgba(110,190,200,0.22)'],[1.4,'rgba(214,120,150,0.24)']]){
+    ctx.save();ctx.translate(dx,0);ctx.strokeStyle=col;ctx.lineWidth=1.3;
+    poly(leftFace);ctx.stroke();poly(rightFace);ctx.stroke();poly(topFace);ctx.stroke();ctx.restore();
+  }
+  ctx.restore();
+  ctx.strokeStyle='rgba(242,237,227,0.36)';ctx.lineWidth=1.4;
+  poly(leftFace);ctx.stroke();poly(rightFace);ctx.stroke();
+  ctx.strokeStyle='rgba(250,244,232,0.72)';ctx.lineWidth=1.7;poly(topFace);ctx.stroke();
+  // dispersion: the outer right edge carries the spectrum in miniature
+  ctx.save();ctx.globalCompositeOperation='lighter';
+  const de=ctx.createLinearGradient(Rt[0],Rt[1],Rb[0],Rb[1]);
+  spec.forEach((c,i)=>de.addColorStop(i/(spec.length-1),'rgba('+c.join(',')+',0.42)'));
+  ctx.strokeStyle=de;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(Rt[0],Rt[1]);ctx.lineTo(Rb[0],Rb[1]);ctx.stroke();
+  ctx.strokeStyle='rgba(240,226,196,0.22)';ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(Lb[0],Lb[1]);ctx.lineTo(Fb[0],Fb[1]);ctx.lineTo(Rb[0],Rb[1]);ctx.stroke();
+  ctx.restore();
+  // hidden back edge of the base, as seen through the glass
+  ctx.save();ctx.setLineDash([5,8]);ctx.strokeStyle='rgba(242,237,227,0.16)';ctx.lineWidth=1.2;
+  ctx.beginPath();ctx.moveTo(Lb[0],Lb[1]);ctx.lineTo(Rb[0],Rb[1]);ctx.stroke();ctx.restore();
+  // bright front edge with a soft column of light
+  ctx.save();ctx.globalCompositeOperation='lighter';
+  const fg=ctx.createLinearGradient(Ft[0],Ft[1],Fb[0],Fb[1]);
+  fg.addColorStop(0,'rgba(240,226,196,0.20)');fg.addColorStop(1,'rgba(240,226,196,0.02)');
+  ctx.strokeStyle=fg;ctx.lineWidth=14;ctx.lineCap='butt';ctx.beginPath();ctx.moveTo(Ft[0],Ft[1]);ctx.lineTo(Fb[0],Fb[1]);ctx.stroke();
+  ctx.restore();
+  const fe=ctx.createLinearGradient(Ft[0],Ft[1],Fb[0],Fb[1]);
+  fe.addColorStop(0,'rgba(250,240,214,0.98)');fe.addColorStop(0.5,'rgba(215,180,112,0.62)');fe.addColorStop(1,'rgba(203,163,92,0.24)');
+  ctx.strokeStyle=fe;ctx.lineWidth=2.6;ctx.beginPath();ctx.moveTo(Ft[0],Ft[1]);ctx.lineTo(Fb[0],Fb[1]);ctx.stroke();
+  const le=ctx.createLinearGradient(Lt[0],Lt[1],Lb[0],Lb[1]);
+  le.addColorStop(0,'rgba(240,226,196,0.60)');le.addColorStop(1,'rgba(203,163,92,0.10)');
+  ctx.strokeStyle=le;ctx.lineWidth=1.8;ctx.beginPath();ctx.moveTo(Lt[0],Lt[1]);ctx.lineTo(Lb[0],Lb[1]);ctx.stroke();
+
+  // ---- the spectrum: seven restrained lanes, additive, falling down-right across the houses ----
+  const O=Pout, cAng=0.375, spread=0.140;
+  const nb=7, bw=(spread*2)/nb;
+  const Lray=2300;
+  function wedge(a0,a1){
+    ctx.beginPath();ctx.moveTo(O[0],O[1]);
+    ctx.lineTo(O[0]+Math.cos(a0)*Lray,O[1]+Math.sin(a0)*Lray);
+    ctx.lineTo(O[0]+Math.cos(a1)*Lray,O[1]+Math.sin(a1)*Lray);ctx.closePath();
+  }
+  function bandGrad(am,col,peak){
+    const g=ctx.createLinearGradient(O[0],O[1],O[0]+Math.cos(am)*1800,O[1]+Math.sin(am)*1800);
+    const c=col.join(',');
+    g.addColorStop(0,'rgba('+c+',0)');g.addColorStop(0.04,'rgba('+c+','+(peak*0.8)+')');
+    g.addColorStop(0.25,'rgba('+c+','+peak+')');g.addColorStop(0.70,'rgba('+c+','+(peak*0.68)+')');g.addColorStop(1,'rgba('+c+','+(peak*0.38)+')');
+    return g;
+  }
+  ctx.save();
+  ctx.beginPath();ctx.rect(0,0,W,base+1);ctx.clip();            // light lands at street level
+  ctx.globalCompositeOperation='lighter';
+  for(let b=0;b<nb;b++){
+    const a0=cAng-spread+b*bw, a1=a0+bw, mm=(a0+a1)/2;
+    for(const [f,pk] of [[1.30,0.042],[0.99,0.066]]){
+      const hw=bw/2*f;
+      ctx.fillStyle=bandGrad(mm,spec[b],pk);wedge(mm-hw,mm+hw);ctx.fill();
+    }
+  }
+  // the facades take the colour: clip each lane to the houses and tint their faces and rims
+  for(let b=0;b<nb;b++){
+    const a0=cAng-spread+b*bw, a1=a0+bw, mm=(a0+a1)/2, hw=bw/2*0.99, c=spec[b].join(',');
+    ctx.save();wedge(mm-hw,mm+hw);ctx.clip();
+    for(const h of houses){
+      housePath(h.x,base,h.w,h.h,h.t);
+      ctx.fillStyle='rgba('+c+',0.07)';ctx.fill();
+      ctx.strokeStyle='rgba('+c+',0.58)';ctx.lineWidth=2;ctx.stroke();
+    }
+    ctx.restore();
+  }
+  ctx.restore();
+  // tiny bright point where the light leaves the glass
+  const ex=ctx.createRadialGradient(O[0],O[1],0,O[0],O[1],30);
+  ex.addColorStop(0,'rgba(255,248,232,0.70)');ex.addColorStop(0.25,'rgba(240,226,196,0.24)');ex.addColorStop(0.6,'rgba(240,226,196,0.06)');ex.addColorStop(1,'rgba(240,226,196,0)');
+  ctx.fillStyle=ex;ctx.fillRect(O[0]-34,O[1]-34,68,68);
+
+  // ---- dust in the light ----
+  for(let k=0;k<170;k++){
+    const t=Math.pow(r(),0.8), a=cAng+(r()-0.5)*spread*2.2;
+    const d=60+t*1500;
+    const x=O[0]+Math.cos(a)*d+(r()-0.5)*30, y=O[1]+Math.sin(a)*d+(r()-0.5)*30;
+    if(y>base)continue;
+    ctx.fillStyle='rgba(242,226,190,'+(0.10+r()*0.45)+')';
+    const s=0.6+r()*1.7;ctx.fillRect(x,y,s,s);
+  }
+  for(let k=0;k<110;k++){
+    ctx.fillStyle='rgba(242,237,227,'+(0.06+r()*0.30)+')';
+    const s=0.5+r()*1.2;ctx.fillRect(r()*W,Math.pow(r(),1.4)*H*0.62,s,s);
+  }
+  grain(0.045,20261006);vignette(0.42);
+}
+
+// ======================================================================
+// COVER 2 — THE HOURGLASS OF LIGHT
+// A champagne-gold hourglass built from light on warm black: glass as hairline and glow,
+// sand as thousands of fine seeded particles, floating dust and a few quiet stars.
+// ======================================================================
+function hourglass(){
+  const r=rng(20261007);
+  const cx=W/2;
+  // ---- ground ----
+  const bg=ctx.createRadialGradient(cx,H*0.50,H*0.05,cx,H*0.52,H*1.0);
+  bg.addColorStop(0,'#241E21');bg.addColorStop(0.40,'#171417');bg.addColorStop(1,'#09080A');
+  ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+  const haze=ctx.createRadialGradient(cx,H*0.50,10,cx,H*0.50,H*0.60);
+  haze.addColorStop(0,'rgba(203,163,92,0.16)');haze.addColorStop(0.45,'rgba(203,163,92,0.05)');haze.addColorStop(1,'rgba(203,163,92,0)');
+  ctx.fillStyle=haze;ctx.fillRect(0,0,W,H);
+
+  // ---- stars: sparse, upper sky, ivory ----
+  for(let k=0;k<95;k++){
+    const x=r()*W,y=Math.pow(r(),1.3)*H*0.62,s=0.5+r()*1.1;
+    ctx.fillStyle='rgba(242,237,227,'+(0.14+r()*0.5)+')';ctx.fillRect(x,y,s,s);
+  }
+  // a few gentle cross-glints on the brightest stars
+  for(let k=0;k<5;k++){
+    const x=W*(0.08+r()*0.84),y=H*(0.06+r()*0.34),l=7+r()*7;
+    ctx.strokeStyle='rgba(242,237,227,0.18)';ctx.lineWidth=0.8;
+    ctx.beginPath();ctx.moveTo(x-l,y);ctx.lineTo(x+l,y);ctx.moveTo(x,y-l);ctx.lineTo(x,y+l);ctx.stroke();
+    ctx.fillStyle='rgba(250,246,238,0.75)';ctx.fillRect(x-0.8,y-0.8,1.6,1.6);
+  }
+
+  // ---- hourglass geometry ----
+  const yT=H*0.115, yB=H*0.885, yM=(yT+yB)/2, plateH=7;
+  const hwTop=H*0.158, hwMax=H*0.178, neck=H*0.0075;
+  const Lb=yM-yT-plateH;                       // bulb length
+  const yTopIn=yT+plateH;
+  // upper bulb left flank as a cubic; samples give the half-width at any y
+  const bz={p0:[cx-hwTop,yTopIn],p1:[cx-hwMax*1.30,yTopIn+0.30*Lb],p2:[cx-neck*2.6,yM-0.30*Lb],p3:[cx-neck,yM]};
+  function bpt(t){
+    const u=1-t,q=bz;
+    return [u*u*u*q.p0[0]+3*u*u*t*q.p1[0]+3*u*t*t*q.p2[0]+t*t*t*q.p3[0],
+            u*u*u*q.p0[1]+3*u*u*t*q.p1[1]+3*u*t*t*q.p2[1]+t*t*t*q.p3[1]];
+  }
+  const prof=[];for(let i=0;i<=400;i++){const p=bpt(i/400);prof.push([p[1],cx-p[0]]);}
+  function hwTopAt(y){ // half-width of the upper bulb at y
+    if(y<=prof[0][0])return prof[0][1];
+    if(y>=prof[prof.length-1][0])return prof[prof.length-1][1];
+    let lo=0,hi=prof.length-1;
+    while(hi-lo>1){const m=(lo+hi)>>1;if(prof[m][0]<y)lo=m;else hi=m;}
+    const a=prof[lo],b=prof[hi];return lerp(a[1],b[1],(y-a[0])/(b[0]-a[0]+1e-9));
+  }
+  function hwAt(y){return y<=yM?hwTopAt(y):hwTopAt(2*yM-y);}
+  function bulbPath(upper){
+    ctx.beginPath();
+    const m=(y)=>upper?y:2*yM-y;
+    ctx.moveTo(cx-hwTop,m(yTopIn));
+    ctx.bezierCurveTo(bz.p1[0],m(bz.p1[1]),bz.p2[0],m(bz.p2[1]),bz.p3[0],m(bz.p3[1]));
+    ctx.lineTo(cx+neck,m(yM));
+    ctx.bezierCurveTo(2*cx-bz.p2[0],m(bz.p2[1]),2*cx-bz.p1[0],m(bz.p1[1]),cx+hwTop,m(yTopIn));
+    ctx.closePath();
+  }
+
+  // ---- floor glow and faint pillars (structure suggested, not drawn) ----
+  ctx.save();ctx.translate(0,yB+10);ctx.scale(1,0.10);
+  const pool=ctx.createRadialGradient(cx,0,2,cx,0,H*0.60);
+  pool.addColorStop(0,'rgba(203,163,92,0.20)');pool.addColorStop(1,'rgba(203,163,92,0)');
+  ctx.fillStyle=pool;ctx.fillRect(0,-H*3,W,H*6);ctx.restore();
+  const px=hwTop+40;
+  for(const sx of [-1,1]){
+    const g=ctx.createLinearGradient(0,yT,0,yB);
+    g.addColorStop(0,'rgba(203,163,92,0.34)');g.addColorStop(0.5,'rgba(203,163,92,0.05)');g.addColorStop(1,'rgba(203,163,92,0.34)');
+    ctx.strokeStyle=g;ctx.lineWidth=1.3;
+    ctx.beginPath();ctx.moveTo(cx+sx*px,yT+plateH);ctx.lineTo(cx+sx*px,yB-plateH);ctx.stroke();
+  }
+
+  // ---- glass: interior wash ----
+  for(const upper of [true,false]){
+    ctx.save();bulbPath(upper);ctx.clip();
+    const g=ctx.createLinearGradient(cx-hwMax,0,cx+hwMax,0);
+    g.addColorStop(0,'rgba(203,163,92,0.13)');g.addColorStop(0.5,'rgba(203,163,92,0.035)');g.addColorStop(1,'rgba(203,163,92,0.10)');
+    ctx.fillStyle=g;ctx.fillRect(cx-hwMax-20,yT,hwMax*2+40,yB-yT);
+    ctx.restore();
+  }
+
+  // ---- sand ----
+  const sandCol=(y,x)=>{ // brighter toward the neck
+    const d=Math.min(1,Math.abs(y-yM)/(Lb*0.9));
+    const l=lerp(0.96,0.62,d);
+    return [Math.floor(lerp(255,203,1-l)),Math.floor(lerp(240,163,1-l)),Math.floor(lerp(205,92,1-l))];
+  };
+  // upper bulb: sand sits low, with a funnel dip towards the centre
+  const ySurf=yM-0.50*Lb, dip=0.075*Lb;
+  const hwS=hwAt(ySurf);
+  const surfAt=(x)=>ySurf+dip*(1-Math.min(1,Math.pow(Math.abs(x)/hwS,2)));
+  ctx.save();bulbPath(true);ctx.clip();
+  // body of sand: soft fill below the surface
+  const sg=ctx.createLinearGradient(0,ySurf-6,0,yM);
+  sg.addColorStop(0,'rgba(203,163,92,0.10)');sg.addColorStop(0.6,'rgba(214,176,106,0.26)');sg.addColorStop(1,'rgba(240,222,176,0.42)');
+  ctx.fillStyle=sg;
+  ctx.beginPath();ctx.moveTo(cx-hwS-8,surfAt(-hwS));
+  for(let i=-hwS-8;i<=hwS+8;i+=6)ctx.lineTo(cx+i,surfAt(i));
+  ctx.lineTo(cx+hwS+8,yM+4);ctx.lineTo(cx-hwS-8,yM+4);ctx.closePath();ctx.fill();
+  // grains
+  for(let k=0;k<9000;k++){
+    const y=ySurf+r()*(yM-ySurf+4), x=(r()*2-1)*(hwAt(y)-2);
+    if(y<surfAt(x))continue;
+    const c=sandCol(y,x), a=0.22+r()*0.70, s=0.7+r()*1.5;
+    ctx.fillStyle='rgba('+c[0]+','+c[1]+','+c[2]+','+a+')';ctx.fillRect(cx+x,y,s,s);
+  }
+  // surface glint
+  ctx.strokeStyle='rgba(246,230,192,0.45)';ctx.lineWidth=1.3;ctx.beginPath();
+  for(let i=-hwS;i<=hwS;i+=5){const y=surfAt(i);if(i===-hwS)ctx.moveTo(cx+i,y);else ctx.lineTo(cx+i,y);}ctx.stroke();
+  ctx.restore();
+
+  // lower bulb: the heap
+  const yFloor=yB-plateH-2, baseHalf=hwTop-4, heapH=0.34*Lb;
+  const heapY=(x)=>yFloor-heapH*Math.pow(Math.max(0,1-Math.abs(x)/baseHalf),1.28);
+  ctx.save();bulbPath(false);ctx.clip();
+  const hg=ctx.createLinearGradient(0,yFloor-heapH,0,yFloor);
+  hg.addColorStop(0,'rgba(240,222,176,0.40)');hg.addColorStop(0.5,'rgba(214,176,106,0.28)');hg.addColorStop(1,'rgba(203,163,92,0.14)');
+  ctx.fillStyle=hg;
+  ctx.beginPath();ctx.moveTo(cx-baseHalf-6,yFloor+4);
+  for(let i=-baseHalf-6;i<=baseHalf+6;i+=5)ctx.lineTo(cx+i,heapY(i));
+  ctx.lineTo(cx+baseHalf+6,yFloor+4);ctx.closePath();ctx.fill();
+  for(let k=0;k<11000;k++){
+    const x=(r()*2-1)*(baseHalf+2), y=heapY(x)+r()*(yFloor-heapY(x)+3);
+    if(y<heapY(x))continue;
+    const hgt=(yFloor-y)/heapH;
+    const c=[Math.floor(lerp(203,255,Math.min(1,hgt*1.2))),Math.floor(lerp(163,238,Math.min(1,hgt*1.2))),Math.floor(lerp(92,196,Math.min(1,hgt*1.2)))];
+    ctx.fillStyle='rgba('+c[0]+','+c[1]+','+c[2]+','+(0.20+r()*0.68)+')';
+    const s=0.7+r()*1.5;ctx.fillRect(cx+x,y,s,s);
+  }
+  ctx.strokeStyle='rgba(248,232,196,0.40)';ctx.lineWidth=1.2;ctx.beginPath();
+  for(let i=-baseHalf;i<=baseHalf;i+=4){const y=heapY(i);if(i===-baseHalf)ctx.moveTo(cx+i,y);else ctx.lineTo(cx+i,y);}ctx.stroke();
+  ctx.restore();
+
+  // the thread of falling sand
+  const yS0=yM-0.05*Lb, yS1=heapY(0);
+  ctx.save();ctx.globalCompositeOperation='lighter';
+  let tg=ctx.createLinearGradient(0,yS0,0,yS1);
+  tg.addColorStop(0,'rgba(255,246,222,0.95)');tg.addColorStop(1,'rgba(240,214,150,0.55)');
+  ctx.strokeStyle='rgba(203,163,92,0.16)';ctx.lineWidth=14;ctx.lineCap='round';
+  ctx.beginPath();ctx.moveTo(cx,yS0);ctx.lineTo(cx,yS1);ctx.stroke();
+  ctx.strokeStyle=tg;ctx.lineWidth=1.8;
+  ctx.beginPath();ctx.moveTo(cx,yS0);ctx.lineTo(cx,yS1);ctx.stroke();
+  for(let k=0;k<170;k++){
+    const y=lerp(yS0,yS1,r()), x=cx+gauss(r)*1.7;
+    ctx.fillStyle='rgba(255,240,205,'+(0.25+r()*0.65)+')';
+    const s=0.7+r()*1.2;ctx.fillRect(x,y,s,s);
+  }
+  // glow where the thread leaves the neck and where it lands
+  const ng=ctx.createRadialGradient(cx,yM,0,cx,yM,70);
+  ng.addColorStop(0,'rgba(255,238,200,0.34)');ng.addColorStop(0.25,'rgba(255,238,200,0.12)');ng.addColorStop(0.6,'rgba(255,238,200,0.03)');ng.addColorStop(1,'rgba(255,238,200,0)');
+  ctx.fillStyle=ng;ctx.fillRect(cx-80,yM-80,160,160);
+  const lg=ctx.createRadialGradient(cx,yS1,0,cx,yS1,56);
+  lg.addColorStop(0,'rgba(255,238,200,0.20)');lg.addColorStop(0.3,'rgba(255,238,200,0.07)');lg.addColorStop(0.65,'rgba(255,238,200,0.015)');lg.addColorStop(1,'rgba(255,238,200,0)');
+  ctx.fillStyle=lg;ctx.fillRect(cx-64,yS1-64,128,128);
+  ctx.restore();
+
+  // ---- glass outline: crisp champagne hairline with a soft glow ----
+  function outline(w,col,blur){
+    ctx.save();
+    ctx.strokeStyle=col;ctx.lineWidth=w;ctx.lineJoin='round';
+    if(blur){ctx.shadowColor='rgba(203,163,92,0.85)';ctx.shadowBlur=blur;}
+    bulbPath(true);ctx.stroke();bulbPath(false);ctx.stroke();
+    ctx.restore();
+  }
+  const og=ctx.createLinearGradient(0,yT,0,yB);
+  og.addColorStop(0,'#EBD7A6');og.addColorStop(0.5,'#CBA35C');og.addColorStop(1,'#E2C98F');
+  outline(5,'rgba(203,163,92,0.20)',34);
+  outline(1.7,og,10);
+  // glass sheen along the left flank of each bulb
+  for(const upper of [true,false]){
+    ctx.save();bulbPath(upper);ctx.clip();
+    ctx.strokeStyle='rgba(250,244,230,0.16)';ctx.lineWidth=4;ctx.lineCap='round';
+    ctx.beginPath();
+    for(let i=0.10;i<=0.58;i+=0.02){
+      const p=bpt(i);const y=upper?p[1]:2*yM-p[1];
+      if(i===0.10)ctx.moveTo(p[0]+20,y);else ctx.lineTo(p[0]+20,y);
+    }
+    ctx.stroke();
+    ctx.strokeStyle='rgba(250,244,230,0.07)';ctx.lineWidth=2;ctx.beginPath();
+    for(let i=0.10;i<=0.46;i+=0.02){
+      const p=bpt(i);const y=upper?p[1]:2*yM-p[1];
+      const x=2*cx-p[0]-18;
+      if(i===0.10)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+    ctx.restore();
+  }
+  // plates
+  function plate(y,flip){
+    const w=hwTop+46;
+    const g=ctx.createLinearGradient(cx-w,0,cx+w,0);
+    g.addColorStop(0,'rgba(203,163,92,0.25)');g.addColorStop(0.5,'rgba(240,222,176,1)');g.addColorStop(1,'rgba(203,163,92,0.25)');
+    ctx.save();ctx.shadowColor='rgba(203,163,92,0.8)';ctx.shadowBlur=26;
+    ctx.fillStyle=g;ctx.fillRect(cx-w,y,w*2,plateH);ctx.restore();
+    ctx.fillStyle=g;ctx.globalAlpha=0.45;
+    const y2=flip?y+plateH+11:y-11;
+    ctx.fillRect(cx-w*0.82,y2,w*1.64,1.6);ctx.globalAlpha=1;
+  }
+  plate(yT,false);plate(yB-plateH,true);
+
+  // ---- floating dust: denser near the glass, soft bokeh at depth ----
+  ctx.save();ctx.globalCompositeOperation='lighter';
+  for(let k=0;k<380;k++){
+    let x,y;
+    if(r()<0.72){x=cx+gauss(r)*(W*0.17);y=H*0.52+gauss(r)*(H*0.27);}else{x=r()*W;y=r()*H;}
+    if(x<0||x>W||y<0||y>H)continue;
+    const near=Math.exp(-Math.pow((x-cx)/(W*0.22),2));
+    const a=(0.07+r()*0.40)*(0.6+0.4*near), s=0.5+Math.pow(r(),2.2)*2.6;
+    const warm=r()>0.35;
+    ctx.fillStyle=warm?'rgba(236,206,140,'+a+')':'rgba(242,237,227,'+a*0.8+')';
+    ctx.beginPath();ctx.arc(x,y,s*0.7,0,7);ctx.fill();
+  }
+  for(let k=0;k<8;k++){
+    const x=W*(0.06+r()*0.88),y=H*(0.1+r()*0.8);
+    if(Math.abs(x-cx)<hwMax+60&&y>yT-20&&y<yB+20)continue;
+    const rad=16+r()*40;
+    const g=ctx.createRadialGradient(x,y,0,x,y,rad);
+    g.addColorStop(0,'rgba(214,176,106,'+(0.035+r()*0.03)+')');g.addColorStop(0.5,'rgba(214,176,106,'+(0.02+r()*0.02)+')');g.addColorStop(1,'rgba(214,176,106,0)');
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,rad,0,7);ctx.fill();
+  }
+  ctx.restore();
+
+  grain(0.045,20261007);vignette(0.46);
+}
+
+// ---------- dispatch ----------
+function renderFrame(name,w,h){
+  if(w&&h)setSize(w,h);
+  if(name==='prism')prism();
+  else if(name==='hourglass')hourglass();
+  document.title='done-'+name;
+}
+window.renderFrame=renderFrame;
+(function(){
+  const wp=qp.get('w')?parseInt(qp.get('w'),10):1920;
+  const hp=qp.get('h')?parseInt(qp.get('h'),10):1080;
+  renderFrame(piece,wp,hp);
+})();
+</script>
+</body>
+</html>
