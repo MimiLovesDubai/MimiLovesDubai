@@ -76,6 +76,27 @@ Uitgevoerd door het lagere Claude-model; end-to-end geverifieerd waar de API dat
 6. Chat-welkomst- en offline-bericht instellen (teksten hieronder in dit document).
 7. Zelf testen: één chatbericht + één forminzending → check Inbox, Forms & Submissions, Contacts en je e-mail.
 
+## Update (6 oktober 2026) — formulier-eerst, chat als wegwijzer
+- **Zakelijk e-mailadres is ingesteld via de API**: `gallerydutchart@gmail.com` (geverifieerd in
+  site-eigenschappen). 
+- **Gekozen route: het contactformulier is het hoofdkanaal**; de chat blijft aan en begeleidt
+  bezoekers naar het formulier.
+- Resterende stappen (±3 min in de Editor): (1) formulier "Leave your details for a personal
+  response" op de contactpagina plaatsen; (2) publiceren; (3) Automation "Form submitted →
+  Send email" naar gallerydutchart@gmail.com aanzetten + één testinzending doen.
+
+**Chatteksten die naar het formulier leiden** (plakken in Dashboard → Inbox → instellingen →
+chat-/welkomstberichten):
+- *Welkom:* "Hi! Thanks for visiting Gallery Dutch Art. For project enquiries, the quickest way to
+  reach us is the contact form — leave your details and we'll respond personally within one
+  business day. How can we help?"
+- *Doorverwijzing bij serieuze vraag:* "Wonderful — so we can review this personally, please fill
+  in the short form on our contact page (your name, business email and a few words about your
+  project). You'll hear from us within one business day."
+- *Offline:* "We're currently offline. Please leave your details in the contact form on this page —
+  or share your name and business email here — and Gallery Dutch Art will get back to you as soon
+  as possible."
+
 **Chatteksten (kant-en-klaar):** welkom: "Hi! Thanks for visiting Gallery Dutch Art. How can we help you
 today?" · gegevens: "Could you share your name and business email address so we can get back to you
 personally?" · consent: "May Gallery Dutch Art store these details and contact you about this enquiry?" ·
