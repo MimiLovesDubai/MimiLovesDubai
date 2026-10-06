@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gallery Dutch Art — Private Collectors &amp; Hospitality Portfolio</title>
+<meta name="description" content="Bespoke Art and Immersive Experiences for Iconic Hotels, Residences and Destinations.">
+<!--
+  Gallery Dutch Art — Private Collectors & Hospitality Portfolio (A4 portrait, 10 pages).
+  Template with double-brace image placeholders (logo and artworks); a small Playwright build script injects
+  data-URIs (images resized in the browser) and renders the PDF (page.pdf, A4, printBackground).
+  The built, self-contained file is gallery-dutch-art-private-portfolio.html next to this template.
+  World: "Obsidian & Champagne" — see docs/ART-DIRECTION.md and design/homepage-obsidian.template.html.
+-->
+<style>
+  :root{
+    --obsidian:#131114; --obsidian2:#1B181C; --obsidian3:#221E24; --ivory:#F2EDE3; --dim:#A79E90;
+    --champagne:#CBA35C; --hairline:rgba(242,237,227,.14);
+    --serif:Georgia,'Times New Roman','Liberation Serif',serif;
+    --sans:'Helvetica Neue',Helvetica,Arial,'Liberation Sans',sans-serif;
+  }
+  @page{size:A4;margin:0}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--obsidian);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-family:var(--sans);color:var(--ivory);font-size:9.4pt;line-height:1.62}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  p{color:var(--dim)}
+
+  .page{position:relative;width:210mm;height:297mm;overflow:hidden;background:var(--obsidian);
+    break-after:page;page-break-after:always;padding:25mm 20mm 24mm}
+  .page:last-child{break-after:auto;page-break-after:auto}
+  .page.alt{background:var(--obsidian2)}
+  @media screen{
+    body{background:#0A090B;padding:8mm 0}
+    .page{margin:0 auto 8mm;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+  }
+
+  /* running head + folio */
+  .run{position:absolute;left:20mm;right:20mm;top:11mm;display:flex;justify-content:space-between;
+    font-size:6.4pt;letter-spacing:.26em;text-transform:uppercase;color:var(--dim);
+    padding-bottom:3mm;border-bottom:.2mm solid var(--hairline)}
+  .folio{position:absolute;left:20mm;right:20mm;bottom:10mm;display:flex;justify-content:space-between;align-items:baseline;
+    font-size:6.4pt;letter-spacing:.24em;text-transform:uppercase;color:var(--dim)}
+  .folio b{font-family:var(--serif);font-weight:400;font-size:10pt;letter-spacing:.06em;color:var(--champagne)}
+
+  /* type */
+  .kicker{font-size:6.9pt;letter-spacing:.32em;text-transform:uppercase;color:var(--champagne);margin-bottom:4.5mm}
+  h1,h2,h3{font-family:var(--serif);font-weight:400;color:var(--ivory)}
+  h2{font-size:27pt;line-height:1.14;max-width:21ch;text-wrap:balance}
+  h3{font-size:16pt;line-height:1.2}
+  h2 em,h1 em{font-style:italic;color:var(--champagne)}
+  .lead{color:var(--dim);font-size:10.6pt;line-height:1.66;max-width:60ch;margin-top:5.5mm}
+  .meta{font-size:6.9pt;letter-spacing:.24em;text-transform:uppercase;color:var(--champagne)}
+  .small{font-size:8pt;line-height:1.55}
+  .rule{height:0;border-top:.2mm solid var(--hairline)}
+
+  /* 01 cover */
+  .cover{padding:0;background:var(--obsidian)}
+  .cover .glow{position:absolute;inset:0;background:
+    radial-gradient(closest-side at 70% 36%,rgba(203,163,92,.22),rgba(203,163,92,.14) 22%,rgba(203,163,92,.07) 50%,rgba(203,163,92,.025) 78%,rgba(203,163,92,0) 100%),
+    radial-gradient(closest-side at 15% 95%,rgba(203,163,92,.07),rgba(203,163,92,.025) 60%,rgba(203,163,92,0) 100%)}
+  .cv-logo{position:absolute;left:20mm;top:17mm;height:33mm;width:auto}
+  .cv-for{position:absolute;right:20mm;top:21mm;text-align:right;font-size:6.6pt;letter-spacing:.24em;text-transform:uppercase;line-height:1.9;color:var(--dim)}
+  .cv-frame{position:absolute;right:20mm;top:62mm;width:92mm;background:#0C0A0D;border:.25mm solid rgba(203,163,92,.42);padding:4.5mm;
+    box-shadow:0 14mm 30mm rgba(0,0,0,.55),0 0 24mm rgba(203,163,92,.10)}
+  .cv-frame img{width:100%;aspect-ratio:4/5;object-fit:cover}
+  .cv-frame figcaption{display:flex;justify-content:space-between;padding-top:3.2mm;font-size:6.2pt;letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
+  .cv-disc{position:absolute;left:20mm;top:62mm;height:121mm;width:60mm;display:flex;flex-direction:column;justify-content:flex-end}
+  .cv-disc div{display:grid;grid-template-columns:9mm 1fr;align-items:baseline;padding:3.4mm 0;border-top:.2mm solid var(--hairline)}
+  .cv-disc div:last-child{border-bottom:.2mm solid var(--hairline)}
+  .cv-disc b{font-family:var(--serif);font-weight:400;font-style:italic;font-size:9pt;color:var(--champagne)}
+  .cv-disc span{font-family:var(--serif);font-size:10.5pt;line-height:1.3;color:var(--ivory)}
+  .cv-title{position:absolute;left:20mm;bottom:33mm;width:150mm}
+  .cv-title h1{font-size:37pt;line-height:1.1;text-wrap:balance}
+  .cv-tag{margin-top:6mm;font-size:11.5pt;line-height:1.55;color:var(--dim);max-width:46ch}
+  .cv-foot{position:absolute;left:20mm;right:20mm;bottom:11mm;display:flex;justify-content:space-between;
+    font-size:6.6pt;letter-spacing:.26em;text-transform:uppercase;color:var(--dim);padding-top:3.5mm;border-top:.2mm solid var(--hairline)}
+
+  /* 02 about */
+  .band{margin-top:9mm;height:56mm;overflow:hidden;border:.2mm solid var(--hairline);position:relative}
+  .band img{width:100%;height:100%;object-fit:cover}
+  .band-cap{margin-top:2.6mm;font-size:6.2pt;letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:9mm;margin-top:9mm}
+  .cols p{font-size:9.2pt;line-height:1.7}
+  .label{font-size:6.9pt;letter-spacing:.32em;text-transform:uppercase;color:var(--champagne);margin:10mm 0 4mm}
+  .serve{display:grid;grid-template-columns:repeat(4,1fr);border-top:.2mm solid var(--hairline);border-left:.2mm solid var(--hairline)}
+  .serve span{font-size:6.6pt;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);padding:4mm 3mm;text-align:center;border-right:.2mm solid var(--hairline);border-bottom:.2mm solid var(--hairline)}
+  .principle{margin-top:12mm;text-align:center}
+  .principle q{display:block;quotes:none;font-family:var(--serif);font-style:italic;font-size:17pt;line-height:1.4;color:var(--ivory);max-width:30ch;margin:0 auto;text-wrap:balance}
+  .principle cite{display:block;margin-top:4mm;font-style:normal;font-size:6.6pt;letter-spacing:.3em;text-transform:uppercase;color:var(--dim)}
+
+  /* 03 disciplines */
+  .discs{margin-top:13mm;border-bottom:.2mm solid var(--hairline)}
+  .disc{display:grid;grid-template-columns:24mm 1fr;gap:6mm;padding:13mm 0 12mm;border-top:.2mm solid var(--hairline)}
+  .disc .n{font-family:var(--serif);font-style:italic;font-size:34pt;line-height:1;color:var(--champagne)}
+  .disc h3{font-size:19pt;margin-bottom:3mm}
+  .disc p{font-size:9.6pt;max-width:56ch}
+  .tags{display:flex;flex-wrap:wrap;gap:2.2mm;margin-top:5mm}
+  .tags span{font-size:6.3pt;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);border:.2mm solid var(--hairline);padding:1.6mm 3mm}
+
+  /* 04 spaces */
+  .spaces{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:12mm;border-top:.2mm solid var(--hairline);border-left:.2mm solid var(--hairline)}
+  .space{padding:9mm 8mm 8mm;min-height:60mm;border-right:.2mm solid var(--hairline);border-bottom:.2mm solid var(--hairline)}
+  .space .n{font-family:var(--serif);font-style:italic;font-size:10pt;color:var(--champagne);letter-spacing:.08em;margin-bottom:17mm}
+  .space h3{font-size:15pt;margin:0 0 2.5mm}
+  .space p{font-size:8.6pt;line-height:1.55}
+
+  /* 05 / 06 selected work */
+  .plate{background:#0C0A0D;border:.25mm solid rgba(203,163,92,.42);padding:4mm;box-shadow:0 10mm 24mm rgba(0,0,0,.5)}
+  .plate img{width:100%;object-fit:cover}
+  .plate .tag{position:absolute}
+  .case-one{display:grid;grid-template-columns:112mm 1fr;gap:9mm;margin-top:11mm;align-items:start}
+  .case-one .plate img{aspect-ratio:4/5}
+  .caption{margin-top:3mm;font-size:6.5pt;line-height:1.6;letter-spacing:.06em;color:var(--dim)}
+  .facts{margin-top:7mm}
+  .facts div{padding:3.2mm 0;border-top:.2mm solid var(--hairline)}
+  .facts div:last-child{border-bottom:.2mm solid var(--hairline)}
+  .facts dt{font-size:6.2pt;letter-spacing:.26em;text-transform:uppercase;color:var(--champagne);margin-bottom:1mm}
+  .facts dd{font-size:8.6pt;line-height:1.45;color:var(--ivory)}
+  .note{margin-top:9mm;padding:5mm 6mm;border:.2mm solid var(--hairline);background:rgba(242,237,227,.025)}
+  .note p{font-size:8pt;line-height:1.6}
+  .note b{color:var(--ivory);font-weight:600}
+  .case{display:grid;grid-template-columns:62mm 1fr;gap:9mm;align-items:center;margin-top:9mm}
+  .case .plate{padding:3.2mm}
+  .case .plate img{aspect-ratio:4/5}
+  .case h3{font-size:18pt;margin:2.5mm 0 3.5mm}
+  .case p{font-size:9.2pt;line-height:1.65}
+  .case p.meta{font-size:6.9pt;line-height:1.4}
+  .case p.caption{font-size:6.6pt;line-height:1.6;margin-top:4mm}
+
+  /* 07 editions */
+  .ed-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6mm;margin-top:11mm}
+  .ed{background:var(--obsidian2);border:.2mm solid var(--hairline)}
+  .ed img{width:100%;aspect-ratio:4/5;object-fit:cover}
+  .ed-body{padding:4.5mm 4.5mm 5mm}
+  .ed-body h3{font-size:12.5pt;line-height:1.22}
+  .ed-body .meta{margin-top:2mm;font-size:6pt}
+  .ed-body p{font-size:7.9pt;line-height:1.55;margin-top:3mm}
+  .ed-body p.price,.pat p.price{font-family:var(--serif);font-size:19pt;color:var(--champagne);margin-top:3.5mm;line-height:1}
+  .specs{display:grid;grid-template-columns:repeat(3,1fr);gap:6mm;margin-top:9mm;border-top:.2mm solid var(--hairline);padding-top:6mm}
+  .specs dt{font-size:6.2pt;letter-spacing:.26em;text-transform:uppercase;color:var(--champagne);margin-bottom:1.6mm}
+  .specs dd{font-size:8.2pt;line-height:1.55;color:var(--dim)}
+
+  /* 08 pattern + originals */
+  .pat{display:grid;grid-template-columns:50mm 1fr;gap:9mm;margin-top:9mm;align-items:center}
+  .pat .plate{padding:3mm}
+  .pat .plate img{aspect-ratio:4/5}
+  .pat h3{font-size:17pt;margin-bottom:2.5mm}
+  .pat p{font-size:9pt;line-height:1.62}
+  .pat p.price{margin-top:5mm}
+  .orig-head{display:flex;justify-content:space-between;align-items:flex-end;margin-top:10mm;padding-bottom:3mm;border-bottom:.2mm solid rgba(242,237,227,.28)}
+  .orig-head h3{font-size:18pt}
+  .orig-head .meta{font-size:6.2pt}
+  .orig-intro{margin-top:4mm;font-size:8.6pt;line-height:1.6;max-width:70ch}
+  .orig{margin-top:3mm}
+  .orig .row{display:grid;grid-template-columns:1fr 62mm 22mm;gap:4mm;align-items:baseline;padding:2.9mm 0;border-bottom:.2mm solid var(--hairline)}
+  .orig .t{font-family:var(--serif);font-size:11.5pt;color:var(--ivory)}
+  .orig .m{font-size:7.2pt;letter-spacing:.06em;color:var(--dim)}
+  .orig .p{font-family:var(--serif);font-size:11.5pt;color:var(--champagne);text-align:right}
+
+  /* 09 process */
+  .steps{display:grid;grid-template-columns:1fr 1fr;border-top:.2mm solid var(--hairline);border-left:.2mm solid var(--hairline);margin-top:10mm}
+  .step{padding:7mm 8mm 8mm;border-right:.2mm solid var(--hairline);border-bottom:.2mm solid var(--hairline);min-height:44mm}
+  .step .n{font-family:var(--serif);font-style:italic;font-size:22pt;color:var(--champagne);line-height:1}
+  .step h3{font-size:15pt;margin:4mm 0 2.5mm}
+  .step p{font-size:8.9pt;line-height:1.6}
+
+  /* 10 contact */
+  .contact{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:20mm}
+  .contact .glow{position:absolute;inset:0;background:radial-gradient(closest-side at 50% 46%,rgba(203,163,92,.17),rgba(203,163,92,.11) 22%,rgba(203,163,92,.055) 50%,rgba(203,163,92,.02) 78%,rgba(203,163,92,0) 100%)}
+  .contact>*{position:relative}
+  .contact>.folio{position:absolute}
+  .contact .frame{position:absolute;inset:14mm;border:.2mm solid rgba(203,163,92,.28);pointer-events:none}
+  .contact .logo{height:44mm;width:auto;margin-bottom:12mm}
+  .contact h2{max-width:22ch;margin:0 auto;font-size:30pt}
+  .contact .lead{margin-left:auto;margin-right:auto;max-width:44ch;text-align:center}
+  .btn{display:inline-block;margin-top:11mm;padding:4.4mm 11mm;background:var(--champagne);color:var(--obsidian);
+    font-size:7.6pt;letter-spacing:.26em;text-transform:uppercase;font-weight:600}
+  .url{margin-top:7mm;font-family:var(--serif);font-size:17pt;color:var(--champagne);letter-spacing:.02em}
+  .founder{margin-top:15mm;font-size:6.9pt;letter-spacing:.3em;text-transform:uppercase;color:var(--dim)}
+  .founder b{display:block;font-family:var(--serif);font-weight:400;font-size:13pt;letter-spacing:.04em;text-transform:none;color:var(--ivory);margin-bottom:1.6mm}
+</style>
+</head>
+<body>
+
+<!-- 01 · COVER -->
+<section class="page cover">
+  <div class="glow"></div>
+  <img class="cv-logo" src="{{LOGO}}" alt="Gallery Dutch Art">
+  <p class="cv-for">Prepared for private collectors,<br>hotel developers and architects</p>
+  <figure class="cv-frame">
+    <img src="{{ART_TULIP}}" alt="Tulipomania — Nocturne, original digital artwork by Gallery Dutch Art">
+    <figcaption><span>Tulipomania — Nocturne</span><span>Edition of 10</span></figcaption>
+  </figure>
+  <div class="cv-disc"><div><b>01</b><span>Hospitality Art</span></div><div><b>02</b><span>Immersive Experiences</span></div><div><b>03</b><span>Bespoke Commissions &amp; Digital Editions</span></div></div>
+  <div class="cv-title">
+    <p class="kicker">Gallery Dutch Art · Amsterdam</p>
+    <h1>Private Collectors <em>&amp; Hospitality</em> Portfolio</h1>
+    <p class="cv-tag">Bespoke Art and Immersive Experiences for Iconic Hotels, Residences and Destinations</p>
+  </div>
+  <div class="cv-foot"><span>Private Collectors &amp; Hospitality Portfolio</span><span>www.gallerydutchart.nl</span></div>
+</section>
+
+<!-- 02 · THE GALLERY -->
+<section class="page">
+  <div class="run"><span>Gallery Dutch Art</span><span>Private Collectors &amp; Hospitality Portfolio</span></div>
+  <p class="kicker">The Gallery</p>
+  <h2>One creative partner for the spaces that define a destination.</h2>
+  <figure>
+    <div class="band"><img src="{{ART_WINDMILL}}" alt="Windmill Dusk — original artwork by Gallery Dutch Art" style="object-position:50% 56%"></div>
+    <figcaption class="band-cap">Windmill Dusk — Gallery Dutch Art</figcaption>
+  </figure>
+  <div class="cols">
+    <p>Gallery Dutch Art is an art gallery based in Amsterdam, working internationally. We create distinctive art collections, visual identities and immersive experiences for luxury hospitality and landmark developments.</p>
+    <p>From a single statement artwork to the complete visual identity of a resort, we work alongside owners, developers, architects and interior studios — from first concept to installation. Private collectors can acquire original works and limited digital editions.</p>
+  </div>
+  <p class="label">Who we serve</p>
+  <div class="serve">
+    <span>Luxury Hotels</span><span>Resorts</span><span>Branded Residences</span><span>Architects</span>
+    <span>Developers</span><span>Interior Studios</span><span>Wellness &amp; Yachts</span><span>Private Collectors</span>
+  </div>
+  <div class="principle">
+    <q>Art is not decoration. It is the reason a guest never forgets a place.</q>
+    <cite>Our principle</cite>
+  </div>
+  <div class="folio"><b>02</b><span>www.gallerydutchart.nl</span></div>
+</section>
+
+<!-- 03 · THREE DISCIPLINES -->
+<section class="page alt">
+  <div class="run"><span>Gallery Dutch Art</span><span>Private Collectors &amp; Hospitality Portfolio</span></div>
+  <p class="kicker">What we do</p>
+  <h2>Three disciplines. One signature.</h2>
+  <div class="discs">
+  <div class="disc">
+    <p class="n">01</p>
+    <div>
+      <h3>Hospitality Art</h3>
+      <p>Original works and curated collections conceived for hotels, resorts and residences — art that gives a property a soul and its guests a story to tell.</p>
+      <div class="tags"><span>Hotels</span><span>Resorts</span><span>Residences</span><span>Curated collections</span></div>
+    </div>
+  </div>
+  <div class="disc">
+    <p class="n">02</p>
+    <div>
+      <h3>Immersive Experiences</h3>
+      <p>Holographic scenes, projection concepts and walk-through narratives that turn lobbies, museums and landmark spaces into cinematic destinations.</p>
+      <div class="tags"><span>Holographic scenes</span><span>Projection concepts</span><span>Walk-through narratives</span></div>
+    </div>
+  </div>
+  <div class="disc">
+    <p class="n">03</p>
+    <div>
+      <h3>Bespoke Commissions &amp; Digital Editions</h3>
+      <p>One-of-a-kind commissions in paint and pixel — including limited digital editions, minted as NFTs with a blockchain certificate on request.</p>
+      <div class="tags"><span>Commissions</span><span>Original works</span><span>Limited digital editions</span></div>
+    </div>
+  </div>
+  </div>
+  <div class="folio"><b>03</b><span>www.gallerydutchart.nl</span></div>
+</section>
+
+<!-- 04 · SPACES -->
+<section class="page">
+  <div class="run"><span>Gallery Dutch Art</span><span>Private Collectors &amp; Hospitality Portfolio</span></div>
+  <p class="kicker">Transformation</p>
+  <h2>Every space has an untold story. We give it a voice.</h2>
+  <div class="spaces">
+    <div class="space"><p class="n">i</p><h3>The Lobby</h3><p>The first ten seconds of every stay — a statement collection that sets the tone.</p></div>
+    <div class="space"><p class="n">ii</p><h3>Suites &amp; Rooms</h3><p>Intimate works that make a night unforgettable and a suite photographable.</p></div>
+    <div class="space"><p class="n">iii</p><h3>Restaurants &amp; Bars</h3><p>Atmosphere you can taste — art directing the mood of the evening.</p></div>
+    <div class="space"><p class="n">iv</p><h3>Wellness &amp; Spa</h3><p>Quiet, immersive imagery that deepens serenity.</p></div>
+    <div class="space"><p class="n">v</p><h3>Façades &amp; Public Space</h3><p>Landmark gestures — projection, sculpture and light at architectural scale.</p></div>
+    <div class="space"><p class="n">vi</p><h3>Branded Residences</h3><p>Collections that carry a brand’s identity into private life.</p></div>
+  </div>
+  <div class="folio"><b>04</b><span>www.gallerydutchart.nl</span></div>
+</section>
+
+<!-- 05 · SELECTED WORK — MILKMAID -->
+<section class="page alt">
+  <div class="run"><span>Gallery Dutch Art</span><span>Private Collectors &amp; Hospitality Portfolio</span></div>
+  <p class="kicker">Selected Work · 01 / 03</p>
+  <h2>Milkmaid — Holographic NFT Collection</h2>
+  <p class="meta" style="margin-top:4.5mm">Proposal · Rijksmuseum Amsterdam</p>
+  <div class="case-one">
+    <figure>
+      <div class="plate"><img src="{{ART_DELFT}}" alt="Delft Flow — representative visual from the Gallery Dutch Art digital collection"></div>
+      <figcaption class="caption">Visual: <i>Delft Flow</i> (Digital Edition 01) — a representative image from our digital collection, not a rendering of this project.</figcaption>
+    </figure>
+    <div>
+      <p style="font-size:9.6pt;line-height:1.7">An exclusive holographic collection that lets a Dutch master breathe in light — blockchain-certified digital editions created as an ode to Vermeer.</p>
+      <dl class="facts">
+        <div><dt>Category</dt><dd>Digital Art &amp; Blockchain</dd></div>
+        <div><dt>Format</dt><dd>Limited digital editions</dd></div>
+        <div><dt>Status</dt><dd>Proposal</dd></div>
+        <div><dt>Subject</dt><dd>An ode to Vermeer</dd></div>
+      </dl>
+    </div>
+  </div>
+  <div class="note"><p><b>A note on status.</b> A proposal is a concept offered for consideration. It is not a commissioned or delivered project, and no commission or endorsement by the museum named above is implied.</p></div>
+  <div class="folio"><b>05</b><span>www.gallerydutchart.nl</span></div>
+</section>
+
+<!-- 06 · SELECTED WORK — CONCEPT STUDIES -->
+<section class="page">
+  <div class="run"><span>Gallery Dutch Art</span><span>Private Collectors &amp; Hospitality Portfolio</span></div>
+  <p class="kicker">Selected Work · 02 &amp; 03 / 03</p>
+  <h2>Concepts, presented honestly.</h2>
+  <article class="case">
+    <div class="plate"><img src="{{ART_AMSTERDAM}}" alt="Golden Hour — Amsterdam, representative visual"></div>
+    <div>
+      <p class="meta">Concept study · Museum experience</p>
+      <h3>War Museum — Bring History Back</h3>
+      <p>Layered projection, holographic scenes and curated artefact staging turn remembrance into a cinematic, walk-through narrative.</p>
+      <p class="caption">Visual: <i>Golden Hour — Amsterdam</i>, a representative image from our collection.</p>
+    </div>
+  </article>
+  <article class="case">
+    <div class="plate"><img src="{{ART_PATTERN}}" alt="Dutch Heritage Pattern, representative visual"></div>
+    <div>
+      <p class="meta">Concept study · Couture &amp; heritage</p>
+      <h3>KLM Heritage Couture</h3>
+      <p>Couture concept merging the tailoring of KLM flight crews with Dutch cultural inheritance — aviation heritage restitched into wearable art.</p>
+      <p class="caption">Visual: <i>Dutch Heritage Pattern</i>, a representative image from our collection.</p>
+    </div>
+  </article>
+  <div class="note" style="margin-top:9mm"><p><b>Status labels.</b> Concept studies and proposals are not completed commissions. Institutions and brands are named only as the subject of a concept; no affiliation with or endorsement by any named institution or brand is implied.</p></div>
+  <div class="folio"><b>06</b><span>www.gallerydutchart.nl</span></div>
+</section>
+
+<!-- 07 · DIGITAL EDITIONS -->
+<section class="page alt">
+  <div class="run"><span>Gallery Dutch Art</span><span>Private Collectors &amp; Hospitality Portfolio</span></div>
+  <p class="kicker">Digital Editions</p>
+  <h2>Dutch Masters, reimagined.</h2>
+  <p class="lead" style="margin-top:4.5mm;font-size:10pt">Original digital artworks by Gallery Dutch Art, each in an edition of ten. On request, an edition is minted as an NFT with a blockchain certificate of ownership.</p>
+  <div class="ed-grid">
+    <article class="ed">
+      <img src="{{ART_DELFT}}" alt="Delft Flow — Digital Edition 01">
+      <div class="ed-body"><h3>Delft Flow</h3><p class="meta">Edition 01 · Limited to 10</p><p class="price">€295</p>
+        <p>Delftware heritage dissolved into flowing cobalt — porcelain fragments, botanical traces and a canal-house skyline caught in the wind.</p></div>
+    </article>
+    <article class="ed">
+      <img src="{{ART_TULIP}}" alt="Tulipomania — Nocturne, Digital Edition 02">
+      <div class="ed-body"><h3>Tulipomania — Nocturne</h3><p class="meta">Edition 02 · Limited to 10</p><p class="price">€295</p>
+        <p>The world’s first speculative bloom, reborn as a luminous nocturne — nine tulips glowing against the dark.</p></div>
+    </article>
+    <article class="ed">
+      <img src="{{ART_AMSTERDAM}}" alt="Golden Hour — Amsterdam, Digital Edition 03">
+      <div class="ed-body"><h3>Golden Hour — Amsterdam</h3><p class="meta">Edition 03 · Limited to 10</p><p class="price">€295</p>
+        <p>Gabled silhouettes, lit windows and a path of gold on dark water — Amsterdam at its most cinematic.</p></div>
+    </article>
+  </div>
+  <dl class="specs">
+    <div><dt>Delivery</dt><dd>Museum-grade digital file, 2400 × 3000&nbsp;px.</dd></div>
+    <div><dt>Certificate</dt><dd>NFT with a blockchain certificate of ownership, on request.</dd></div>
+    <div><dt>Print</dt><dd>Fine-art print available on demand.</dd></div>
+  </dl>
+  <div class="note" style="margin-top:9mm"><p><b>Acquiring an edition.</b> Editions are listed in the online shop; prices as listed on 6 October 2026. For a collection, a residence or a hospitality programme, we are glad to discuss a tailored selection — please get in touch via <a href="https://www.gallerydutchart.nl" style="color:var(--ivory)">www.gallerydutchart.nl</a>.</p></div>
+  <div class="folio"><b>07</b><span>www.gallerydutchart.nl</span></div>
+</section>
+
+<!-- 08 · PATTERN LIBRARY + ORIGINALS -->
+<section class="page">
+  <div class="run"><span>Gallery Dutch Art</span><span>Private Collectors &amp; Hospitality Portfolio</span></div>
+  <p class="kicker">Design Licence</p>
+  <h2 style="font-size:23pt;max-width:26ch">A pattern for interiors, print and digital.</h2>
+  <div class="pat">
+    <div class="plate"><img src="{{ART_PATTERN}}" alt="Dutch Heritage Pattern Library — pattern sheet"></div>
+    <div>
+      <h3>Dutch Heritage Pattern Library</h3>
+      <p>A repeatable Delft-inspired pattern — windmills, tulips, canal houses and porcelain rings in cobalt and magenta — created for designers, hospitality brands and interior studios.</p>
+      <p style="margin-top:2.5mm">Includes a high-resolution pattern sheet (2400 × 3000 px) with a commercial design licence for use in interiors, print and digital. Custom colourways and bespoke pattern commissions are available on request.</p>
+      <p class="price">€149</p>
+    </div>
+  </div>
+  <div class="orig-head"><h3>Original Works</h3><span class="meta">As listed in the shop</span></div>
+  <p class="orig-intro">Twelve original works are currently listed in the online shop, from €1,250 to €4,650 — mixed media, acrylic on canvas, with one sculpture. A selection:</p>
+  <div class="orig">
+    <div class="row"><span class="t">Falling in Love</span><span class="m">Mixed media, acrylic on canvas</span><span class="p">€4,650</span></div>
+    <div class="row"><span class="t">Mysterious Lady</span><span class="m">Mixed media, acrylic on canvas</span><span class="p">€4,595</span></div>
+    <div class="row"><span class="t">Falling in Love (Pink)</span><span class="m">Mixed media, acrylic on canvas</span><span class="p">€4,495</span></div>
+    <div class="row"><span class="t">Poem Lady</span><span class="m">Mixed media, acrylic on canvas</span><span class="p">€2,495</span></div>
+    <div class="row"><span class="t">Deep Emotions</span><span class="m">Mixed media, acrylic on canvas</span><span class="p">€2,495</span></div>
+    <div class="row"><span class="t">Hollandse Gezelligheid</span><span class="m">Mixed media, acrylic on canvas</span><span class="p">€2,250</span></div>
+    <div class="row"><span class="t">Zing, Lach, Huil, Bid en Bewonder</span><span class="m">Mixed media, acrylic on canvas</span><span class="p">€1,650</span></div>
+    <div class="row"><span class="t">Davide</span><span class="m">Sculpture on a wooden base · unique piece</span><span class="p">€1,250</span></div>
+  </div>
+  <p class="small" style="margin-top:5mm">Prices as listed in the online shop at <a href="https://www.gallerydutchart.nl" style="color:var(--ivory)">www.gallerydutchart.nl</a> on 6 October 2026.</p>
+  <div class="folio"><b>08</b><span>www.gallerydutchart.nl</span></div>
+</section>
+
+<!-- 09 · PROCESS -->
+<section class="page alt">
+  <div class="run"><span>Gallery Dutch Art</span><span>Private Collectors &amp; Hospitality Portfolio</span></div>
+  <p class="kicker">Process</p>
+  <h2>From first conversation to unforgettable space.</h2>
+  <figure>
+    <div class="band" style="height:74mm"><img src="{{ART_CANAL}}" alt="Canal Reflections — Delft, original artwork by Gallery Dutch Art" style="object-position:50% 22%"></div>
+    <figcaption class="band-cap">Canal Reflections — Delft · Gallery Dutch Art</figcaption>
+  </figure>
+  <div class="steps">
+    <div class="step"><p class="n">01</p><h3>Discovery</h3><p>Your destination, brand and ambitions — understood in depth.</p></div>
+    <div class="step"><p class="n">02</p><h3>Creative Direction</h3><p>A distinctive artistic concept, tailored to the space and its story.</p></div>
+    <div class="step"><p class="n">03</p><h3>Curation &amp; Creation</h3><p>Bespoke works, curated collections and immersive media.</p></div>
+    <div class="step"><p class="n">04</p><h3>Delivery</h3><p>Installation, certification and ongoing creative partnership.</p></div>
+  </div>
+  <p class="small" style="margin-top:7mm">Scope, schedule and format are defined together with each client.</p>
+  <div class="folio"><b>09</b><span>www.gallerydutchart.nl</span></div>
+</section>
+
+<!-- 10 · CONTACT -->
+<section class="page contact">
+  <div class="glow"></div>
+  <div class="frame"></div>
+  <img class="logo" src="{{LOGO}}" alt="Gallery Dutch Art">
+  <p class="kicker" style="margin-bottom:5mm">Start a project</p>
+  <h2>Let’s create something iconic together.</h2>
+  <p class="lead">Tell us about your hotel, residence or destination — we respond personally.</p>
+  <a class="btn" href="https://www.gallerydutchart.nl">Discuss Your Project</a>
+  <p class="url"><a href="https://www.gallerydutchart.nl">www.gallerydutchart.nl</a></p>
+  <p class="founder"><b>Mariska Beenen</b>Founder, Gallery Dutch Art</p>
+  <div class="folio" style="left:24mm;right:24mm;bottom:20mm"><b>10</b><span>Amsterdam</span></div>
+</section>
+
+</body>
+</html>
