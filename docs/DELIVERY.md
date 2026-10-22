@@ -54,6 +54,28 @@
   De klassieke Wix Editor laat pagina-ontwerp niet via API toe — dit is bewust als masterfile geleverd
   zodat niets van de bestaande site kapot kan gaan.
 
+## Update (22 oktober 2026) — Wat kan in de app, wat doet Claude, wat is desktop
+**Claude heeft overgenomen (loopt automatisch):**
+- **GDA Lead Watch** — elke ochtend 08:47 controleert Claude je Wix Contacts en
+  formulierinzendingen; bij een nieuwe lead krijg je een pushmelding in de Claude-app met naam,
+  gegevens en een opvolgadvies. Dit vervangt voorlopig de Wix-e-mailautomation.
+- Zakelijk e-mailadres (gallerydutchart@gmail.com) is al via de API ingesteld.
+
+**Kan in de Wix-app op je telefoon:**
+1. Pushmeldingen aanzetten: Wix-app → Inbox → tandwiel → notificaties aan.
+2. Chat-welkomst- en offline-tekst instellen (teksten staan hierboven klaar om te plakken).
+3. Een testchat sturen en in Inbox beantwoorden.
+
+**Kan in de browser op je telefoon (manage.wix.com):**
+4. Automation aanmaken: Automations → "Form submitted" → "Send email" → gallerydutchart@gmail.com
+   (en optioneel een tweede: bevestigingsmail naar de invuller).
+5. Google Search Console verifiëren + sitemap indienen (klikpad in TRAFFIC-PLAN.md §e).
+
+**Alleen eenmalig op een computer in de Wix-Editor (±5 min — kan écht niet in de app):**
+6. Formulier "Leave your details for a personal response" op de contactpagina plaatsen.
+7. Blog ("Insights") in het hoofdmenu zetten.
+8. Publiceren — en daarna zelf één testinzending doen.
+
 ## Fase A-update (19 juli 2026) — chatbot & leadformulier geïnstalleerd
 Uitgevoerd door het lagere Claude-model; end-to-end geverifieerd waar de API dat toeliet:
 - **Wix Chat geïnstalleerd** (app-instance `26192560-99ba-4a82-9e64-68eeb389ca7e`).
