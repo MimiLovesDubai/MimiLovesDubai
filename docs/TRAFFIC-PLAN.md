@@ -320,3 +320,40 @@ consistente aanwezigheid op LinkedIn en Instagram en een scherp afgebakende
 Google Ads-inzet — dat is de combinatie die op de middellange termijn
 daadwerkelijk bezoekers en aanvragen oplevert, zonder spam, zonder verzonnen
 cijfers, en zonder loze beloftes.
+
+---
+
+## Uitgevoerd op 4–6 november 2026 — SEO-pakket "hotels & particulieren"
+
+Op verzoek van de eigenaar ("bovenaan Google wanneer een hotel of particulier kunst wil
+kopen") is het volgende via de Wix-API uitgevoerd:
+
+**Twee nieuwe koopgerichte artikelen, live op de blog** (Engels, met SEO-titel,
+meta-description, excerpt en cover uit bestaande sitemedia):
+1. *How to Choose Art for a Luxury Hotel: A Practical Buyer's Guide* —
+   https://www.gallerydutchart.nl/post/art-for-luxury-hotels-buyers-guide
+   (zoektermen: art for hotels, hotel art collection, bespoke art luxury hotel).
+2. *Buying Original Dutch Art Online: A Collector's Guide* —
+   https://www.gallerydutchart.nl/post/buy-dutch-art-online-collectors-guide
+   (zoektermen: buy Dutch art online, Amsterdam canal houses art, Delft blue wall art).
+
+**Metadata gerepareerd** van twee bestaande posts die SEO-titel en -beschrijving misten:
+- *NFT Art at Gallery Dutch Art* (ook het kale-URL-excerpt vervangen door een nette tekst);
+- *Dutch Masters on the Blockchain*.
+"The 18-Month Window" (off-topic) en het concept "OUR SERVICES FOR YOU:" zijn bewust
+onaangeraakt gelaten.
+
+**Winkel:** de 12 originele werken (Falling in Love, Falling in Love (Pink), It's Donald
+Duck!, Poem Lady, Deep Emotions, Lekker Rolmopsie, The Godfather, Doggy Walk, Mysterious
+Lady, Zing Lach Huil Bid en Bewonder, Hollandse Gezelligheid, Davide) hadden geen of één
+generieke beschrijving; elk heeft nu een eigen, eerlijke Engelse beschrijving met
+koopintentie-zoektermen ("original Dutch artwork", "one-of-a-kind", "painting on canvas").
+Namen, prijzen, ribbons en slugs zijn onaangeraakt. "Acryl" wordt alleen genoemd waar de
+bestaande productdata dat bevestigde; de API gaf geen oude beschrijvingstekst terug, dus
+is neutraal "painting on canvas" gebruikt. De 4 digitale edities/pattern library waren al
+keyword-rijk en zijn niet gewijzigd.
+
+**De twee grootste resterende hefbomen liggen bij de eigenaar** (zie de stappen eerder in
+dit document): Google Search Console verifiëren en een gratis Google Bedrijfsprofiel
+aanmaken. Zonder die twee blijft de vindbaarheidswinst van bovenstaand werk onzichtbaar
+in meetcijfers en laat een toppositie langer op zich wachten.
