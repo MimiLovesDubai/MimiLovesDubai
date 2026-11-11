@@ -64,6 +64,7 @@ function fill(template, d, uris) {
     FACTS: d.facts.map(f => `<div><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`).join(''),
     CONCEPT_IMG: uris[d.concept.art], CONCEPT_IMG_TITLE: esc(conceptArt.title),
     CONCEPT_IMG_CLASS: conceptArt.shape === 'landscape' ? 'wide' : '',
+    CONCEPT_GRID_CLASS: conceptArt.shape === 'landscape' ? 'wide-art' : '',
     CONCEPT_STATEMENT: esc(d.concept.statement),
     PILLARS: d.concept.pillars.map((p, i) => `<div class="pillar"><p class="n">${pad(i + 1)}</p><div><h3>${esc(p.title)}</h3><p>${esc(p.text)}</p></div></div>`).join(''),
     CARDS: d.collection.map(c => `<div class="card"><div class="img"><img src="${uris[c.art]}" alt="${esc(artOf(c.art).title)}"></div>
