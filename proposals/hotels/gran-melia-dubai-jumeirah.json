@@ -1,0 +1,77 @@
+{
+  "slug": "gran-melia-dubai-jumeirah",
+  "hotel": "Gran Meliá Dubai Jumeirah",
+  "shortName": "Gran Meliá Dubai",
+  "date": "November 2026",
+  "heroArt": "ART_DELFT",
+  "coverTag": "A concept for a new seafront landmark at Port de La Mer: the reflected light of Dutch water meets the light of the Gulf.",
+  "headline": "Where Dutch light meets the Gulf.",
+  "opportunity": "Gran Meliá Dubai Jumeirah opens on the seafront at Port de La Mer with 380 rooms and suites and event space for up to a thousand guests. At that scale, art does its best work as a recognisable signature: a collection guests associate with the hotel, carried through rooms, suites and events. We propose one built on a simple, beautiful parallel: the reflected light of Dutch water and the light of the Gulf.",
+  "reading": [
+    { "title": "Water and light", "text": "The sea is the hotel's protagonist; the art can echo it in every space." },
+    { "title": "Scale with identity", "text": "380 rooms and suites need one coherent language, not 380 decorations." },
+    { "title": "Events as a stage", "text": "Screens and walls in the event spaces can carry art that changes per occasion." }
+  ],
+  "facts": [
+    { "label": "Location", "value": "Port de La Mer, Jumeirah, directly on the seafront" },
+    { "label": "Brand", "value": "Meliá Hotels International's first Gran Meliá in Dubai" },
+    { "label": "Scale", "value": "380 rooms and suites; restaurants, bars, pools, spa and event space for up to 1,000 guests" },
+    { "label": "Expected opening", "value": "Late 2026, according to the most recent reports" }
+  ],
+  "sources": [
+    "https://www.hospitalitynet.org/announcement/41010162/melia-hotels-international-will-open-the-spectacular-gran-melia-dubai-jumeirah-in-port-de-la-mer",
+    "https://tophotel.news/gran-melia-brand-to-enter-dubai",
+    "https://whatson.ae/?p=286843"
+  ],
+  "concept": {
+    "title": "Two Waters",
+    "subtitle": "Dutch light meets the Gulf",
+    "art": "ART_CANAL",
+    "statement": "Two Waters connects the canals of Amsterdam with the Gulf coast outside the hotel's windows. Reflections, horizons and the gold of evening light run through every piece, from a signature pair at the arrival to a numbered room series and Living Paintings that can be programmed for events and seasons. A suite collection of originals offers the most exclusive guests a piece of Dutch art they will remember.",
+    "pillars": [
+      { "title": "Reflections", "text": "Water and mirrored light as the common thread in every space." },
+      { "title": "One collection, 380 rooms", "text": "A numbered room series in one palette, produced and certified to a five-star standard." },
+      { "title": "Programmable art for events", "text": "Living Paintings for event spaces and screens, curated for each occasion." }
+    ]
+  },
+  "collection": [
+    { "art": "ART_CANAL", "role": "Arrival · Signature", "text": "Mirrored façades on still water: the Dutch half of Two Waters." },
+    { "art": "ART_AMSTERDAM", "role": "Event spaces · Living Painting", "text": "Golden-hour light as a moving work for screens and event backdrops." },
+    { "art": "ART_DELFT", "role": "Spa & pools", "text": "Flowing cobalt that echoes the sea outside." },
+    { "art": "ART_WINDMILL", "role": "Suites", "text": "A poetic Dutch horizon for the suite collection." }
+  ],
+  "bespoke": [
+    { "title": "The Gulf in Delft Blue", "text": "A signature panorama of the Port de La Mer coastline in Gallery Dutch Art's Delft palette: the Gulf half of Two Waters." },
+    { "title": "The Suite Collection", "text": "Curated originals for the suites, each with a certificate of authenticity." }
+  ],
+  "scenes": [
+    { "scene": "lobby", "art": "ART_CANAL", "caption": "Arrival — signature work, large format" },
+    { "scene": "room", "art": "ART_WINDMILL", "caption": "Suite — indicative of the suite collection" }
+  ],
+  "placements": [
+    { "space": "Arrival", "proposal": "Canal Reflections and The Gulf in Delft Blue, as a pair" },
+    { "space": "Event spaces", "proposal": "Golden Hour Living Paintings, programmable" },
+    { "space": "Spa & pools", "proposal": "Delft Flow series" },
+    { "space": "Suites", "proposal": "The Suite Collection of originals" },
+    { "space": "Guest rooms", "proposal": "A numbered room series" }
+  ],
+  "tiers": [
+    { "name": "Signature", "scope": ["Canal Reflections — Delft, large format, for the arrival", "The Gulf in Delft Blue, bespoke panorama", "Curation, framing advice and installation plan"], "priceHead": "Originals from €1,250", "priceNote": "Bespoke commission quoted after a briefing." },
+    { "name": "Suites & Spaces", "scope": ["Everything in Signature", "The Suite Collection of originals", "Living Paintings for event spaces (annual licence)", "A Delft Flow series for the spa and pools"], "priceHead": "Quoted after a briefing", "priceNote": "Scope and formats agreed with your team." },
+    { "name": "Two Waters — complete", "scope": ["Everything in Suites & Spaces", "A numbered room series across the guest rooms", "Certificates of authenticity for every work", "Optional signed guest editions for retail"], "priceHead": "Quoted after a briefing", "priceNote": "For the opening season and beyond." }
+  ],
+  "nextStep": "For the opening season and beyond, we would welcome the chance to walk you through Two Waters and adapt it to your brief and interiors. The concept is a starting point, not a fixed proposal.",
+  "email": {
+    "to": "The Gran Meliá Dubai Jumeirah (pre-)opening team via melia.com, or Meliá Hotels International's Middle East development team (via LinkedIn)",
+    "subject": "Two Waters: an art concept for Gran Meliá Dubai Jumeirah",
+    "body": [
+      "Dear Gran Meliá Dubai Jumeirah team,",
+      "Congratulations on bringing the first Gran Meliá to Dubai.",
+      "I'm Mariska Beenen of Gallery Dutch Art, an Amsterdam studio creating bespoke art and collections for hospitality. Inspired by the hotel's seafront setting at Port de La Mer, we prepared a short concept, \"Two Waters\": a collection that connects the reflected light of Dutch canals with the light of the Gulf, with a signature pair at the arrival, a suite collection of originals and Living Paintings that can be programmed for events.",
+      "The concept is attached as a seven-page PDF. It is unsolicited and only a starting point; for the opening season and beyond, we would adapt it entirely to your brief.",
+      "Would you be open to a twenty-minute conversation in the coming weeks?",
+      "Warm regards,\nMariska Beenen\nGallery Dutch Art · Amsterdam\ngallerydutchart@gmail.com · www.gallerydutchart.nl",
+      "If this isn't relevant, simply reply \"no\" and I won't follow up."
+    ]
+  }
+}
