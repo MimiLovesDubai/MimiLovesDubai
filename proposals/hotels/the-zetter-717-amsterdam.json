@@ -1,5 +1,6 @@
 {
   "slug": "the-zetter-717-amsterdam",
+  "pdfUrl": "https://3ae99428-3e18-4c94-b6c6-2d8add59bbf8.usrfiles.com/ugd/d8a765_9686e1bc2e6f4d01878016da21991485.pdf",
   "hotel": "The Zetter 717 Amsterdam",
   "shortName": "The Zetter 717",
   "date": "November 2026",
@@ -8,16 +9,40 @@
   "headline": "Twenty-four rooms. One canal house. A collection that could only exist here.",
   "opportunity": "The Zetter 717 brings The Zetter Collection to the Prinsengracht: a single historic house, an intimate scale and a street that is itself one of the world's great works of art. We see an opportunity for a collection that feels as if it has always belonged to the house, rooted in the canal, in Delft blue and in the soft light of the Golden Age, yet unmistakably contemporary.",
   "reading": [
-    { "title": "Intimacy over spectacle", "text": "At twenty-four rooms, every piece is seen up close and lived with. Quality and story matter more than size." },
-    { "title": "Story is the luxury", "text": "Guests should be able to discover something new in each room, and want to see the rest." },
-    { "title": "The street as subject", "text": "The Prinsengracht itself can become the collection: façades, water and evening light." }
+    {
+      "title": "Intimacy over spectacle",
+      "text": "At twenty-four rooms, every piece is seen up close and lived with. Quality and story matter more than size."
+    },
+    {
+      "title": "Story is the luxury",
+      "text": "Guests should be able to discover something new in each room, and want to see the rest."
+    },
+    {
+      "title": "The street as subject",
+      "text": "The Prinsengracht itself can become the collection: façades, water and evening light."
+    }
   ],
   "facts": [
-    { "label": "Location", "value": "Prinsengracht 717, in Amsterdam's UNESCO-listed Canal District" },
-    { "label": "The house", "value": "A historic canal house; The Zetter Collection's first hotel outside the UK" },
-    { "label": "Scale", "value": "Boutique, 24 rooms" },
-    { "label": "Expected opening", "value": "Early 2027, as announced" },
-    { "label": "General Manager", "value": "Yara Al Hattouni, as announced" }
+    {
+      "label": "Location",
+      "value": "Prinsengracht 717, in Amsterdam's UNESCO-listed Canal District"
+    },
+    {
+      "label": "The house",
+      "value": "A historic canal house; The Zetter Collection's first hotel outside the UK"
+    },
+    {
+      "label": "Scale",
+      "value": "Boutique, 24 rooms"
+    },
+    {
+      "label": "Expected opening",
+      "value": "Early 2027, as announced"
+    },
+    {
+      "label": "General Manager",
+      "value": "Yara Al Hattouni, as announced"
+    }
   ],
   "sources": [
     "https://www.hospitalitynet.org/announcement/41015123/the-zetter-collection-expands-into-europe-debuting-the-zetter-717-amsterdam",
@@ -29,36 +54,119 @@
     "art": "ART_AMSTERDAM",
     "statement": "Each guest room receives its own original work: the portrait of a single Prinsengracht façade, drawn from the canal itself and rendered in Gallery Dutch Art's palette of Delft blue, ivory and evening gold. Together the twenty-four pieces form one continuous street, a collection guests can only see in full by coming back.",
     "pillars": [
-      { "title": "One house, one street", "text": "Every room tells its own part of the canal; the stair and corridors connect them like the street outside." },
-      { "title": "Delft blue, reimagined", "text": "A heritage palette used with restraint: cobalt depths, ivory light and a single line of gold." },
-      { "title": "Collectable by design", "text": "Every room piece is a numbered original with a certificate of authenticity. Guests could acquire a signed edition of the work they slept beside." }
+      {
+        "title": "One house, one street",
+        "text": "Every room tells its own part of the canal; the stair and corridors connect them like the street outside."
+      },
+      {
+        "title": "Delft blue, reimagined",
+        "text": "A heritage palette used with restraint: cobalt depths, ivory light and a single line of gold."
+      },
+      {
+        "title": "Collectable by design",
+        "text": "Every room piece is a numbered original with a certificate of authenticity. Guests could acquire a signed edition of the work they slept beside."
+      }
     ]
   },
   "collection": [
-    { "art": "ART_CANAL", "role": "Signature · Arrival", "text": "Mirrored canal houses in Delft blue, proposed as the first work guests meet, scaled to the entrance hall." },
-    { "art": "ART_AMSTERDAM", "role": "Lounge & bar", "text": "The canal skyline at golden hour, as a still original or as a slow-moving Living Painting on a screen." },
-    { "art": "ART_DELFT", "role": "Stair & corridors", "text": "A flowing field of cobalt that guides the eye up through the house." },
-    { "art": "ART_PATTERN", "role": "Textiles & details", "text": "A licensed pattern for cushions, menus or stationery, so the collection continues beyond the frame." }
+    {
+      "art": "ART_CANAL",
+      "role": "Signature · Arrival",
+      "text": "Mirrored canal houses in Delft blue, proposed as the first work guests meet, scaled to the entrance hall."
+    },
+    {
+      "art": "ART_AMSTERDAM",
+      "role": "Lounge & bar",
+      "text": "The canal skyline at golden hour, as a still original or as a slow-moving Living Painting on a screen."
+    },
+    {
+      "art": "ART_DELFT",
+      "role": "Stair & corridors",
+      "text": "A flowing field of cobalt that guides the eye up through the house."
+    },
+    {
+      "art": "ART_PATTERN",
+      "role": "Textiles & details",
+      "text": "A licensed pattern for cushions, menus or stationery, so the collection continues beyond the frame."
+    }
   ],
   "bespoke": [
-    { "title": "The 717 Façade", "text": "A signature portrait of the hotel's own house at Prinsengracht 717, for reception or the guest's first view of the stair." },
-    { "title": "Twenty-four Houses", "text": "The room series: one original per room, each a different Prinsengracht façade, unified in palette and frame." }
+    {
+      "title": "The 717 Façade",
+      "text": "A signature portrait of the hotel's own house at Prinsengracht 717, for reception or the guest's first view of the stair."
+    },
+    {
+      "title": "Twenty-four Houses",
+      "text": "The room series: one original per room, each a different Prinsengracht façade, unified in palette and frame."
+    }
   ],
   "scenes": [
-    { "scene": "lobby", "art": "ART_CANAL", "caption": "Arrival — signature work, large format" },
-    { "scene": "room", "art": "ART_AMSTERDAM", "caption": "Guest room — indicative of the room series" }
+    {
+      "scene": "lobby",
+      "art": "ART_CANAL",
+      "caption": "Arrival — signature work, large format"
+    },
+    {
+      "scene": "room",
+      "art": "ART_AMSTERDAM",
+      "caption": "Guest room — indicative of the room series"
+    }
   ],
   "placements": [
-    { "space": "Arrival", "proposal": "Canal Reflections — Delft, large format" },
-    { "space": "Reception", "proposal": "The 717 Façade, bespoke portrait of the house" },
-    { "space": "Stair & corridors", "proposal": "Delft Flow series" },
-    { "space": "Guest rooms", "proposal": "Twenty-four Houses, one original per room" },
-    { "space": "Lounge & bar", "proposal": "Golden Hour as a Living Painting" }
+    {
+      "space": "Arrival",
+      "proposal": "Canal Reflections — Delft, large format"
+    },
+    {
+      "space": "Reception",
+      "proposal": "The 717 Façade, bespoke portrait of the house"
+    },
+    {
+      "space": "Stair & corridors",
+      "proposal": "Delft Flow series"
+    },
+    {
+      "space": "Guest rooms",
+      "proposal": "Twenty-four Houses, one original per room"
+    },
+    {
+      "space": "Lounge & bar",
+      "proposal": "Golden Hour as a Living Painting"
+    }
   ],
   "tiers": [
-    { "name": "Signature", "scope": ["The 717 Façade, a bespoke portrait of the house", "Canal Reflections — Delft, large-format original for the arrival", "Curation, framing advice and installation plan"], "priceHead": "Originals from €1,250", "priceNote": "Bespoke commission quoted after a briefing." },
-    { "name": "The House", "scope": ["Everything in Signature", "Delft Flow series for the stair and corridors", "Golden Hour as a Living Painting for one screen", "Dutch Heritage Pattern licence for textiles or stationery"], "priceHead": "Quoted after a site visit", "priceNote": "Scope and formats agreed with your design team." },
-    { "name": "Twenty-four Houses", "scope": ["Everything in The House", "One original per guest room: 24 unique canal-house portraits", "Certificates of authenticity for every work", "Optional signed guest editions for retail"], "priceHead": "Quoted after a site visit", "priceNote": "The complete collection, planned around your opening." }
+    {
+      "name": "Signature",
+      "scope": [
+        "The 717 Façade, a bespoke portrait of the house",
+        "Canal Reflections — Delft, large-format original for the arrival",
+        "Curation, framing advice and installation plan"
+      ],
+      "priceHead": "Originals from €1,250",
+      "priceNote": "Bespoke commission quoted after a briefing."
+    },
+    {
+      "name": "The House",
+      "scope": [
+        "Everything in Signature",
+        "Delft Flow series for the stair and corridors",
+        "Golden Hour as a Living Painting for one screen",
+        "Dutch Heritage Pattern licence for textiles or stationery"
+      ],
+      "priceHead": "Quoted after a site visit",
+      "priceNote": "Scope and formats agreed with your design team."
+    },
+    {
+      "name": "Twenty-four Houses",
+      "scope": [
+        "Everything in The House",
+        "One original per guest room: 24 unique canal-house portraits",
+        "Certificates of authenticity for every work",
+        "Optional signed guest editions for retail"
+      ],
+      "priceHead": "Quoted after a site visit",
+      "priceNote": "The complete collection, planned around your opening."
+    }
   ],
   "nextStep": "We would welcome the chance to walk you through Portraits of the Prinsengracht and adapt it entirely to your brief, interiors and opening timeline. The concept is a starting point, not a fixed proposal.",
   "email": {
@@ -68,7 +176,7 @@
       "Dear Ms Al Hattouni,",
       "Congratulations on your appointment and on bringing The Zetter Collection to the Prinsengracht.",
       "I'm Mariska Beenen of Gallery Dutch Art, an Amsterdam studio creating bespoke art and collections for hospitality. Inspired by the announcement of The Zetter 717, we prepared a short concept, \"Portraits of the Prinsengracht\": one original work per room, each the portrait of a different canal-house façade in Delft blue, ivory and evening gold, so that twenty-four rooms together form one street.",
-      "The concept is attached as a seven-page PDF. It is unsolicited and only a starting point; we would adapt it entirely to your brief and interiors.",
+      "You can view the seven-page concept here:\n{{PDF_LINK}}\n\nIt is unsolicited and only a starting point; we would adapt it entirely to your brief and interiors.",
       "Would you be open to a twenty-minute conversation in the coming weeks?",
       "Warm regards,\nMariska Beenen\nGallery Dutch Art · Amsterdam\ngallerydutchart@gmail.com · www.gallerydutchart.nl",
       "If this isn't relevant, simply reply \"no\" and I won't follow up."

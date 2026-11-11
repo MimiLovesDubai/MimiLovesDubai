@@ -35,6 +35,26 @@ Per hotel: `<slug>.pdf` (het voorstel) en `<slug>-email.md` (aan wie, onderwerp,
    Met `--screenshots <map>` krijg je per pagina een PNG om te controleren; het script waarschuwt
    ook zelf als tekst buiten een pagina loopt.
 
+## Automatisering (vanaf 11 november 2026)
+
+**Vaste regel: alle hotelmail gaat uitsluitend via gallerydutchart@gmail.com. Het persoonlijke adres
+beenenmariska@gmail.com wordt nooit gebruikt: niet lezen, geen concepten, niet verzenden.**
+
+- **Elke maandag rond 10:17** zoekt de geplande taak *GDA Hotel Outreach* 2 nieuwe luxe hotels die binnenkort
+  openen of renoveren, controleert de feiten (minstens 2 bronnen), bouwt het voorstel, zet de PDF in de
+  Media Manager van gallerydutchart.nl en maakt het e-mailbestand klaar in `proposals/out/`.
+- **Gmail** wordt pas gebruikt als gallerydutchart@gmail.com als Gmail-koppeling is ingesteld en dat is
+  bevestigd (`gmailAccountConfirmed` in `proposals/outreach-log.json`). Dan komen de mails als **concept**
+  in gallerydutchart@gmail.com en houdt de taak antwoorden bij (na 7 dagen zonder antwoord: één beleefde
+  follow-up als concept; bij "no": nooit meer mailen). **Verzenden doet de eigenaar zelf.**
+- Koppeling omzetten: claude.ai → Instellingen → Connectors → Gmail → loskoppelen → opnieuw verbinden en
+  inloggen met gallerydutchart@gmail.com. Laat het daarna in de chat weten.
+- PDF's worden als downloadlink in de mail gezet (te groot als bijlage via de koppeling).
+- Contactadressen: alleen officieel gepubliceerde adressen. De hotelwebsites zijn vanuit de cloudomgeving
+  niet altijd bereikbaar; dan noteert de taak de route (contactformulier/LinkedIn) en vult de eigenaar het adres in.
+- Stoppen of pauzeren: zeg het in de chat; de geplande taak wordt dan uitgezet.
+- Voortgang per hotel: `proposals/outreach-log.json`.
+
 ## Spelregels
 
 - Alleen openbare, controleerbare feiten over het hotel; nooit een bestaande relatie suggereren

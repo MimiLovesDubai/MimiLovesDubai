@@ -2,7 +2,9 @@
 
 **Aan / route:** The Kasteel Gemert hotel team or owner Bas van de Laar (named in Hilton's announcement): via the hotel's website, or via LinkedIn
 
-**Bijlage:** kasteel-gemert-eindhoven.pdf
+**Verzenden vanaf:** gallerydutchart@gmail.com (nooit vanaf een persoonlijk adres)
+
+**PDF-link:** https://3ae99428-3e18-4c94-b6c6-2d8add59bbf8.usrfiles.com/ugd/d8a765_774218b85a7a457fa5bad87843152e2a.pdf
 
 **Onderwerp:** The Light of Seven Centuries: an art concept for Kasteel Gemert
 
@@ -14,7 +16,10 @@ Congratulations on the transformation of Kasteel Gemert into the Netherlands' fi
 
 I'm Mariska Beenen of Gallery Dutch Art, an Amsterdam studio creating bespoke art and collections for hospitality. Inspired by the castle's history and its new chapter, we prepared a short concept, "The Light of Seven Centuries": a signature work about time and light for the great hall, a portrait of the castle itself and a room series inspired by Brabant, all in a contemporary hand that sits quietly within a refined interior.
 
-The concept is attached as a seven-page PDF. It is unsolicited and only a starting point; whether before opening or for the first season, we would adapt it entirely to your brief.
+You can view the seven-page concept here:
+https://3ae99428-3e18-4c94-b6c6-2d8add59bbf8.usrfiles.com/ugd/d8a765_774218b85a7a457fa5bad87843152e2a.pdf
+
+It is unsolicited and only a starting point; whether before opening or for the first season, we would adapt it entirely to your brief.
 
 Would you be open to a twenty-minute conversation in the coming weeks?
 

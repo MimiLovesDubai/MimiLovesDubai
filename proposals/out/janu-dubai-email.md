@@ -2,7 +2,9 @@
 
 **Aan / route:** The Janu Dubai pre-opening team via Aman Group (janu.com / aman.com), or the developer H&H Development (via its website or LinkedIn)
 
-**Bijlage:** janu-dubai.pdf
+**Verzenden vanaf:** gallerydutchart@gmail.com (nooit vanaf een persoonlijk adres)
+
+**PDF-link:** https://3ae99428-3e18-4c94-b6c6-2d8add59bbf8.usrfiles.com/ugd/d8a765_b0ab376469cd4ae8bdfb4f6fbfce7cba.pdf
 
 **Onderwerp:** Golden Hours: an art concept for Janu Dubai
 
@@ -14,7 +16,10 @@ Congratulations on the plans for Janu Dubai in DIFC.
 
 I'm Mariska Beenen of Gallery Dutch Art, an Amsterdam studio creating bespoke art and collections for hospitality. Inspired by Janu's blend of hotel, residences and members' club, we prepared a short concept, "Golden Hours": a permanent collection of original works with a living layer of digital Living Paintings that change through the day, plus a limited members' edition with a certificate of authenticity.
 
-The concept is attached as a seven-page PDF. It is unsolicited and only a starting point; we would adapt it entirely to your brief and interiors.
+You can view the seven-page concept here:
+https://3ae99428-3e18-4c94-b6c6-2d8add59bbf8.usrfiles.com/ugd/d8a765_b0ab376469cd4ae8bdfb4f6fbfce7cba.pdf
+
+It is unsolicited and only a starting point; we would adapt it entirely to your brief and interiors.
 
 Would you be open to a twenty-minute conversation in the coming weeks?
 

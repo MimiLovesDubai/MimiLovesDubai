@@ -1,5 +1,6 @@
 {
   "slug": "the-encounter-amsterdam",
+  "pdfUrl": "https://3ae99428-3e18-4c94-b6c6-2d8add59bbf8.usrfiles.com/ugd/d8a765_8638447b240f427cb03505d795652812.pdf",
   "hotel": "The Encounter, Amsterdam",
   "shortName": "The Encounter",
   "date": "November 2026",
@@ -8,16 +9,40 @@
   "headline": "A new five-star landmark north of the IJ deserves art that is an encounter in itself.",
   "opportunity": "The Encounter brings five-star hospitality to Amsterdam-Noord at a generous scale: 197 rooms and a rooftop with a restaurant, cocktail bar and pool, looking back across the water at the historic city. That view, old Amsterdam seen from the new, suggests a collection built on contrast: the light and heritage of the Golden Age, translated into a contemporary visual language that belongs in Noord.",
   "reading": [
-    { "title": "The view is the story", "text": "The historic skyline, seen from the north, is what sets this hotel apart." },
-    { "title": "Scale needs coherence", "text": "197 rooms call for one recognisable collection rather than decoration." },
-    { "title": "The rooftop is a stage", "text": "Up there, art can move with the light, from golden hour into night." }
+    {
+      "title": "The view is the story",
+      "text": "The historic skyline, seen from the north, is what sets this hotel apart."
+    },
+    {
+      "title": "Scale needs coherence",
+      "text": "197 rooms call for one recognisable collection rather than decoration."
+    },
+    {
+      "title": "The rooftop is a stage",
+      "text": "Up there, art can move with the light, from golden hour into night."
+    }
   ],
   "facts": [
-    { "label": "Location", "value": "Amsterdam-Noord, across the IJ from the city centre" },
-    { "label": "Category", "value": "Independent five-star hotel" },
-    { "label": "Scale", "value": "197 rooms; rooftop restaurant, cocktail bar and pool" },
-    { "label": "Expected opening", "value": "Mid-2027, as announced" },
-    { "label": "Team", "value": "Developed by Younique Concepts and WIN Hotels; interiors by Concrete" }
+    {
+      "label": "Location",
+      "value": "Amsterdam-Noord, across the IJ from the city centre"
+    },
+    {
+      "label": "Category",
+      "value": "Independent five-star hotel"
+    },
+    {
+      "label": "Scale",
+      "value": "197 rooms; rooftop restaurant, cocktail bar and pool"
+    },
+    {
+      "label": "Expected opening",
+      "value": "Mid-2027, as announced"
+    },
+    {
+      "label": "Team",
+      "value": "Developed by Younique Concepts and WIN Hotels; interiors by Concrete"
+    }
   ],
   "sources": [
     "https://encounterhotel.com/",
@@ -32,36 +57,119 @@
     "art": "ART_PRISM",
     "statement": "North Light treats the hotel as a vantage point. Public spaces carry large signature works that look back at the historic city through Gallery Dutch Art's palette of cobalt, ivory and gold. The rooms hold a numbered series that turns the skyline into intimate studies. On the rooftop, a Living Painting follows the colour of the Amsterdam sky from golden hour into night.",
     "pillars": [
-      { "title": "A signature arrival", "text": "One large-scale work that makes the first encounter with the hotel unforgettable, and photographable." },
-      { "title": "A coherent room series", "text": "One collection across 197 rooms: unique compositions within one palette, numbered and certified." },
-      { "title": "Art that moves", "text": "Living Paintings for the lobby and rooftop screens, shifting with the time of day." }
+      {
+        "title": "A signature arrival",
+        "text": "One large-scale work that makes the first encounter with the hotel unforgettable, and photographable."
+      },
+      {
+        "title": "A coherent room series",
+        "text": "One collection across 197 rooms: unique compositions within one palette, numbered and certified."
+      },
+      {
+        "title": "Art that moves",
+        "text": "Living Paintings for the lobby and rooftop screens, shifting with the time of day."
+      }
     ]
   },
   "collection": [
-    { "art": "ART_PRISM", "role": "Arrival · Signature", "text": "Light breaking into spectrum over Dutch silhouettes: a contemporary statement for the entrance." },
-    { "art": "ART_AMSTERDAM", "role": "Rooftop · Living Painting", "text": "The canal skyline at golden hour, proposed as a slow-moving digital work for the rooftop bar." },
-    { "art": "ART_CANAL", "role": "Room series", "text": "The basis for the room collection: mirrored façades, re-composed for each floor." },
-    { "art": "ART_TULIP", "role": "Restaurant & bar", "text": "Luminous tulips on deep night: evocative, warm and made for the evening." }
+    {
+      "art": "ART_PRISM",
+      "role": "Arrival · Signature",
+      "text": "Light breaking into spectrum over Dutch silhouettes: a contemporary statement for the entrance."
+    },
+    {
+      "art": "ART_AMSTERDAM",
+      "role": "Rooftop · Living Painting",
+      "text": "The canal skyline at golden hour, proposed as a slow-moving digital work for the rooftop bar."
+    },
+    {
+      "art": "ART_CANAL",
+      "role": "Room series",
+      "text": "The basis for the room collection: mirrored façades, re-composed for each floor."
+    },
+    {
+      "art": "ART_TULIP",
+      "role": "Restaurant & bar",
+      "text": "Luminous tulips on deep night: evocative, warm and made for the evening."
+    }
   ],
   "bespoke": [
-    { "title": "The View North", "text": "A panoramic signature work of the historic skyline as seen from Noord, for the lobby or the rooftop lift lobby." },
-    { "title": "197 Studies", "text": "A room series of numbered compositions, each derived from the same view, unified in palette and frame." }
+    {
+      "title": "The View North",
+      "text": "A panoramic signature work of the historic skyline as seen from Noord, for the lobby or the rooftop lift lobby."
+    },
+    {
+      "title": "197 Studies",
+      "text": "A room series of numbered compositions, each derived from the same view, unified in palette and frame."
+    }
   ],
   "scenes": [
-    { "scene": "lobby", "art": "ART_PRISM", "caption": "Arrival — signature work, large format" },
-    { "scene": "room", "art": "ART_CANAL", "caption": "Guest room — indicative of the room series" }
+    {
+      "scene": "lobby",
+      "art": "ART_PRISM",
+      "caption": "Arrival — signature work, large format"
+    },
+    {
+      "scene": "room",
+      "art": "ART_CANAL",
+      "caption": "Guest room — indicative of the room series"
+    }
   ],
   "placements": [
-    { "space": "Arrival", "proposal": "Prism of Provenance, large format" },
-    { "space": "Lobby", "proposal": "The View North, bespoke panorama" },
-    { "space": "Rooftop", "proposal": "Golden Hour as a Living Painting" },
-    { "space": "Restaurant & bar", "proposal": "Tulipomania — Nocturne" },
-    { "space": "Guest rooms", "proposal": "197 Studies, numbered room series" }
+    {
+      "space": "Arrival",
+      "proposal": "Prism of Provenance, large format"
+    },
+    {
+      "space": "Lobby",
+      "proposal": "The View North, bespoke panorama"
+    },
+    {
+      "space": "Rooftop",
+      "proposal": "Golden Hour as a Living Painting"
+    },
+    {
+      "space": "Restaurant & bar",
+      "proposal": "Tulipomania — Nocturne"
+    },
+    {
+      "space": "Guest rooms",
+      "proposal": "197 Studies, numbered room series"
+    }
   ],
   "tiers": [
-    { "name": "Signature", "scope": ["A large-format signature work for the arrival", "Curated originals for the lobby and restaurant", "Curation, framing advice and installation plan"], "priceHead": "Originals from €1,250", "priceNote": "Bespoke commission quoted after a briefing." },
-    { "name": "Public Spaces", "scope": ["Everything in Signature", "The View North, a bespoke panorama", "Living Paintings for lobby and rooftop screens (annual licence)", "Art for meeting rooms and corridors"], "priceHead": "Quoted after a briefing", "priceNote": "Scope and formats agreed with your design team." },
-    { "name": "North Light — complete", "scope": ["Everything in Public Spaces", "197 Studies, a numbered room series", "Certificates of authenticity for every work", "Optional signed guest editions for retail"], "priceHead": "Quoted after a briefing", "priceNote": "The complete collection, planned around your opening." }
+    {
+      "name": "Signature",
+      "scope": [
+        "A large-format signature work for the arrival",
+        "Curated originals for the lobby and restaurant",
+        "Curation, framing advice and installation plan"
+      ],
+      "priceHead": "Originals from €1,250",
+      "priceNote": "Bespoke commission quoted after a briefing."
+    },
+    {
+      "name": "Public Spaces",
+      "scope": [
+        "Everything in Signature",
+        "The View North, a bespoke panorama",
+        "Living Paintings for lobby and rooftop screens (annual licence)",
+        "Art for meeting rooms and corridors"
+      ],
+      "priceHead": "Quoted after a briefing",
+      "priceNote": "Scope and formats agreed with your design team."
+    },
+    {
+      "name": "North Light — complete",
+      "scope": [
+        "Everything in Public Spaces",
+        "197 Studies, a numbered room series",
+        "Certificates of authenticity for every work",
+        "Optional signed guest editions for retail"
+      ],
+      "priceHead": "Quoted after a briefing",
+      "priceNote": "The complete collection, planned around your opening."
+    }
   ],
   "nextStep": "We would welcome the chance to walk you through North Light and adapt it to your brief, the interiors by Concrete and your opening timeline. The concept is a starting point, not a fixed proposal.",
   "email": {
@@ -71,7 +179,7 @@
       "Dear The Encounter team,",
       "Congratulations on bringing a new five-star hotel to Amsterdam-Noord.",
       "I'm Mariska Beenen of Gallery Dutch Art, an Amsterdam studio creating bespoke art and collections for hospitality. Inspired by the plans for The Encounter, we prepared a short concept, \"North Light\": a signature arrival work, a numbered series across the rooms and a Living Painting for the rooftop that follows the Amsterdam sky from golden hour into night, all built on the view of old Amsterdam seen from the new.",
-      "The concept is attached as a seven-page PDF. It is unsolicited and only a starting point; we would adapt it entirely to your brief and to the interiors.",
+      "You can view the seven-page concept here:\n{{PDF_LINK}}\n\nIt is unsolicited and only a starting point; we would adapt it entirely to your brief and to the interiors.",
       "Would you be open to a twenty-minute conversation in the coming weeks?",
       "Warm regards,\nMariska Beenen\nGallery Dutch Art · Amsterdam\ngallerydutchart@gmail.com · www.gallerydutchart.nl",
       "If this isn't relevant, simply reply \"no\" and I won't follow up."

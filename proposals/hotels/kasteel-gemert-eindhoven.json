@@ -1,5 +1,6 @@
 {
   "slug": "kasteel-gemert-eindhoven",
+  "pdfUrl": "https://3ae99428-3e18-4c94-b6c6-2d8add59bbf8.usrfiles.com/ugd/d8a765_774218b85a7a457fa5bad87843152e2a.pdf",
   "hotel": "Kasteel Gemert Eindhoven, Curio Collection by Hilton",
   "shortName": "Kasteel Gemert",
   "date": "November 2026",
@@ -8,16 +9,40 @@
   "headline": "Seven centuries of history deserve a collection that adds a new chapter, not a costume.",
   "opportunity": "Kasteel Gemert is being transformed with rare care: a fourteenth-century castle, a design-led renovation by Studio Piet Boon and the Netherlands' first Curio Collection by Hilton. A collection here should honour the depth of the place without imitating the past. We propose Dutch light, heritage colour and time itself, expressed in a contemporary hand.",
   "reading": [
-    { "title": "Heritage, not historicism", "text": "Reference the past with respect, but never as pastiche." },
-    { "title": "Quiet confidence", "text": "Art that sits within a refined interior instead of competing with it." },
-    { "title": "A reason to return", "text": "A collection can give guests a reason to stay longer, explore Brabant and come back." }
+    {
+      "title": "Heritage, not historicism",
+      "text": "Reference the past with respect, but never as pastiche."
+    },
+    {
+      "title": "Quiet confidence",
+      "text": "Art that sits within a refined interior instead of competing with it."
+    },
+    {
+      "title": "A reason to return",
+      "text": "A collection can give guests a reason to stay longer, explore Brabant and come back."
+    }
   ],
   "facts": [
-    { "label": "Location", "value": "Gemert, near Eindhoven, North Brabant" },
-    { "label": "The house", "value": "A fourteenth-century castle, renovated into a five-star hotel" },
-    { "label": "Scale", "value": "56 rooms; two restaurants, a bar, spa and indoor pool, as announced" },
-    { "label": "Brand & design", "value": "The first Curio Collection by Hilton in the Netherlands; interiors by Studio Piet Boon" },
-    { "label": "Expected opening", "value": "2026, according to Studio Piet Boon" }
+    {
+      "label": "Location",
+      "value": "Gemert, near Eindhoven, North Brabant"
+    },
+    {
+      "label": "The house",
+      "value": "A fourteenth-century castle, renovated into a five-star hotel"
+    },
+    {
+      "label": "Scale",
+      "value": "56 rooms; two restaurants, a bar, spa and indoor pool, as announced"
+    },
+    {
+      "label": "Brand & design",
+      "value": "The first Curio Collection by Hilton in the Netherlands; interiors by Studio Piet Boon"
+    },
+    {
+      "label": "Expected opening",
+      "value": "2026, according to Studio Piet Boon"
+    }
   ],
   "sources": [
     "https://stories.hilton.com/emea/releases/hilton-to-open-the-netherlands-first-curio-collection-by-hilton-hotel-in-14th-century-castle",
@@ -30,36 +55,119 @@
     "art": "ART_HOURGLASS",
     "statement": "The collection follows the castle's own timeline: from the deep, candlelit tones of its oldest halls to the clear light of the Golden Age and the calm of the new spa. Each work draws on Dutch visual heritage, from windmills and Delft blue to the tulip, and translates it into a contemporary, quietly luxurious language that rewards a second look.",
     "pillars": [
-      { "title": "Time as a theme", "text": "A signature work about time and light for the great hall: a fitting centrepiece for a castle that has seen seven centuries." },
-      { "title": "Brabant & the Low Countries", "text": "Landscape and heritage subjects that connect the castle to its region and to Dutch art history." },
-      { "title": "Calm for the spa", "text": "Soft cobalt fields for the spa and pool, chosen for stillness rather than spectacle." }
+      {
+        "title": "Time as a theme",
+        "text": "A signature work about time and light for the great hall: a fitting centrepiece for a castle that has seen seven centuries."
+      },
+      {
+        "title": "Brabant & the Low Countries",
+        "text": "Landscape and heritage subjects that connect the castle to its region and to Dutch art history."
+      },
+      {
+        "title": "Calm for the spa",
+        "text": "Soft cobalt fields for the spa and pool, chosen for stillness rather than spectacle."
+      }
     ]
   },
   "collection": [
-    { "art": "ART_HOURGLASS", "role": "Great hall · Signature", "text": "A champagne-gold hourglass of light: a meditation on time for a house with seven centuries of history." },
-    { "art": "ART_WINDMILL", "role": "Restaurants", "text": "The Dutch landscape at its most poetic, in warm dusk tones." },
-    { "art": "ART_DELFT", "role": "Spa & pool", "text": "A calm field of cobalt for spaces made for rest." },
-    { "art": "ART_PATTERN", "role": "Suites & details", "text": "A Delft-inspired pattern for suites, textiles or stationery." }
+    {
+      "art": "ART_HOURGLASS",
+      "role": "Great hall · Signature",
+      "text": "A champagne-gold hourglass of light: a meditation on time for a house with seven centuries of history."
+    },
+    {
+      "art": "ART_WINDMILL",
+      "role": "Restaurants",
+      "text": "The Dutch landscape at its most poetic, in warm dusk tones."
+    },
+    {
+      "art": "ART_DELFT",
+      "role": "Spa & pool",
+      "text": "A calm field of cobalt for spaces made for rest."
+    },
+    {
+      "art": "ART_PATTERN",
+      "role": "Suites & details",
+      "text": "A Delft-inspired pattern for suites, textiles or stationery."
+    }
   ],
   "bespoke": [
-    { "title": "The Castle Portrait", "text": "A signature portrait of Kasteel Gemert itself in Gallery Dutch Art's palette, for reception or the main stair." },
-    { "title": "The Brabant Series", "text": "A room series of numbered originals inspired by the landscape, crafts and heritage of the region." }
+    {
+      "title": "The Castle Portrait",
+      "text": "A signature portrait of Kasteel Gemert itself in Gallery Dutch Art's palette, for reception or the main stair."
+    },
+    {
+      "title": "The Brabant Series",
+      "text": "A room series of numbered originals inspired by the landscape, crafts and heritage of the region."
+    }
   ],
   "scenes": [
-    { "scene": "lobby", "art": "ART_HOURGLASS", "caption": "Great hall — signature work, large format" },
-    { "scene": "room", "art": "ART_WINDMILL", "caption": "Guest room — indicative of the room series" }
+    {
+      "scene": "lobby",
+      "art": "ART_HOURGLASS",
+      "caption": "Great hall — signature work, large format"
+    },
+    {
+      "scene": "room",
+      "art": "ART_WINDMILL",
+      "caption": "Guest room — indicative of the room series"
+    }
   ],
   "placements": [
-    { "space": "Great hall", "proposal": "The Hourglass of Light, large format" },
-    { "space": "Reception", "proposal": "The Castle Portrait, bespoke" },
-    { "space": "Restaurants", "proposal": "Windmill at Dusk and curated originals" },
-    { "space": "Spa & pool", "proposal": "Delft Flow series" },
-    { "space": "Rooms & suites", "proposal": "The Brabant Series" }
+    {
+      "space": "Great hall",
+      "proposal": "The Hourglass of Light, large format"
+    },
+    {
+      "space": "Reception",
+      "proposal": "The Castle Portrait, bespoke"
+    },
+    {
+      "space": "Restaurants",
+      "proposal": "Windmill at Dusk and curated originals"
+    },
+    {
+      "space": "Spa & pool",
+      "proposal": "Delft Flow series"
+    },
+    {
+      "space": "Rooms & suites",
+      "proposal": "The Brabant Series"
+    }
   ],
   "tiers": [
-    { "name": "Signature", "scope": ["The Hourglass of Light or a bespoke work for the great hall", "The Castle Portrait, bespoke", "Curation, framing advice and installation plan"], "priceHead": "Originals from €1,250", "priceNote": "Bespoke commission quoted after a briefing." },
-    { "name": "Public Spaces", "scope": ["Everything in Signature", "Curated originals for both restaurants and the bar", "Delft Flow series for the spa and pool", "A Living Painting for one screen"], "priceHead": "Quoted after a site visit", "priceNote": "Scope and formats agreed with your design team." },
-    { "name": "The Complete Castle", "scope": ["Everything in Public Spaces", "The Brabant Series for rooms and suites", "Certificates of authenticity for every work", "Optional signed guest editions for retail"], "priceHead": "Quoted after a site visit", "priceNote": "Before opening or for the first season." }
+    {
+      "name": "Signature",
+      "scope": [
+        "The Hourglass of Light or a bespoke work for the great hall",
+        "The Castle Portrait, bespoke",
+        "Curation, framing advice and installation plan"
+      ],
+      "priceHead": "Originals from €1,250",
+      "priceNote": "Bespoke commission quoted after a briefing."
+    },
+    {
+      "name": "Public Spaces",
+      "scope": [
+        "Everything in Signature",
+        "Curated originals for both restaurants and the bar",
+        "Delft Flow series for the spa and pool",
+        "A Living Painting for one screen"
+      ],
+      "priceHead": "Quoted after a site visit",
+      "priceNote": "Scope and formats agreed with your design team."
+    },
+    {
+      "name": "The Complete Castle",
+      "scope": [
+        "Everything in Public Spaces",
+        "The Brabant Series for rooms and suites",
+        "Certificates of authenticity for every work",
+        "Optional signed guest editions for retail"
+      ],
+      "priceHead": "Quoted after a site visit",
+      "priceNote": "Before opening or for the first season."
+    }
   ],
   "nextStep": "Whether before opening or for the first season, we would welcome the chance to walk you through The Light of Seven Centuries and adapt it to your brief and the interiors. The concept is a starting point, not a fixed proposal.",
   "email": {
@@ -69,7 +177,7 @@
       "Dear Kasteel Gemert team,",
       "Congratulations on the transformation of Kasteel Gemert into the Netherlands' first Curio Collection by Hilton.",
       "I'm Mariska Beenen of Gallery Dutch Art, an Amsterdam studio creating bespoke art and collections for hospitality. Inspired by the castle's history and its new chapter, we prepared a short concept, \"The Light of Seven Centuries\": a signature work about time and light for the great hall, a portrait of the castle itself and a room series inspired by Brabant, all in a contemporary hand that sits quietly within a refined interior.",
-      "The concept is attached as a seven-page PDF. It is unsolicited and only a starting point; whether before opening or for the first season, we would adapt it entirely to your brief.",
+      "You can view the seven-page concept here:\n{{PDF_LINK}}\n\nIt is unsolicited and only a starting point; whether before opening or for the first season, we would adapt it entirely to your brief.",
       "Would you be open to a twenty-minute conversation in the coming weeks?",
       "Warm regards,\nMariska Beenen\nGallery Dutch Art · Amsterdam\ngallerydutchart@gmail.com · www.gallerydutchart.nl",
       "If this isn't relevant, simply reply \"no\" and I won't follow up."

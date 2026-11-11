@@ -2,7 +2,9 @@
 
 **Aan / route:** Yara Al Hattouni, General Manager (named in the announcement): via LinkedIn, or via the general enquiries on thezetter.com
 
-**Bijlage:** the-zetter-717-amsterdam.pdf
+**Verzenden vanaf:** gallerydutchart@gmail.com (nooit vanaf een persoonlijk adres)
+
+**PDF-link:** https://3ae99428-3e18-4c94-b6c6-2d8add59bbf8.usrfiles.com/ugd/d8a765_9686e1bc2e6f4d01878016da21991485.pdf
 
 **Onderwerp:** A collection for The Zetter 717: twenty-four rooms, twenty-four canal houses
 
@@ -14,7 +16,10 @@ Congratulations on your appointment and on bringing The Zetter Collection to the
 
 I'm Mariska Beenen of Gallery Dutch Art, an Amsterdam studio creating bespoke art and collections for hospitality. Inspired by the announcement of The Zetter 717, we prepared a short concept, "Portraits of the Prinsengracht": one original work per room, each the portrait of a different canal-house façade in Delft blue, ivory and evening gold, so that twenty-four rooms together form one street.
 
-The concept is attached as a seven-page PDF. It is unsolicited and only a starting point; we would adapt it entirely to your brief and interiors.
+You can view the seven-page concept here:
+https://3ae99428-3e18-4c94-b6c6-2d8add59bbf8.usrfiles.com/ugd/d8a765_9686e1bc2e6f4d01878016da21991485.pdf
+
+It is unsolicited and only a starting point; we would adapt it entirely to your brief and interiors.
 
 Would you be open to a twenty-minute conversation in the coming weeks?
 

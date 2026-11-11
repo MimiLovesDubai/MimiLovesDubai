@@ -2,7 +2,9 @@
 
 **Aan / route:** The Encounter pre-opening team via encounterhotel.com; alternatively the developers Younique Concepts or WIN Hotels (contact via their websites or LinkedIn)
 
-**Bijlage:** the-encounter-amsterdam.pdf
+**Verzenden vanaf:** gallerydutchart@gmail.com (nooit vanaf een persoonlijk adres)
+
+**PDF-link:** https://3ae99428-3e18-4c94-b6c6-2d8add59bbf8.usrfiles.com/ugd/d8a765_8638447b240f427cb03505d795652812.pdf
 
 **Onderwerp:** North Light: an art concept for The Encounter
 
@@ -14,7 +16,10 @@ Congratulations on bringing a new five-star hotel to Amsterdam-Noord.
 
 I'm Mariska Beenen of Gallery Dutch Art, an Amsterdam studio creating bespoke art and collections for hospitality. Inspired by the plans for The Encounter, we prepared a short concept, "North Light": a signature arrival work, a numbered series across the rooms and a Living Painting for the rooftop that follows the Amsterdam sky from golden hour into night, all built on the view of old Amsterdam seen from the new.
 
-The concept is attached as a seven-page PDF. It is unsolicited and only a starting point; we would adapt it entirely to your brief and to the interiors.
+You can view the seven-page concept here:
+https://3ae99428-3e18-4c94-b6c6-2d8add59bbf8.usrfiles.com/ugd/d8a765_8638447b240f427cb03505d795652812.pdf
+
+It is unsolicited and only a starting point; we would adapt it entirely to your brief and to the interiors.
 
 Would you be open to a twenty-minute conversation in the coming weeks?
 

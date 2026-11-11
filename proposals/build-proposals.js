@@ -87,8 +87,9 @@ function emailMd(d) {
   const e = d.email;
   return `# Outreach e-mail — ${d.hotel}\n\n` +
     `**Aan / route:** ${e.to}\n\n` +
-    `**Bijlage:** ${d.slug}.pdf\n\n` +
-    `**Onderwerp:** ${e.subject}\n\n---\n\n${e.body.join('\n\n')}\n\n---\n\n` +
+    `**Verzenden vanaf:** gallerydutchart@gmail.com (nooit vanaf een persoonlijk adres)\n\n` +
+    `**PDF-link:** ${d.pdfUrl || 'nog niet geüpload'}\n\n` +
+    `**Onderwerp:** ${e.subject}\n\n---\n\n${e.body.join('\n\n').split('{{PDF_LINK}}').join(d.pdfUrl || '[link volgt]')}\n\n---\n\n` +
     `_Niet verzenden voordat de prijzen in het voorstel zijn bevestigd. Bronnen voor de hotelgegevens:_\n\n` +
     d.sources.map(s => `- ${s}`).join('\n') + '\n';
 }

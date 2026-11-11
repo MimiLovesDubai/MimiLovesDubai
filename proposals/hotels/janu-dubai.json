@@ -1,5 +1,6 @@
 {
   "slug": "janu-dubai",
+  "pdfUrl": "https://3ae99428-3e18-4c94-b6c6-2d8add59bbf8.usrfiles.com/ugd/d8a765_b0ab376469cd4ae8bdfb4f6fbfce7cba.pdf",
   "hotel": "Janu Dubai",
   "shortName": "Janu Dubai",
   "date": "November 2026",
@@ -8,16 +9,40 @@
   "headline": "A social sanctuary in the heart of DIFC, with a collection people talk about.",
   "opportunity": "Janu Dubai brings Aman Group's more social, connected brand to the centre of Dubai's financial district, combining a hotel, branded residences and a members' club. That mix of guests, residents and members who return again and again calls for art that can evolve: a collection with a permanent core and a living layer that changes with the seasons and the calendar of the city.",
   "reading": [
-    { "title": "Return visits", "text": "Members and residents need a collection that renews itself over time." },
-    { "title": "Art as conversation", "text": "Something to discover, discuss and, for those who wish, collect." },
-    { "title": "Provenance matters", "text": "In a financial district, verified authenticity is part of the value." }
+    {
+      "title": "Return visits",
+      "text": "Members and residents need a collection that renews itself over time."
+    },
+    {
+      "title": "Art as conversation",
+      "text": "Something to discover, discuss and, for those who wish, collect."
+    },
+    {
+      "title": "Provenance matters",
+      "text": "In a financial district, verified authenticity is part of the value."
+    }
   ],
   "facts": [
-    { "label": "Location", "value": "Dubai International Financial Centre (DIFC)" },
-    { "label": "Brand", "value": "Janu, Aman Group's sister brand; announced as its second hotel after Janu Tokyo" },
-    { "label": "Scale", "value": "Approximately 150 rooms, branded residences and a members' club, as announced" },
-    { "label": "Developer", "value": "H&H Development" },
-    { "label": "Expected opening", "value": "2027, as announced" }
+    {
+      "label": "Location",
+      "value": "Dubai International Financial Centre (DIFC)"
+    },
+    {
+      "label": "Brand",
+      "value": "Janu, Aman Group's sister brand; announced as its second hotel after Janu Tokyo"
+    },
+    {
+      "label": "Scale",
+      "value": "Approximately 150 rooms, branded residences and a members' club, as announced"
+    },
+    {
+      "label": "Developer",
+      "value": "H&H Development"
+    },
+    {
+      "label": "Expected opening",
+      "value": "2027, as announced"
+    }
   ],
   "sources": [
     "https://www.hospitalitynet.org/announcement/41011150/aman-group-plans-for-janu-dubai-opening-in-2027",
@@ -30,36 +55,119 @@
     "art": "ART_AMSTERDAM",
     "statement": "Golden Hours pairs a permanent collection of original works with a programme of Living Paintings: digital artworks that change with the time of day in the lounges and the members' club. A selected series is issued as limited digital editions with a blockchain certificate of authenticity, offered to members as a collectable, never as an investment.",
     "pillars": [
-      { "title": "A permanent core", "text": "Signature originals for the arrival, the lounges and the residences' common spaces." },
-      { "title": "A living layer", "text": "Living Paintings on screens that shift from morning to evening, curated per season." },
-      { "title": "Collectable, with provenance", "text": "Limited digital editions with certificates of authenticity, available to members." }
+      {
+        "title": "A permanent core",
+        "text": "Signature originals for the arrival, the lounges and the residences' common spaces."
+      },
+      {
+        "title": "A living layer",
+        "text": "Living Paintings on screens that shift from morning to evening, curated per season."
+      },
+      {
+        "title": "Collectable, with provenance",
+        "text": "Limited digital editions with certificates of authenticity, available to members."
+      }
     ]
   },
   "collection": [
-    { "art": "ART_PRISM", "role": "Arrival · Signature", "text": "Light breaking into spectrum: a statement on provenance for a financial district." },
-    { "art": "ART_AMSTERDAM", "role": "Members' club · Living Painting", "text": "Golden hour as a slow-moving digital work, and the namesake of the concept." },
-    { "art": "ART_TULIP", "role": "Lounge & bar", "text": "Luminous tulips on deep night, with a knowing nod to history's first speculative market." },
-    { "art": "ART_DELFT", "role": "Spa & residences", "text": "A calm field of cobalt, proposed as a series for residents' spaces." }
+    {
+      "art": "ART_PRISM",
+      "role": "Arrival · Signature",
+      "text": "Light breaking into spectrum: a statement on provenance for a financial district."
+    },
+    {
+      "art": "ART_AMSTERDAM",
+      "role": "Members' club · Living Painting",
+      "text": "Golden hour as a slow-moving digital work, and the namesake of the concept."
+    },
+    {
+      "art": "ART_TULIP",
+      "role": "Lounge & bar",
+      "text": "Luminous tulips on deep night, with a knowing nod to history's first speculative market."
+    },
+    {
+      "art": "ART_DELFT",
+      "role": "Spa & residences",
+      "text": "A calm field of cobalt, proposed as a series for residents' spaces."
+    }
   ],
   "bespoke": [
-    { "title": "DIFC at Golden Hour", "text": "A bespoke Living Painting of the DIFC skyline in Gallery Dutch Art's palette, following the colour of the evening sky." },
-    { "title": "The Members' Edition", "text": "A limited digital edition for members, each with a certificate of authenticity." }
+    {
+      "title": "DIFC at Golden Hour",
+      "text": "A bespoke Living Painting of the DIFC skyline in Gallery Dutch Art's palette, following the colour of the evening sky."
+    },
+    {
+      "title": "The Members' Edition",
+      "text": "A limited digital edition for members, each with a certificate of authenticity."
+    }
   ],
   "scenes": [
-    { "scene": "lobby", "art": "ART_TULIP", "caption": "Lounge — signature work, large format" },
-    { "scene": "room", "art": "ART_DELFT", "caption": "Guest room — indicative of the room collection" }
+    {
+      "scene": "lobby",
+      "art": "ART_TULIP",
+      "caption": "Lounge — signature work, large format"
+    },
+    {
+      "scene": "room",
+      "art": "ART_DELFT",
+      "caption": "Guest room — indicative of the room collection"
+    }
   ],
   "placements": [
-    { "space": "Arrival", "proposal": "Prism of Provenance, large format" },
-    { "space": "Lounge & bar", "proposal": "Tulipomania — Nocturne" },
-    { "space": "Members' club", "proposal": "Golden Hour Living Paintings, seasonal" },
-    { "space": "Residences", "proposal": "Delft Flow series for common spaces" },
-    { "space": "Guest rooms", "proposal": "Curated originals and numbered editions" }
+    {
+      "space": "Arrival",
+      "proposal": "Prism of Provenance, large format"
+    },
+    {
+      "space": "Lounge & bar",
+      "proposal": "Tulipomania — Nocturne"
+    },
+    {
+      "space": "Members' club",
+      "proposal": "Golden Hour Living Paintings, seasonal"
+    },
+    {
+      "space": "Residences",
+      "proposal": "Delft Flow series for common spaces"
+    },
+    {
+      "space": "Guest rooms",
+      "proposal": "Curated originals and numbered editions"
+    }
   ],
   "tiers": [
-    { "name": "Signature", "scope": ["A large-format signature work for the arrival", "Curated originals for the lounge and bar", "Curation, framing advice and installation plan"], "priceHead": "Originals from €1,250", "priceNote": "Bespoke commission quoted after a briefing." },
-    { "name": "Living Collection", "scope": ["Everything in Signature", "DIFC at Golden Hour, a bespoke Living Painting", "A seasonal Living Painting programme for the members' club (annual licence)", "A Delft Flow series for the residences"], "priceHead": "Quoted after a briefing", "priceNote": "Scope and formats agreed with your design team." },
-    { "name": "Golden Hours — complete", "scope": ["Everything in Living Collection", "Curated originals and numbered editions for the guest rooms", "The Members' Edition with certificates of authenticity", "An ongoing curatorial partnership"], "priceHead": "Quoted after a briefing", "priceNote": "The complete collection, planned around your opening." }
+    {
+      "name": "Signature",
+      "scope": [
+        "A large-format signature work for the arrival",
+        "Curated originals for the lounge and bar",
+        "Curation, framing advice and installation plan"
+      ],
+      "priceHead": "Originals from €1,250",
+      "priceNote": "Bespoke commission quoted after a briefing."
+    },
+    {
+      "name": "Living Collection",
+      "scope": [
+        "Everything in Signature",
+        "DIFC at Golden Hour, a bespoke Living Painting",
+        "A seasonal Living Painting programme for the members' club (annual licence)",
+        "A Delft Flow series for the residences"
+      ],
+      "priceHead": "Quoted after a briefing",
+      "priceNote": "Scope and formats agreed with your design team."
+    },
+    {
+      "name": "Golden Hours — complete",
+      "scope": [
+        "Everything in Living Collection",
+        "Curated originals and numbered editions for the guest rooms",
+        "The Members' Edition with certificates of authenticity",
+        "An ongoing curatorial partnership"
+      ],
+      "priceHead": "Quoted after a briefing",
+      "priceNote": "The complete collection, planned around your opening."
+    }
   ],
   "nextStep": "We would welcome the chance to walk you through Golden Hours and adapt it to your brief, the interiors and your opening timeline. The concept is a starting point, not a fixed proposal.",
   "email": {
@@ -69,7 +177,7 @@
       "Dear Janu Dubai team,",
       "Congratulations on the plans for Janu Dubai in DIFC.",
       "I'm Mariska Beenen of Gallery Dutch Art, an Amsterdam studio creating bespoke art and collections for hospitality. Inspired by Janu's blend of hotel, residences and members' club, we prepared a short concept, \"Golden Hours\": a permanent collection of original works with a living layer of digital Living Paintings that change through the day, plus a limited members' edition with a certificate of authenticity.",
-      "The concept is attached as a seven-page PDF. It is unsolicited and only a starting point; we would adapt it entirely to your brief and interiors.",
+      "You can view the seven-page concept here:\n{{PDF_LINK}}\n\nIt is unsolicited and only a starting point; we would adapt it entirely to your brief and interiors.",
       "Would you be open to a twenty-minute conversation in the coming weeks?",
       "Warm regards,\nMariska Beenen\nGallery Dutch Art · Amsterdam\ngallerydutchart@gmail.com · www.gallerydutchart.nl",
       "If this isn't relevant, simply reply \"no\" and I won't follow up."

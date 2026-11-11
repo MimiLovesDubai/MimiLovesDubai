@@ -1,0 +1,17 @@
+{
+  "rules": {
+    "sendFrom": "gallerydutchart@gmail.com",
+    "neverUse": "beenenmariska@gmail.com",
+    "gmailAccountConfirmed": false,
+    "mode": "drafts-only (owner presses send)",
+    "newHotelsPerWeek": 2,
+    "maxFollowUps": 1
+  },
+  "hotels": [
+    { "slug": "the-zetter-717-amsterdam", "proposalBuilt": "2026-11-11", "pdfUploaded": "2026-11-11", "recipient": null, "route": "Yara Al Hattouni (GM) via LinkedIn, or thezetter.com contact page", "drafted": null, "sent": null, "reply": null, "followUp": null },
+    { "slug": "the-encounter-amsterdam", "proposalBuilt": "2026-11-11", "pdfUploaded": "2026-11-11", "recipient": null, "route": "encounterhotel.com contact; developers Younique Concepts / WIN Hotels via LinkedIn", "drafted": null, "sent": null, "reply": null, "followUp": null },
+    { "slug": "kasteel-gemert-eindhoven", "proposalBuilt": "2026-11-11", "pdfUploaded": "2026-11-11", "recipient": null, "route": "hotel website contact, or owner Bas van de Laar via LinkedIn", "drafted": null, "sent": null, "reply": null, "followUp": null },
+    { "slug": "janu-dubai", "proposalBuilt": "2026-11-11", "pdfUploaded": "2026-11-11", "recipient": null, "route": "janu.com / aman.com contact, or H&H Development via LinkedIn", "drafted": null, "sent": null, "reply": null, "followUp": null },
+    { "slug": "gran-melia-dubai-jumeirah", "proposalBuilt": "2026-11-11", "pdfUploaded": "2026-11-11", "recipient": null, "route": "hotel page on melia.com, or Meliá Middle East development team via LinkedIn", "drafted": null, "sent": null, "reply": null, "followUp": null }
+  ]
+}
